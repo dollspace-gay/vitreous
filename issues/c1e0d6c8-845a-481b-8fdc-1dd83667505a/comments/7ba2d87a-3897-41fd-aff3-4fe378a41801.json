@@ -1,0 +1,8 @@
+{
+  "uuid": "7ba2d87a-3897-41fd-aff3-4fe378a41801",
+  "issue_uuid": "c1e0d6c8-845a-481b-8fdc-1dd83667505a",
+  "author": "anon-581fd578",
+  "content": "Resolved Q1 (Canvas API): platform-specific paint signatures chosen — wgpu raw access on desktop, CanvasRenderingContext2d on web. No abstraction layer. Recorded as D-18 in architecture doc.",
+  "created_at": "2026-03-21T18:38:33.012100412Z",
+  "kind": "decision"
+}
