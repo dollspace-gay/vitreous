@@ -10,19 +10,23 @@
     "7": {
       "agent_id": "design-phase-2b-layout-md-7617",
       "claimed_at": "2026-03-21T18:58:29.574391657Z"
+    },
+    "8": {
+      "agent_id": "design-phase-2a-accessibility-md-d5c6",
+      "claimed_at": "2026-03-21T19:16:52.463072506Z"
     }
   },
   "issues": {},
   "unsigned_event_warnings": [
     {
-      "agent_id": "design-phase-1b-style-md-c138",
-      "agent_seq": 2,
-      "timestamp": "2026-03-21T19:05:25.822559896Z"
+      "agent_id": "design-phase-2a-accessibility-md-d5c6",
+      "agent_seq": 1,
+      "timestamp": "2026-03-21T19:16:52.463072506Z"
     }
   ],
   "watermark": {
-    "timestamp": "2026-03-21T19:05:25.822559896Z",
-    "agent_id": "design-phase-1b-style-md-c138",
-    "agent_seq": 2
+    "timestamp": "2026-03-21T19:16:52.463072506Z",
+    "agent_id": "design-phase-2a-accessibility-md-d5c6",
+    "agent_seq": 1
   }
 }
