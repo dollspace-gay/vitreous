@@ -1,0 +1,8 @@
+{
+  "uuid": "da4a2ee6-6b1d-4dbc-8650-d20ccca701cf",
+  "issue_uuid": "6b78a169-58ef-44b9-8420-b6c46af7768c",
+  "author": "driver--design-phase-0-workspace-scaffold-md-1136",
+  "content": "Plan: Create the full Cargo workspace scaffold with 10 library crates, 1 facade crate, 1 CLI tool, and 4 example crates. All Cargo.toml files with correct inter-crate and external dependencies per vitreous-architecture.md. All lib.rs files with pub mod declarations and pub use re-exports. All module files empty. Shader .wgsl stubs in vitreous_render. Edition 2024 throughout. cfg-gated vitreous_platform/vitreous_web in facade. Then verify with cargo check --workspace.",
+  "created_at": "2026-03-21T18:46:36.804875209Z",
+  "kind": "plan"
+}
