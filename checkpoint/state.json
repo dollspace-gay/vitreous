@@ -14,23 +14,19 @@
     "9": {
       "agent_id": "driver--design-phase-3-widgets-md-cfd8",
       "claimed_at": "2026-03-21T19:49:01.691668503Z"
-    },
-    "10": {
-      "agent_id": "driver--design-phase-4a-render-md-0c67",
-      "claimed_at": "2026-03-21T20:09:03.825775421Z"
     }
   },
   "issues": {},
   "unsigned_event_warnings": [
     {
-      "agent_id": "driver--design-phase-4b-web-md-bbdc",
+      "agent_id": "driver--design-phase-4a-render-md-0c67",
       "agent_seq": 2,
-      "timestamp": "2026-03-21T20:22:20.857822399Z"
+      "timestamp": "2026-03-21T20:32:49.201326553Z"
     }
   ],
   "watermark": {
-    "timestamp": "2026-03-21T20:22:20.857822399Z",
-    "agent_id": "driver--design-phase-4b-web-md-bbdc",
+    "timestamp": "2026-03-21T20:32:49.201326553Z",
+    "agent_id": "driver--design-phase-4a-render-md-0c67",
     "agent_seq": 2
   }
 }
