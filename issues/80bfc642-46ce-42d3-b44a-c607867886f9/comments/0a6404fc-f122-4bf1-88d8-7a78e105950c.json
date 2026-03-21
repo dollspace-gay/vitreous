@@ -1,0 +1,8 @@
+{
+  "uuid": "0a6404fc-f122-4bf1-88d8-7a78e105950c",
+  "issue_uuid": "80bfc642-46ce-42d3-b44a-c607867886f9",
+  "author": "design-phase-1c-events-md-055e",
+  "content": "Result: Implemented vitreous_events crate with all types, propagation, and hit testing. 25 tests pass covering all 10 acceptance criteria. Zero external dependencies. Clippy and fmt clean.\n\nFiles implemented:\n- types.rs: MouseEvent, KeyEvent, ScrollEvent, DropEvent, DropData, Modifiers, MouseButton, Key (40+ variants), KeyCode (70+ variants), CursorIcon (24 variants), DragConfig stub, EventHandlers (14 handler slots), geometry primitives (Point, Rect, Corners, NodeId, LayoutNode)\n- propagation.rs: PropagationContext with stop_propagation(), EventTree trait, bubble_event() and dispatch_keyboard_event() dispatchers\n- hit_test.rs: hit_test() with reverse paint order walk and rounded-corner-aware point-in-rect math\n- lib.rs: Re-exports all public types",
+  "created_at": "2026-03-21T19:03:36.714908887Z",
+  "kind": "result"
+}
