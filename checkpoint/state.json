@@ -1,0 +1,24 @@
+{
+  "next_display_id": 1,
+  "next_comment_id": 1,
+  "display_id_map": {},
+  "locks": {
+    "3": {
+      "agent_id": "driver--design-phase-0-workspace-scaffold-md-1136",
+      "claimed_at": "2026-03-21T18:43:05.605884477Z"
+    }
+  },
+  "issues": {},
+  "unsigned_event_warnings": [
+    {
+      "agent_id": "driver--design-phase-0-workspace-scaffold-md-1136",
+      "agent_seq": 1,
+      "timestamp": "2026-03-21T18:43:05.605884477Z"
+    }
+  ],
+  "watermark": {
+    "timestamp": "2026-03-21T18:43:05.605884477Z",
+    "agent_id": "driver--design-phase-0-workspace-scaffold-md-1136",
+    "agent_seq": 1
+  }
+}
