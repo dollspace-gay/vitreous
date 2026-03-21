@@ -1,0 +1,20 @@
+[package]
+name = "vitreous"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+vitreous_reactive = { path = "../vitreous_reactive" }
+vitreous_widgets = { path = "../vitreous_widgets" }
+vitreous_style = { path = "../vitreous_style" }
+vitreous_events = { path = "../vitreous_events" }
+vitreous_a11y = { path = "../vitreous_a11y" }
+vitreous_layout = { path = "../vitreous_layout" }
+vitreous_render = { path = "../vitreous_render" }
+vitreous_hot_reload = { path = "../vitreous_hot_reload" }
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+vitreous_platform = { path = "../vitreous_platform" }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+vitreous_web = { path = "../vitreous_web" }

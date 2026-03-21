@@ -1,0 +1,13 @@
+[package]
+name = "vitreous_platform"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+vitreous_render = { path = "../vitreous_render" }
+vitreous_a11y = { path = "../vitreous_a11y" }
+winit = "0.30"
+rfd = "0.17"
+arboard = "3.6"
+cosmic-text = "0.18"
+accesskit_winit = "0.32"

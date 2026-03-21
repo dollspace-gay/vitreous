@@ -1,0 +1,8 @@
+[package]
+name = "vitreous_a11y"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+vitreous_events = { path = "../vitreous_events" }
+accesskit = "0.24"

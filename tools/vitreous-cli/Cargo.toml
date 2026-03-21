@@ -1,0 +1,8 @@
+[package]
+name = "vitreous-cli"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+vitreous_hot_reload = { path = "../../crates/vitreous_hot_reload" }
+clap = { version = "4", features = ["derive"] }

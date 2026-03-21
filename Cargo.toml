@@ -1,0 +1,20 @@
+[workspace]
+members = [
+    "crates/vitreous",
+    "crates/vitreous_reactive",
+    "crates/vitreous_widgets",
+    "crates/vitreous_style",
+    "crates/vitreous_layout",
+    "crates/vitreous_a11y",
+    "crates/vitreous_events",
+    "crates/vitreous_render",
+    "crates/vitreous_platform",
+    "crates/vitreous_web",
+    "crates/vitreous_hot_reload",
+    "examples/counter",
+    "examples/todo",
+    "examples/dashboard",
+    "examples/file_explorer",
+    "tools/vitreous-cli",
+]
+resolver = "2"

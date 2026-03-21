@@ -1,0 +1,10 @@
+[package]
+name = "vitreous_widgets"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+vitreous_reactive = { path = "../vitreous_reactive" }
+vitreous_style = { path = "../vitreous_style" }
+vitreous_events = { path = "../vitreous_events" }
+vitreous_a11y = { path = "../vitreous_a11y" }

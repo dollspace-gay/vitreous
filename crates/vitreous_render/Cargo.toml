@@ -1,0 +1,9 @@
+[package]
+name = "vitreous_render"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+vitreous_layout = { path = "../vitreous_layout" }
+wgpu = "29"
+cosmic-text = "0.18"
