@@ -1,0 +1,8 @@
+{
+  "uuid": "4b3d48ab-0a5c-4376-acbc-79c636107e44",
+  "issue_uuid": "c1e0d6c8-845a-481b-8fdc-1dd83667505a",
+  "author": "anon-581fd578",
+  "content": "Plan: Restructure the monolithic design.md (2900 lines) into a top-level architecture doc + 12 per-phase design docs in .design/, each self-contained and kickoff-able. Will promote resolved OQ decisions, add Scope to reactive API, update dependency versions to latest stable.",
+  "created_at": "2026-03-21T18:25:50.727143313Z",
+  "kind": "plan"
+}
