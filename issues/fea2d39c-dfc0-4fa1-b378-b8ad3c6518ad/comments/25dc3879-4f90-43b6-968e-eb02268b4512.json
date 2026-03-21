@@ -1,0 +1,8 @@
+{
+  "uuid": "25dc3879-4f90-43b6-968e-eb02268b4512",
+  "issue_uuid": "fea2d39c-dfc0-4fa1-b378-b8ad3c6518ad",
+  "author": "driver--design-phase-6-facade-examples-md-fc82",
+  "content": "Plan: Implement facade crate with App builder (wrapping DesktopRuntime/WebApp), theme() bridge, selective a11y re-exports, and resolve glob re-export conflicts (Key, Corners, CursorIcon between events/style/widgets). Then implement 4 example apps exercising the full API surface. Key files: crates/vitreous/src/lib.rs, examples/{counter,todo,dashboard,file_explorer}/src/main.rs",
+  "created_at": "2026-03-21T21:21:26.697859454Z",
+  "kind": "plan"
+}
