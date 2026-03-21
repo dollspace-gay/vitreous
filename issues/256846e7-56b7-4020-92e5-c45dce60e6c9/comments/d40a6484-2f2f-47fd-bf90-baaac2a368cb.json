@@ -1,0 +1,8 @@
+{
+  "uuid": "d40a6484-2f2f-47fd-bf90-baaac2a368cb",
+  "issue_uuid": "256846e7-56b7-4020-92e5-c45dce60e6c9",
+  "author": "driver--design-phase-5-platform-md-460e",
+  "content": "Plan: Implement vitreous_platform with 6 source files: window.rs (WindowConfig + PlatformWindow trait), text_engine.rs (TextEngine + CosmicTextEngine via cosmic-text), dialogs.rs (PlatformDialogs via rfd), clipboard.rs (PlatformClipboard via arboard), system_info.rs (PlatformInfo), event_loop.rs (DesktopRuntime + winit event loop). Dependencies: add vitreous_reactive, vitreous_widgets, vitreous_layout, vitreous_events, vitreous_style, accesskit to Cargo.toml.",
+  "created_at": "2026-03-21T20:41:07.423825123Z",
+  "kind": "plan"
+}
