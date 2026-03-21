@@ -1,0 +1,8 @@
+{
+  "uuid": "664e5a37-357a-4672-9f34-7ed60de36f3a",
+  "issue_uuid": "80bfc642-46ce-42d3-b44a-c607867886f9",
+  "author": "design-phase-1c-events-md-055e",
+  "content": "Decision: Using trait-based EventTree for propagation rather than a concrete tree type. This lets vitreous_layout and vitreous_widgets provide their own tree implementations without vitreous_events depending on them. The trait will have parent() and handler() methods.\n\nDecision: Key enum covers standard web/desktop keys (letters, digits, F1-F24, navigation, media, modifiers, punctuation). KeyCode covers physical scan codes. Both derive Clone, Copy, Debug, PartialEq, Eq, Hash. This matches the Web KeyboardEvent model (key vs code) which is the most well-documented standard.\n\nDecision: Geometry types (Point, Rect, Corners, NodeId) defined locally in types.rs since crate has zero deps. These are minimal — just what hit_test needs. Layout crate can define its own richer types later.",
+  "created_at": "2026-03-21T18:59:40.969875474Z",
+  "kind": "decision"
+}
