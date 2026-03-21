@@ -1,0 +1,8 @@
+{
+  "uuid": "e1494746-eaad-4d68-a2f8-9d18bee61c46",
+  "issue_uuid": "95427bf3-2330-465a-9bad-e46e5657b256",
+  "author": "driver--design-phase-4a-render-md-0c67",
+  "content": "Plan: Implementing vitreous_render with 6 source files + 4 WGSL shaders. Order: (1) commands.rs - RenderCommand enum + generation, (2) atlas.rs - glyph/image atlas with shelf packing, (3) pipeline.rs - wgpu pipeline + batching + stencil clipping, (4) WGSL shaders for rect/text/image/shadow, (5) damage.rs + diff.rs - damage tracking and frame diffing, (6) lib.rs - Renderer struct wiring everything together. Will add vitreous_style dependency for Color/Shadow/Corners types.",
+  "created_at": "2026-03-21T20:10:54.778895852Z",
+  "kind": "plan"
+}
