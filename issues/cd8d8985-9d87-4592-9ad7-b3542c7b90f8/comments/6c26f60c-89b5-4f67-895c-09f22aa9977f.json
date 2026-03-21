@@ -1,0 +1,8 @@
+{
+  "uuid": "6c26f60c-89b5-4f67-895c-09f22aa9977f",
+  "issue_uuid": "cd8d8985-9d87-4592-9ad7-b3542c7b90f8",
+  "author": "design-phase-2b-layout-md-7617",
+  "content": "Plan: Implement vitreous_layout crate wrapping taffy 0.9 with four files: tree.rs (LayoutInput, LayoutOutput, LayoutStyle, NodeId, MeasureFn, MeasureConstraint, Size, and all flex enums mapped to taffy equivalents), compute.rs (compute_layout() builds taffy tree, registers measure functions, runs layout, extracts results into LayoutOutput), boundary.rs (is_layout_boundary() detection for incremental re-layout optimization), lib.rs (re-exports). Key decisions: own NodeId type (u32 wrapper) separate from taffy's, own enum types that map to taffy for API isolation, MeasureFn as Box<dyn Fn> per design doc, taffy tree rebuilt each frame per design doc. content_size feature is default-enabled in taffy 0.9 so scroll overflow content dimensions are available.",
+  "created_at": "2026-03-21T19:01:49.287391546Z",
+  "kind": "plan"
+}
