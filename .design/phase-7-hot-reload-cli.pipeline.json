@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "design_doc": ".design/phase-7-hot-reload-cli.md",
+  "doc_hash": "sha256:540fd7abd5274218a8edf8fd3cabcd935e410660fe8351ba2f7327a0b62ce64f",
+  "stage": "designed",
+  "plans": [],
+  "runs": []
+}
