@@ -3,10 +3,6 @@
   "next_comment_id": 1,
   "display_id_map": {},
   "locks": {
-    "4": {
-      "agent_id": "design-phase-1a-reactive--695956",
-      "claimed_at": "2026-03-21T18:58:02.291983318Z"
-    },
     "7": {
       "agent_id": "design-phase-2b-layout-md-7617",
       "claimed_at": "2026-03-21T18:58:29.574391657Z"
@@ -19,14 +15,14 @@
   "issues": {},
   "unsigned_event_warnings": [
     {
-      "agent_id": "design-phase-2a-accessibility-md-d5c6",
-      "agent_seq": 1,
-      "timestamp": "2026-03-21T19:16:52.463072506Z"
+      "agent_id": "design-phase-1a-reactive--695956",
+      "agent_seq": 2,
+      "timestamp": "2026-03-21T19:27:01.692753957Z"
     }
   ],
   "watermark": {
-    "timestamp": "2026-03-21T19:16:52.463072506Z",
-    "agent_id": "design-phase-2a-accessibility-md-d5c6",
-    "agent_seq": 1
+    "timestamp": "2026-03-21T19:27:01.692753957Z",
+    "agent_id": "design-phase-1a-reactive--695956",
+    "agent_seq": 2
   }
 }
