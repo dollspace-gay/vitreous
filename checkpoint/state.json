@@ -7,10 +7,6 @@
       "agent_id": "design-phase-1a-reactive--695956",
       "claimed_at": "2026-03-21T18:58:02.291983318Z"
     },
-    "5": {
-      "agent_id": "design-phase-1b-style-md-c138",
-      "claimed_at": "2026-03-21T18:58:13.546676478Z"
-    },
     "7": {
       "agent_id": "design-phase-2b-layout-md-7617",
       "claimed_at": "2026-03-21T18:58:29.574391657Z"
@@ -19,14 +15,14 @@
   "issues": {},
   "unsigned_event_warnings": [
     {
-      "agent_id": "design-phase-1c-events-md-055e",
+      "agent_id": "design-phase-1b-style-md-c138",
       "agent_seq": 2,
-      "timestamp": "2026-03-21T19:04:21.321478602Z"
+      "timestamp": "2026-03-21T19:05:25.822559896Z"
     }
   ],
   "watermark": {
-    "timestamp": "2026-03-21T19:04:21.321478602Z",
-    "agent_id": "design-phase-1c-events-md-055e",
+    "timestamp": "2026-03-21T19:05:25.822559896Z",
+    "agent_id": "design-phase-1b-style-md-c138",
     "agent_seq": 2
   }
 }
