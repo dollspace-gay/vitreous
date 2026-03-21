@@ -1,0 +1,8 @@
+{
+  "uuid": "73b073f9-383e-416d-88a5-1c03d672a6e6",
+  "issue_uuid": "7d0166f5-c9b9-445c-aa60-4c40cd1d52cd",
+  "author": "design-phase-2a-accessibility-md-d5c6",
+  "content": "Plan: Implement vitreous_a11y crate per phase-2a-accessibility.md design doc. Strategy: (1) Define minimum event types in vitreous_events (Key, KeyEvent, Modifiers, NodeId) needed as dependency, (2) Implement roles.rs with Role enum, AccessibilityInfo/State structs, (3) Implement tree.rs with A11yNode struct and generate_accesskit_tree() for AccessKit 0.24 integration, (4) Implement FocusManager with depth-first tab-order traversal, (5) Implement keyboard.rs mapping role+key to KeyboardAction, (6) Implement warnings.rs with WCAG AA contrast checking and missing label detection, (7) Comprehensive tests for all 12 acceptance criteria. Key decision: a11y crate defines A11yNode as the tree input type — widgets crate will construct these from its Node tree. AccessKit 0.24 uses Node (not NodeBuilder), flag-style setters (set_disabled() with no args), and Toggled enum for checked state.",
+  "created_at": "2026-03-21T19:24:17.351692254Z",
+  "kind": "plan"
+}
