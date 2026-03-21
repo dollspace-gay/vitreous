@@ -10,19 +10,23 @@
     "5": {
       "agent_id": "design-phase-1b-style-md-c138",
       "claimed_at": "2026-03-21T18:58:13.546676478Z"
+    },
+    "6": {
+      "agent_id": "design-phase-1c-events-md-055e",
+      "claimed_at": "2026-03-21T18:58:21.100416257Z"
     }
   },
   "issues": {},
   "unsigned_event_warnings": [
     {
-      "agent_id": "design-phase-1b-style-md-c138",
+      "agent_id": "design-phase-1c-events-md-055e",
       "agent_seq": 1,
-      "timestamp": "2026-03-21T18:58:13.546676478Z"
+      "timestamp": "2026-03-21T18:58:21.100416257Z"
     }
   ],
   "watermark": {
-    "timestamp": "2026-03-21T18:58:13.546676478Z",
-    "agent_id": "design-phase-1b-style-md-c138",
+    "timestamp": "2026-03-21T18:58:21.100416257Z",
+    "agent_id": "design-phase-1c-events-md-055e",
     "agent_seq": 1
   }
 }
