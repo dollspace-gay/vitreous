@@ -1,0 +1,8 @@
+{
+  "uuid": "778d5692-737a-482b-b48a-55bc919e1fd9",
+  "issue_uuid": "6b78a169-58ef-44b9-8420-b6c46af7768c",
+  "author": "driver--design-phase-0-workspace-scaffold-md-1136",
+  "content": "Committed: Add workspace scaffold with all crates and dependency wiring [CL-3] (ee580f4) | Files: 93 files changed, 4758 insertions(+), 58 deletions(-)",
+  "created_at": "2026-03-21T18:50:54.133788592Z",
+  "kind": "result"
+}
