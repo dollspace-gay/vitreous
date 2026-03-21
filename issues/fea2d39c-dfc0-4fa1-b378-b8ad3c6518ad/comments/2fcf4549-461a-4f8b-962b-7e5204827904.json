@@ -1,0 +1,8 @@
+{
+  "uuid": "2fcf4549-461a-4f8b-962b-7e5204827904",
+  "issue_uuid": "fea2d39c-dfc0-4fa1-b378-b8ad3c6518ad",
+  "author": "driver--design-phase-6-facade-examples-md-fc82",
+  "content": "Result: Implemented facade crate with App builder (new/title/size/min_size/max_size/resizable/theme/icon/run/mount), theme() bridge function, selective a11y re-exports, and conflict-free event re-exports. Implemented 4 example apps: counter (signal-based +/-/reset), todo (CRUD with filtering and keyed list), dashboard (Resource-based async data with loading skeletons), file_explorer (desktop fs navigation with tree view and breadcrumbs). All 355 workspace tests pass, clippy clean, fmt clean.",
+  "created_at": "2026-03-21T21:29:33.274538552Z",
+  "kind": "result"
+}
