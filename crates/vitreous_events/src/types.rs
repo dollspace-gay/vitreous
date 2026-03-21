@@ -369,6 +369,7 @@ pub enum KeyCode {
     ContextMenu,
 
     // Catch-all
+    Unidentified,
     Other(u32),
 }
 
