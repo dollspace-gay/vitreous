@@ -4,10 +4,16 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+vitreous_reactive = { path = "../vitreous_reactive" }
+vitreous_style = { path = "../vitreous_style" }
+vitreous_events = { path = "../vitreous_events" }
+vitreous_layout = { path = "../vitreous_layout" }
+vitreous_widgets = { path = "../vitreous_widgets" }
 vitreous_render = { path = "../vitreous_render" }
 vitreous_a11y = { path = "../vitreous_a11y" }
 winit = "0.30"
 rfd = "0.17"
 arboard = "3.6"
 cosmic-text = "0.18"
+accesskit = "0.24"
 accesskit_winit = "0.32"

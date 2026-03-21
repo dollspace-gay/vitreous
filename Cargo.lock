@@ -3257,12 +3257,18 @@ dependencies = [
 name = "vitreous_platform"
 version = "0.1.0"
 dependencies = [
+ "accesskit",
  "accesskit_winit",
  "arboard",
  "cosmic-text",
  "rfd",
  "vitreous_a11y",
+ "vitreous_events",
+ "vitreous_layout",
+ "vitreous_reactive",
  "vitreous_render",
+ "vitreous_style",
+ "vitreous_widgets",
  "winit",
 ]
 
