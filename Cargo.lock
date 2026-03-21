@@ -3289,10 +3289,13 @@ version = "0.1.0"
 dependencies = [
  "js-sys",
  "vitreous_a11y",
+ "vitreous_events",
  "vitreous_layout",
  "vitreous_reactive",
+ "vitreous_style",
  "vitreous_widgets",
  "wasm-bindgen",
+ "wasm-bindgen-futures",
  "web-sys",
 ]
 
