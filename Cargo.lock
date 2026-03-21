@@ -3274,8 +3274,11 @@ version = "0.1.0"
 name = "vitreous_render"
 version = "0.1.0"
 dependencies = [
+ "bytemuck",
  "cosmic-text",
+ "rustc-hash 2.1.1",
  "vitreous_layout",
+ "vitreous_style",
  "wgpu",
 ]
 

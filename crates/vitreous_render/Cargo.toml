@@ -5,5 +5,8 @@ edition = "2024"
 
 [dependencies]
 vitreous_layout = { path = "../vitreous_layout" }
+vitreous_style = { path = "../vitreous_style" }
 wgpu = "29"
 cosmic-text = "0.18"
+bytemuck = { version = "1", features = ["derive"] }
+rustc-hash = "2"
