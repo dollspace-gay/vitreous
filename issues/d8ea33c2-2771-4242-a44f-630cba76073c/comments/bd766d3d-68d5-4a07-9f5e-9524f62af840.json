@@ -1,0 +1,8 @@
+{
+  "uuid": "bd766d3d-68d5-4a07-9f5e-9524f62af840",
+  "issue_uuid": "d8ea33c2-2771-4242-a44f-630cba76073c",
+  "author": "design-phase-1b-style-md-c138",
+  "content": "Plan: Implement all vitreous_style types per design doc. Order: (1) color.rs - Color struct with RGBA f32 storage, constructors (rgb/rgba/hex/hsl/hsla), manipulation (lighten/darken/mix/with_alpha), named constants. (2) font.rs - FontWeight/FontFamily/FontStyle/TextAlign/TextOverflow enums. (3) dimension.rs - Dimension enum, Edges, Corners with From impls, pct() helper. (4) animation.rs - Easing, Transition, Animation, Keyframe, AnimatableProperty, AnimationIterations, AnimationDirection, Shadow. (5) style.rs - Style struct aggregating all visual properties with CursorIcon and Overflow. (6) theme.rs - Theme struct with semantic palette, presets. (7) lib.rs - re-exports. Zero external deps, pure type vocabulary crate.",
+  "created_at": "2026-03-21T18:58:47.556405748Z",
+  "kind": "plan"
+}
