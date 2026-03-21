@@ -1,0 +1,8 @@
+{
+  "uuid": "4f7bae71-8f65-4d42-b9a9-913995792c8e",
+  "issue_uuid": "17279928-7da1-4339-bc44-eac2fdcd1350",
+  "author": "driver--design-phase-3-widgets-md-cfd8",
+  "content": "Plan: Implement vitreous_widgets with 8 modules. Node struct stores NodeKind, Style, AccessibilityInfo, EventHandlers, children, key, and flex layout fields. Node is NOT Clone (D-11). All modifiers use builder pattern. Widget functions are free fns returning Node. IntoNode/IntoNodes with tuple macro up to 16. Callback is Rc-wrapped. Router uses provide_context/use_context with Signal for current path.",
+  "created_at": "2026-03-21T19:52:13.097582109Z",
+  "kind": "plan"
+}
