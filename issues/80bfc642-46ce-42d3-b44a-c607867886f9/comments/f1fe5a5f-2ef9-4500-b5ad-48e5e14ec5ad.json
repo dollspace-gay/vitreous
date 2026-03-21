@@ -1,0 +1,8 @@
+{
+  "uuid": "f1fe5a5f-2ef9-4500-b5ad-48e5e14ec5ad",
+  "issue_uuid": "80bfc642-46ce-42d3-b44a-c607867886f9",
+  "author": "design-phase-1c-events-md-055e",
+  "content": "Plan: Implement vitreous_events from empty stubs following design doc spec. File breakdown:\n1. types.rs — All event structs (MouseEvent, KeyEvent, ScrollEvent, DropEvent), enums (MouseButton, Key, KeyCode, DropData, CursorIcon), Modifiers struct, DragConfig stub, EventHandlers struct. Also geometry primitives (Point, Rect, Corners, NodeId, LayoutNode) needed for hit testing since crate has zero deps.\n2. propagation.rs — PropagationContext with stop_propagation(), bubble_event dispatcher that walks ancestor chain, dispatch_keyboard_event for focused-node dispatch.\n3. hit_test.rs — hit_test() walking reverse paint order, point_inside_rounded_rect() with quarter-circle corner math.\n4. lib.rs — Re-export all public types.\n\nKey decisions to make: Key/KeyCode enum coverage, geometry type design, how to represent the tree for propagation (trait-based vs concrete).",
+  "created_at": "2026-03-21T18:59:13.150056496Z",
+  "kind": "plan"
+}
