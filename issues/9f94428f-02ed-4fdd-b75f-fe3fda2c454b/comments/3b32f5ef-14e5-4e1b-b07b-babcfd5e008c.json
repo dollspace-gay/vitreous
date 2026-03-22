@@ -1,0 +1,8 @@
+{
+  "uuid": "3b32f5ef-14e5-4e1b-b07b-babcfd5e008c",
+  "issue_uuid": "9f94428f-02ed-4fdd-b75f-fe3fda2c454b",
+  "author": "driver--design-phase-7-hot-reload-cli-md-744f",
+  "content": "Plan: Implement vitreous_hot_reload (protocol.rs, server.rs, client.rs with feature-gated lib.rs) and vitreous-cli (new + dev subcommands). Will use notify 8 for file watching, syn for AST-based change classification, tokio-tungstenite for WebSocket, clap for CLI. Server feature gates the heavy deps (syn, notify, tokio-tungstenite server). Client is lightweight WebSocket receiver compiled out in release.",
+  "created_at": "2026-03-22T01:41:59.668093951Z",
+  "kind": "plan"
+}
