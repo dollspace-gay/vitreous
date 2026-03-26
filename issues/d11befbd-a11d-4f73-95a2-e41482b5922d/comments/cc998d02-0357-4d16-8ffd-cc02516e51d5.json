@@ -1,0 +1,8 @@
+{
+  "uuid": "cc998d02-0357-4d16-8ffd-cc02516e51d5",
+  "issue_uuid": "d11befbd-a11d-4f73-95a2-e41482b5922d",
+  "author": "anon-581fd578",
+  "content": "Plan: Create examples/kitchen_sink — a single comprehensive example that exercises every public API across all vitreous crates. Router-based with nav bar, sections for: reactivity (signals/memos/effects/batch/context/resource), all widget functions, all style types/animations, all event handlers, a11y attributes, layout variations, and virtual list. Also exercises the hot reload client.",
+  "created_at": "2026-03-26T23:22:47.007279817Z",
+  "kind": "plan"
+}
