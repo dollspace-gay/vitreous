@@ -3,11 +3,12 @@
   "display_id": 3,
   "title": ".design/phase-0-workspace-scaffold.md",
   "description": "Created by crosslink kickoff",
-  "status": "open",
+  "status": "closed",
   "priority": "medium",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-21T18:42:38.238455918Z",
-  "updated_at": "2026-03-21T18:42:39.724794950Z",
+  "updated_at": "2026-03-26T22:59:59.675322072Z",
+  "closed_at": "2026-03-26T22:59:59.675322072Z",
   "labels": [
     "feature"
   ]
