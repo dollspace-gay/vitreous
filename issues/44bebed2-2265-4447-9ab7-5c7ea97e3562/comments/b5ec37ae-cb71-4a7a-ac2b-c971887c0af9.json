@@ -1,0 +1,8 @@
+{
+  "uuid": "b5ec37ae-cb71-4a7a-ac2b-c971887c0af9",
+  "issue_uuid": "44bebed2-2265-4447-9ab7-5c7ea97e3562",
+  "author": "anon-581fd578",
+  "content": "Plan: Implement Phase 7 (hot reload + CLI) per design.md. \n\nModules:\n1. protocol.rs — ServerMessage/ClientMessage enums with serde, FileChange, ChangeKind, FileEvent types\n2. server.rs — HotReloadServer with notify file watcher, tokio-tungstenite WebSocket broadcast, change classification, auto-build triggering, debounce\n3. client.rs — HotReloadClient that connects via background thread, exposes std::sync::mpsc::Receiver for non-blocking polling from UI thread\n4. lib.rs — re-exports\n5. vitreous-cli main.rs — clap CLI with 'new' (scaffold), 'dev' (hot reload server), 'build' (cargo build --release)\n\nDependencies to add: serde_json, tokio (rt-multi-thread, net, sync, macros, process), futures-util (sink)\n\nExisting deps: serde 1 (derive), notify 8.2.0, tokio-tungstenite 0.29 (tungstenite 0.29)",
+  "created_at": "2026-03-26T22:51:12.685191366Z",
+  "kind": "plan"
+}
