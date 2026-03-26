@@ -1,0 +1,8 @@
+{
+  "uuid": "3db47caa-05b3-4ea7-9872-ce21d34039e1",
+  "issue_uuid": "d11befbd-a11d-4f73-95a2-e41482b5922d",
+  "author": "anon-581fd578",
+  "content": "Delivered: examples/kitchen_sink — comprehensive test app exercising all public APIs across every crate. Router-based with 8 pages (home, reactive, widgets, style, events, a11y, layout, virtual list). Covers: all Signal/Memo/Effect/Resource/Scope/Batch/Context APIs, all widget functions (text/button/text_input/checkbox/toggle/slider/select/image/spacer/divider), all containers (v_stack/h_stack/z_stack/scroll_view/container/overlay/tooltip/provider), control flow (show/show_else/for_each/virtual_list), router (Route/navigate/use_route), every Node modifier (layout/visual/text/event/a11y/animation/composition), all Color constructors and methods, all style enums, Transition/Animation/Keyframe, all event handlers and types, all a11y roles and live regions, HotReloadClient, and 11 compile-time tests for type constructors. 381 total workspace tests passing, zero clippy warnings.",
+  "created_at": "2026-03-26T23:34:12.807416606Z",
+  "kind": "result"
+}
