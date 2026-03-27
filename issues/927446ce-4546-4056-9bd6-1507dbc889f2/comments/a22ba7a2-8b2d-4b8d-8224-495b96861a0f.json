@@ -1,0 +1,8 @@
+{
+  "uuid": "a22ba7a2-8b2d-4b8d-8224-495b96861a0f",
+  "issue_uuid": "927446ce-4546-4056-9bd6-1507dbc889f2",
+  "author": "anon-581fd578",
+  "content": "Resolved as part of #102 — clear_aria_attributes() now removes all known ARIA attributes before reapplying during reconciliation.",
+  "created_at": "2026-03-27T19:55:44.068670496Z",
+  "kind": "result"
+}
