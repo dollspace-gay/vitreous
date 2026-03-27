@@ -6,5 +6,8 @@
   "priority": "low",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:05:22.430335510Z",
-  "updated_at": "2026-03-27T19:05:22.430335510Z"
+  "updated_at": "2026-03-27T19:05:25.270218549Z",
+  "labels": [
+    "bug"
+  ]
 }
