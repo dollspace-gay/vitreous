@@ -1,0 +1,8 @@
+{
+  "uuid": "7515724b-4671-4ff8-aeeb-a4423c566f0d",
+  "issue_uuid": "bbd9924f-76bb-4d9c-8a1f-a18796e52fbc",
+  "author": "anon-581fd578",
+  "content": "Plan: Fix submit_frame glyph processing to (1) use actual glyph_id and font_hash from PositionedGlyph data stored in RenderCommands, (2) call CosmicTextEngine::rasterize_glyph() to get actual GlyphBitmap, (3) upload real bitmap to atlas. Also fixing #24 (cache key) simultaneously since they're in the same code path. The challenge is that GlyphInstance doesn't carry glyph_id/font_hash — these are lost during batch building. Need to either store them in GlyphInstance or maintain a parallel vec.",
+  "created_at": "2026-03-27T19:10:31.264784727Z",
+  "kind": "plan"
+}
