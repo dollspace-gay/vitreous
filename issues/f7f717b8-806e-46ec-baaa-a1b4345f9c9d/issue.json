@@ -1,0 +1,10 @@
+{
+  "uuid": "f7f717b8-806e-46ec-baaa-a1b4345f9c9d",
+  "display_id": 68,
+  "title": "Fix use_route and use_param to return Memo for reactive updates",
+  "status": "open",
+  "priority": "high",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:00:45.186327058Z",
+  "updated_at": "2026-03-27T19:00:45.186327058Z"
+}
