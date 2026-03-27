@@ -1,0 +1,8 @@
+{
+  "uuid": "bc3d7d0e-ac9c-40a4-ad4f-9322e36d522a",
+  "issue_uuid": "706bd4fd-f133-4038-8463-9c271d913db7",
+  "author": "anon-581fd578",
+  "content": "Plan: Implement mouse, keyboard, and scroll event dispatch (fixing #25, #26, #27 together since they share the same code path in event_loop.rs). The handle_mouse_input, handle_keyboard_input, and handle_scroll methods translate winit events correctly but discard them. Need to: (1) store the widget tree root Node between frames so event handlers can be looked up, (2) walk the node tree to find the target node's EventHandlers, (3) invoke the appropriate handler closure.",
+  "created_at": "2026-03-27T19:21:13.729192883Z",
+  "kind": "plan"
+}
