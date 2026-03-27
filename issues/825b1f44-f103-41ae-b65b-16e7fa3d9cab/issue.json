@@ -2,11 +2,12 @@
   "uuid": "825b1f44-f103-41ae-b65b-16e7fa3d9cab",
   "display_id": 166,
   "title": "Remove unused vitreous_layout, vitreous_render, vitreous_hot_reload deps from facade",
-  "status": "open",
+  "status": "closed",
   "priority": "medium",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:09:34.619381246Z",
-  "updated_at": "2026-03-27T19:09:36.580624379Z",
+  "updated_at": "2026-03-27T20:15:31.428978292Z",
+  "closed_at": "2026-03-27T20:15:31.428978292Z",
   "labels": [
     "bug"
   ]
