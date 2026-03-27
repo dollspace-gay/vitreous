@@ -2,11 +2,12 @@
   "uuid": "2d6e5089-53f6-4125-bc66-4b93a400eb32",
   "display_id": 130,
   "title": "Fix AccessibilityState.checked type to Option<bool> per spec",
-  "status": "open",
+  "status": "closed",
   "priority": "medium",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:06:21.908913676Z",
-  "updated_at": "2026-03-27T19:06:23.843280307Z",
+  "updated_at": "2026-03-27T20:16:46.899205521Z",
+  "closed_at": "2026-03-27T20:16:46.899205521Z",
   "labels": [
     "breaking-change"
   ]
