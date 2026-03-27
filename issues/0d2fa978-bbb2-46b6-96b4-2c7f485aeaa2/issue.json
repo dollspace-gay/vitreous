@@ -1,0 +1,10 @@
+{
+  "uuid": "0d2fa978-bbb2-46b6-96b4-2c7f485aeaa2",
+  "display_id": 110,
+  "title": "Fix web API signatures to match design spec",
+  "status": "open",
+  "priority": "medium",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:04:33.524192161Z",
+  "updated_at": "2026-03-27T19:04:33.524192161Z"
+}
