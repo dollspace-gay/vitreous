@@ -2,11 +2,12 @@
   "uuid": "6727c256-f86c-4971-aa52-137f278001d7",
   "display_id": 144,
   "title": "Fix gap type from Size to f32 per spec",
-  "status": "open",
+  "status": "closed",
   "priority": "medium",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:07:54.859678741Z",
-  "updated_at": "2026-03-27T19:07:57.011552489Z",
+  "updated_at": "2026-03-27T20:16:21.102354940Z",
+  "closed_at": "2026-03-27T20:16:21.102354940Z",
   "labels": [
     "breaking-change"
   ]
