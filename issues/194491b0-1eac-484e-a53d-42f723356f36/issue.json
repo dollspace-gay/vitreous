@@ -2,11 +2,12 @@
   "uuid": "194491b0-1eac-484e-a53d-42f723356f36",
   "display_id": 29,
   "title": "Fix text measurement to use CosmicTextEngine instead of character-width heuristic",
-  "status": "open",
+  "status": "closed",
   "priority": "high",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T18:56:37.509153916Z",
-  "updated_at": "2026-03-27T18:56:39.707142369Z",
+  "updated_at": "2026-03-27T20:19:44.175523221Z",
+  "closed_at": "2026-03-27T20:19:44.175523221Z",
   "labels": [
     "bug"
   ]
