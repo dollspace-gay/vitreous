@@ -1,0 +1,8 @@
+{
+  "uuid": "4572d5d6-cb82-44ad-a931-5abe3a5e43c2",
+  "issue_uuid": "42148690-2e53-46a7-8476-0ee2567a5ba9",
+  "author": "anon-581fd578",
+  "content": "Creating issues for all 37 CRITICAL, 101 WARNING, and 57 NITPICK findings from the 10-agent QA audit across all vitreous crates.",
+  "created_at": "2026-03-27T18:55:48.750928848Z",
+  "kind": "plan"
+}
