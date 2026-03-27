@@ -1,0 +1,10 @@
+{
+  "uuid": "e3d4c036-01cc-47b4-b666-1251ab66578e",
+  "display_id": 88,
+  "title": "Fix Color::mix to be instance method instead of static",
+  "status": "open",
+  "priority": "critical",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:02:44.553300064Z",
+  "updated_at": "2026-03-27T19:02:44.553300064Z"
+}
