@@ -2,11 +2,12 @@
   "uuid": "1f92aae2-c455-4146-959c-408481566c25",
   "display_id": 161,
   "title": "Implement style hot-patch payload in protocol",
-  "status": "open",
+  "status": "closed",
   "priority": "high",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:09:12.660014269Z",
-  "updated_at": "2026-03-27T19:09:14.893578277Z",
+  "updated_at": "2026-03-27T20:12:57.031033016Z",
+  "closed_at": "2026-03-27T20:12:57.031033016Z",
   "labels": [
     "feature"
   ]
