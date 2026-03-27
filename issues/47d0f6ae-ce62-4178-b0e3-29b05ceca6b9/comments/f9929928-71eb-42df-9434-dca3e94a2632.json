@@ -1,0 +1,8 @@
+{
+  "uuid": "f9929928-71eb-42df-9434-dca3e94a2632",
+  "issue_uuid": "47d0f6ae-ce62-4178-b0e3-29b05ceca6b9",
+  "author": "anon-581fd578",
+  "content": "Root cause found: TWO issues.\n\n1. Text glyph positions from cosmic-text shaping are relative to origin (0,0). emit_node in commands.rs passes them through without adding the node's layout position (nl.x, nl.y). FillRect correctly uses nl.x/nl.y but Text does not.\n\n2. The glyph positions also need to account for padding — text content should start at nl.x + nl.padding.left, nl.y + nl.padding.top.\n\nFix: In emit_node, when emitting Text commands, offset each glyph position by the node's layout position + padding. This is how Iced, Zed/GPUI, and other frameworks handle it — all draw commands use absolute screen coordinates.",
+  "created_at": "2026-03-27T20:56:29.773270530Z",
+  "kind": "observation"
+}
