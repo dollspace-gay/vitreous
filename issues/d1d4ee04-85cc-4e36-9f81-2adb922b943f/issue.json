@@ -2,11 +2,12 @@
   "uuid": "d1d4ee04-85cc-4e36-9f81-2adb922b943f",
   "display_id": 74,
   "title": "Fix divider to use percentage width instead of f32::INFINITY",
-  "status": "open",
+  "status": "closed",
   "priority": "medium",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:01:12.230087718Z",
-  "updated_at": "2026-03-27T19:01:14.737023823Z",
+  "updated_at": "2026-03-27T20:18:15.777523867Z",
+  "closed_at": "2026-03-27T20:18:15.777523867Z",
   "labels": [
     "bug"
   ]
