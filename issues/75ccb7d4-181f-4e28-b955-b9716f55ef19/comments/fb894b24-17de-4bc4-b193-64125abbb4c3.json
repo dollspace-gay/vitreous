@@ -1,0 +1,8 @@
+{
+  "uuid": "fb894b24-17de-4bc4-b193-64125abbb4c3",
+  "issue_uuid": "75ccb7d4-181f-4e28-b955-b9716f55ef19",
+  "author": "anon-581fd578",
+  "content": "Root cause: nav_bar() calls use_route() which needs RouterState context, but nav_bar is a sibling of router(), not a child. RouterState is provided inside router(). Fix: track current route with a Signal<String> instead of use_route(), and pass it to nav_bar. This avoids depending on router context entirely.",
+  "created_at": "2026-03-27T04:18:52.399884770Z",
+  "kind": "plan"
+}
