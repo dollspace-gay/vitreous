@@ -1,0 +1,8 @@
+{
+  "uuid": "38feb956-6a11-4b5d-9e79-0e28b477513c",
+  "issue_uuid": "2f6b4d54-7ce5-4536-b731-5f26c47f07ec",
+  "author": "anon-581fd578",
+  "content": "Plan: Renderer::resize() updates width/height but doesn't call invalidate(), so the next frame with identical commands will be skipped (needs_submit=false). Fix: call self.invalidate() at the end of resize().",
+  "created_at": "2026-03-27T19:43:49.314836293Z",
+  "kind": "plan"
+}
