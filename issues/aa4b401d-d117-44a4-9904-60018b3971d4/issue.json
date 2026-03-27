@@ -2,11 +2,12 @@
   "uuid": "aa4b401d-d117-44a4-9904-60018b3971d4",
   "display_id": 159,
   "title": "Remove dead Effect struct or add dispose method",
-  "status": "open",
+  "status": "closed",
   "priority": "low",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:09:03.569153411Z",
-  "updated_at": "2026-03-27T19:09:06.153410668Z",
+  "updated_at": "2026-03-27T20:15:43.823542561Z",
+  "closed_at": "2026-03-27T20:15:43.823542561Z",
   "labels": [
     "enhancement"
   ]
