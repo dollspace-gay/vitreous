@@ -2,11 +2,12 @@
   "uuid": "9fa9c021-c682-4e00-8717-0f898870192b",
   "display_id": 42,
   "title": "Update clipboard methods to instance methods instead of static",
-  "status": "open",
+  "status": "closed",
   "priority": "low",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T18:57:48.055441925Z",
-  "updated_at": "2026-03-27T18:57:50.123924986Z",
+  "updated_at": "2026-03-27T20:19:14.533938382Z",
+  "closed_at": "2026-03-27T20:19:14.533938382Z",
   "labels": [
     "enhancement"
   ]
