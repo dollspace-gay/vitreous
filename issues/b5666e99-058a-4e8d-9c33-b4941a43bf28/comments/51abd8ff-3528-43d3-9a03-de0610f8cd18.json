@@ -1,0 +1,8 @@
+{
+  "uuid": "51abd8ff-3528-43d3-9a03-de0610f8cd18",
+  "issue_uuid": "b5666e99-058a-4e8d-9c33-b4941a43bf28",
+  "author": "anon-581fd578",
+  "content": "Delivered: Replaced dead on_blur stub with on_key_down handler that processes text input — backspace removes last char, printable chars append to signal value, then calls on_change with updated text.",
+  "created_at": "2026-03-27T19:48:24.674384559Z",
+  "kind": "result"
+}
