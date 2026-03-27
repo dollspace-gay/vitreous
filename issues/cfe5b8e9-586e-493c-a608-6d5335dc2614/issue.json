@@ -1,0 +1,10 @@
+{
+  "uuid": "cfe5b8e9-586e-493c-a608-6d5335dc2614",
+  "display_id": 53,
+  "title": "Implement image loading and GPU texture upload pipeline",
+  "status": "open",
+  "priority": "high",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T18:58:59.269705630Z",
+  "updated_at": "2026-03-27T18:58:59.269705630Z"
+}
