@@ -1,0 +1,8 @@
+{
+  "uuid": "1c33521c-85fd-4f2d-a52c-a6b7d69b5874",
+  "issue_uuid": "47d0f6ae-ce62-4178-b0e3-29b05ceca6b9",
+  "author": "anon-581fd578",
+  "content": "Delivered: Fixed text positioning in emit_node — glyphs from cosmic-text shaping are relative to (0,0), now offset by node's absolute layout position + padding (content_x, content_y). Also cleaned up redundant content_x/content_y in Image branch. 381 tests pass.",
+  "created_at": "2026-03-27T21:02:35.251566223Z",
+  "kind": "result"
+}
