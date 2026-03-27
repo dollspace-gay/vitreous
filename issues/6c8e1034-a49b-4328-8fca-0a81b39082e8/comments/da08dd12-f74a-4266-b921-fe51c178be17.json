@@ -1,0 +1,8 @@
+{
+  "uuid": "da08dd12-f74a-4266-b921-fe51c178be17",
+  "issue_uuid": "6c8e1034-a49b-4328-8fca-0a81b39082e8",
+  "author": "anon-581fd578",
+  "content": "Delivered: reconcile() now compares old vs new tag name. If different, replaces the element entirely via parent.replace_child(). Also clears stale ARIA attributes before reapplying (fixes #115).",
+  "created_at": "2026-03-27T19:55:19.422281798Z",
+  "kind": "result"
+}
