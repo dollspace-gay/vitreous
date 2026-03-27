@@ -2,11 +2,12 @@
   "uuid": "9c4b00ec-a154-4ec1-8fee-69b1621ec657",
   "display_id": 85,
   "title": "Fix Theme transition duration field names to match spec",
-  "status": "open",
+  "status": "closed",
   "priority": "critical",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:02:29.556302053Z",
-  "updated_at": "2026-03-27T19:02:32.251483736Z",
+  "updated_at": "2026-03-27T20:04:08.940578610Z",
+  "closed_at": "2026-03-27T20:04:08.940578610Z",
   "labels": [
     "breaking-change"
   ]
