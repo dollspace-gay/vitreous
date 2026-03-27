@@ -1,0 +1,8 @@
+{
+  "uuid": "a11cbd04-7871-4557-aa37-44915f8a8790",
+  "issue_uuid": "75ccb7d4-181f-4e28-b955-b9716f55ef19",
+  "author": "anon-581fd578",
+  "content": "Delivered: replaced use_route() in nav_bar (outside router context) with a Signal<String> for active route tracking. Moved use_route() into home_page() where RouterState context exists. Zero warnings, 11 tests pass.",
+  "created_at": "2026-03-27T04:20:54.504576184Z",
+  "kind": "result"
+}
