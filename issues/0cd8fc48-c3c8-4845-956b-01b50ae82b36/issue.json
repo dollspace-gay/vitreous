@@ -2,11 +2,12 @@
   "uuid": "0cd8fc48-c3c8-4845-956b-01b50ae82b36",
   "display_id": 92,
   "title": "Fix font size scale values to match design spec defaults",
-  "status": "open",
+  "status": "closed",
   "priority": "high",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:03:01.572031539Z",
-  "updated_at": "2026-03-27T19:03:03.364726414Z",
+  "updated_at": "2026-03-27T20:12:36.595073215Z",
+  "closed_at": "2026-03-27T20:12:36.595073215Z",
   "labels": [
     "bug"
   ]
