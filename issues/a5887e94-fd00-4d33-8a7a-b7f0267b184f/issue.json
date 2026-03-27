@@ -1,0 +1,10 @@
+{
+  "uuid": "a5887e94-fd00-4d33-8a7a-b7f0267b184f",
+  "display_id": 30,
+  "title": "Fix rasterize_glyph signature to accept GlyphId instead of string",
+  "status": "open",
+  "priority": "high",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T18:56:42.330295867Z",
+  "updated_at": "2026-03-27T18:56:42.330295867Z"
+}
