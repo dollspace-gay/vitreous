@@ -2,11 +2,12 @@
   "uuid": "3a954142-314f-4540-95d8-3dbe594c9fa5",
   "display_id": 55,
   "title": "Reference WGSL shader files from Rust code via include_str or similar",
-  "status": "open",
+  "status": "closed",
   "priority": "medium",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T18:59:08.567587317Z",
-  "updated_at": "2026-03-27T18:59:10.586036705Z",
+  "updated_at": "2026-03-27T20:18:49.997837295Z",
+  "closed_at": "2026-03-27T20:18:49.997837295Z",
   "labels": [
     "bug"
   ]
