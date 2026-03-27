@@ -6,5 +6,8 @@
   "priority": "critical",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:00:21.621280795Z",
-  "updated_at": "2026-03-27T19:00:21.621280795Z"
+  "updated_at": "2026-03-27T19:00:23.503647962Z",
+  "labels": [
+    "breaking-change"
+  ]
 }
