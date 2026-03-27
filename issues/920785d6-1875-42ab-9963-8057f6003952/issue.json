@@ -1,0 +1,10 @@
+{
+  "uuid": "920785d6-1875-42ab-9963-8057f6003952",
+  "display_id": 51,
+  "title": "Fix atlas panic on oversized glyphs — return Result instead",
+  "status": "open",
+  "priority": "medium",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T18:58:50.791818748Z",
+  "updated_at": "2026-03-27T18:58:50.791818748Z"
+}
