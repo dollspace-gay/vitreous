@@ -1,0 +1,8 @@
+{
+  "uuid": "89c00d06-656d-4ca1-bb7d-3cb11668bbbf",
+  "issue_uuid": "bbd9924f-76bb-4d9c-8a1f-a18796e52fbc",
+  "author": "anon-581fd578",
+  "content": "Delivered: Replaced white rectangle uploads with actual glyph rasterization via CosmicTextEngine::rasterize_glyph(). Added text_fragment field to ShapedGlyph and PositionedGlyph to carry per-glyph character data through the pipeline. Added GlyphKey parallel vec to BatchBuilder for proper cache key construction with real glyph_id and font_hash. Atlas UVs now correctly map to individual rasterized glyphs. 381 tests pass, zero clippy warnings.",
+  "created_at": "2026-03-27T19:19:28.283174891Z",
+  "kind": "result"
+}
