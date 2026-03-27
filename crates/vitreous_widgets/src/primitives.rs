@@ -48,13 +48,21 @@ pub fn text_input(value: Signal<String>, on_change: impl Fn(String) + 'static) -
     node.a11y.actions.push(AccessibilityAction::SetValue);
     node.style.cursor = Some(vitreous_style::CursorIcon::Text);
 
-    // Store the on_change handler as a key_down handler that delegates to the
-    // change callback. The platform layer will call the actual on_change; here
-    // we attach it as on_blur for the widget-level API.
-    node.event_handlers.on_blur = Some(Box::new(move || {
-        // Platform will provide the new value; this is a placeholder that the
-        // platform layer replaces with the real text extraction logic.
-        let _ = &on_change;
+    // Wire on_change into key event handling: each key press appends to the
+    // signal value and calls on_change with the updated text. Backspace removes
+    // the last character.
+    let value_for_handler = value;
+    node.event_handlers.on_key_down = Some(Box::new(move |ev: vitreous_events::KeyEvent| {
+        let mut current = value_for_handler.get();
+        if ev.key == vitreous_events::Key::Backspace {
+            current.pop();
+        } else if let Some(ref ch) = ev.text
+            && !ch.is_empty() && !ev.modifiers.ctrl && !ev.modifiers.meta
+        {
+            current.push_str(ch);
+        }
+        value_for_handler.set(current.clone());
+        on_change(current);
     }));
     node
 }

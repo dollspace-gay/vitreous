@@ -5,7 +5,7 @@ use vitreous_widgets::{ImageSource, Key, Node, NodeKind, TextContent};
 use wasm_bindgen::JsCast;
 use web_sys::{Document, Element, HtmlElement};
 
-use crate::aria::apply_aria;
+use crate::aria::{apply_aria, clear_aria_attributes};
 use crate::events::{self, EventListeners};
 use crate::styles::apply_styles;
 
@@ -76,9 +76,17 @@ impl Reconciler {
             match src {
                 ImageSource::Url(url) => img.set_src(url),
                 ImageSource::Path(path) => img.set_src(path),
-                ImageSource::Bytes(_) => {
-                    // For bytes, we'd need to create a blob URL via
-                    // URL.createObjectURL with a Blob — deferred.
+                ImageSource::Bytes(data) => {
+                    // Create a blob URL from the raw bytes
+                    let array = js_sys::Uint8Array::new_with_length(data.len() as u32);
+                    array.copy_from(data);
+                    let parts = js_sys::Array::new();
+                    parts.push(&array.buffer());
+                    if let Ok(blob) = web_sys::Blob::new_with_u8_array_sequence(&parts.into())
+                        && let Ok(url) = web_sys::Url::create_object_url_with_blob(&blob)
+                    {
+                        img.set_src(&url);
+                    }
                 }
             }
         }
@@ -155,7 +163,19 @@ impl Reconciler {
     /// - Missing keys: remove
     /// - Reordered keys: reorder with `insertBefore`
     pub fn reconcile(&mut self, existing: &mut DomNode, new_node: Node) {
-        let (_tag, text_content) = element_tag_and_text(&new_node);
+        let (new_tag, text_content) = element_tag_and_text(&new_node);
+
+        // Check if the element tag has changed — if so, replace entirely
+        let old_tag = existing.element.tag_name().to_lowercase();
+        if old_tag != new_tag {
+            // Tag changed (e.g., div -> span, or span -> button): replace element
+            let replacement = self.create_element(new_node);
+            if let Some(parent) = existing.element.parent_element() {
+                let _ = parent.replace_child(&replacement.element, &existing.element);
+            }
+            *existing = replacement;
+            return;
+        }
 
         // Update text content
         if let Some(text) = text_content {
@@ -163,11 +183,11 @@ impl Reconciler {
         }
 
         // Reapply styles
-        // First clear existing inline styles by removing the style attribute
         let _ = existing.element.remove_attribute("style");
         apply_styles(&existing.element, &new_node);
 
-        // Reapply ARIA attributes
+        // Reapply ARIA attributes — clear stale ones first
+        clear_aria_attributes(&existing.element);
         apply_aria(&existing.element.clone().into(), &new_node.a11y);
 
         // Reattach event listeners

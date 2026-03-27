@@ -243,11 +243,22 @@ pub fn on_navigate(callback: impl Fn(String) + 'static) -> Result<NavigateGuard,
     w.add_event_listener_with_callback("popstate", closure.as_ref().unchecked_ref())
         .map_err(WebError::Js)?;
 
-    Ok(NavigateGuard { _closure: closure })
+    Ok(NavigateGuard { closure })
 }
 
 /// Guard that keeps a `popstate` event listener alive.
 /// Dropping this removes the listener.
 pub struct NavigateGuard {
-    _closure: Closure<dyn Fn(web_sys::Event)>,
+    closure: Closure<dyn Fn(web_sys::Event)>,
+}
+
+impl Drop for NavigateGuard {
+    fn drop(&mut self) {
+        if let Ok(w) = window() {
+            let _ = w.remove_event_listener_with_callback(
+                "popstate",
+                self.closure.as_ref().unchecked_ref(),
+            );
+        }
+    }
 }

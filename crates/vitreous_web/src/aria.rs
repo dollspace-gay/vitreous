@@ -150,6 +150,22 @@ pub fn apply_aria(element: &Element, info: &AccessibilityInfo) {
     }
 }
 
+/// Remove all ARIA attributes from an element to prevent stale attributes
+/// from accumulating during reconciliation.
+pub fn clear_aria_attributes(element: &Element) {
+    // Known ARIA attribute names that apply_aria may set
+    static ARIA_ATTRS: &[&str] = &[
+        "role", "tabindex", "aria-label", "aria-description",
+        "aria-live", "aria-disabled", "aria-checked", "aria-selected",
+        "aria-expanded", "aria-haspopup", "aria-readonly", "aria-required",
+        "aria-invalid", "aria-busy", "aria-modal", "aria-level",
+        "aria-valuemin", "aria-valuemax", "aria-valuenow",
+    ];
+    for attr in ARIA_ATTRS {
+        let _ = element.remove_attribute(attr);
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

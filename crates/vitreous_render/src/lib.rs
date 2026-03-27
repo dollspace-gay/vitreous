@@ -58,6 +58,7 @@ impl Renderer {
     pub fn resize(&mut self, new_width: u32, new_height: u32) {
         self.width = new_width;
         self.height = new_height;
+        self.invalidate();
     }
 
     /// Processes a new frame's render commands through the full pipeline:
