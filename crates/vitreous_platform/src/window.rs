@@ -137,7 +137,7 @@ impl WindowConfig {
 /// Created via [`PlatformWindow::create`] during the event loop's `resumed`
 /// callback. Provides all window manipulation methods needed by the runtime.
 pub struct PlatformWindow {
-    window: Window,
+    window: std::sync::Arc<Window>,
 }
 
 impl PlatformWindow {
@@ -181,7 +181,7 @@ impl PlatformWindow {
             .create_window(attrs)
             .expect("failed to create window");
 
-        Self { window }
+        Self { window: std::sync::Arc::new(window) }
     }
 
     /// Request a redraw for the next frame.
@@ -258,6 +258,11 @@ impl PlatformWindow {
     /// Get a reference to the underlying winit window.
     pub fn winit_window(&self) -> &Window {
         &self.window
+    }
+
+    /// Get an Arc-wrapped reference to the underlying winit window (for wgpu surface creation).
+    pub fn arc_window(&self) -> std::sync::Arc<Window> {
+        self.window.clone()
     }
 
     /// Set the window position in logical pixels.

@@ -11,6 +11,7 @@ use vitreous_render::{
 use vitreous_style::Corners as StyleCorners;
 use vitreous_widgets::Node;
 
+use crate::gpu::{GpuContext, PresentError};
 use crate::text_engine::CosmicTextEngine;
 use crate::window::{PlatformWindow, WindowConfig};
 
@@ -35,6 +36,7 @@ pub struct DesktopRuntime {
     root_fn: Box<dyn Fn() -> Node>,
     window: Option<PlatformWindow>,
     renderer: Option<Renderer>,
+    gpu: Option<GpuContext>,
     /// Text engine for font discovery, measurement, shaping, and rasterization.
     /// Used during the render pass to shape text nodes into positioned glyphs.
     pub text_engine: CosmicTextEngine,
@@ -59,6 +61,7 @@ impl DesktopRuntime {
             root_fn: Box::new(root_fn),
             window: None,
             renderer: None,
+            gpu: None,
             text_engine: CosmicTextEngine::new(),
             focus_manager: None,
             root_scope: None,
@@ -128,13 +131,32 @@ impl DesktopRuntime {
         generate_commands(layout, &render_nodes, root_id)
     }
 
-    /// Stage 4: Submit render commands to the renderer.
+    /// Stage 4: Submit render commands to the renderer and present via GPU.
     fn submit_frame(&mut self, commands: Vec<RenderCommand>) {
-        if let Some(ref mut renderer) = self.renderer {
-            let _output = renderer.render_frame(commands);
-            // In a full implementation, _output.needs_submit would gate
-            // actual GPU submission via wgpu. For now the CPU-side pipeline
-            // is complete.
+        let Some(ref mut renderer) = self.renderer else {
+            return;
+        };
+        let output = renderer.render_frame(commands);
+
+        if !output.needs_submit {
+            return;
+        }
+
+        // Extract clear color from theme background (default dark gray)
+        let clear = [0.12f32, 0.12, 0.14, 1.0];
+
+        if let Some(ref mut gpu) = self.gpu {
+            if let Err(e) = gpu.present_frame(renderer.batch_builder(), clear) {
+                match e {
+                    PresentError::SurfaceLost => {
+                        let (w, h) = renderer.viewport();
+                        gpu.resize(w, h);
+                    }
+                    PresentError::Validation => {
+                        eprintln!("[vitreous] GPU validation error");
+                    }
+                }
+            }
         }
     }
 
@@ -328,6 +350,9 @@ impl ApplicationHandler for DesktopRuntime {
         let (pw, ph) = window.inner_size_physical();
         self.renderer = Some(Renderer::new(pw, ph));
 
+        // Initialize GPU rendering context
+        self.gpu = Some(GpuContext::new(window.arc_window()));
+
         window.request_redraw();
         self.window = Some(window);
     }
@@ -352,6 +377,9 @@ impl ApplicationHandler for DesktopRuntime {
                 // AC-12: resize triggers layout recomputation
                 if let Some(ref mut renderer) = self.renderer {
                     renderer.resize(new_size.width, new_size.height);
+                }
+                if let Some(ref mut gpu) = self.gpu {
+                    gpu.resize(new_size.width, new_size.height);
                 }
                 self.needs_rebuild = true;
                 if let Some(ref window) = self.window {

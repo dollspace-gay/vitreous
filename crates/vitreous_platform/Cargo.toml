@@ -17,3 +17,6 @@ arboard = "3.6"
 cosmic-text = "0.18"
 accesskit = "0.24"
 accesskit_winit = "0.32"
+wgpu = "29"
+pollster = "0.4"
+bytemuck = { version = "1", features = ["derive"] }

@@ -3285,7 +3285,9 @@ dependencies = [
  "accesskit",
  "accesskit_winit",
  "arboard",
+ "bytemuck",
  "cosmic-text",
+ "pollster",
  "rfd",
  "vitreous_a11y",
  "vitreous_events",
@@ -3294,6 +3296,7 @@ dependencies = [
  "vitreous_render",
  "vitreous_style",
  "vitreous_widgets",
+ "wgpu",
  "winit",
 ]
 
