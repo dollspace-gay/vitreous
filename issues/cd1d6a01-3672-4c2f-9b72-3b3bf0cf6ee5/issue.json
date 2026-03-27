@@ -1,0 +1,10 @@
+{
+  "uuid": "cd1d6a01-3672-4c2f-9b72-3b3bf0cf6ee5",
+  "display_id": 75,
+  "title": "Fix label and description modifiers to accept TextContent",
+  "status": "open",
+  "priority": "medium",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:01:16.684927448Z",
+  "updated_at": "2026-03-27T19:01:16.684927448Z"
+}
