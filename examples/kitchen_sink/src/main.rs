@@ -55,8 +55,10 @@ fn root() -> Node {
     let t = theme();
     set_executor(|_fut| {});
 
+    let current_route = create_signal(String::from("/"));
+
     v_stack((
-        nav_bar(),
+        nav_bar(current_route),
         router(vec![
             Route::new("/", home_page),
             Route::new("/reactive", reactive_page),
@@ -71,18 +73,18 @@ fn root() -> Node {
     .background(t.background)
 }
 
-fn nav_bar() -> Node {
+fn nav_bar(current_route: Signal<String>) -> Node {
     let t = theme();
-    let route = use_route();
+    let route = current_route.get();
     h_stack((
-        nav_btn("Home", "/", &route),
-        nav_btn("Reactive", "/reactive", &route),
-        nav_btn("Widgets", "/widgets", &route),
-        nav_btn("Style", "/style", &route),
-        nav_btn("Events", "/events", &route),
-        nav_btn("A11y", "/a11y", &route),
-        nav_btn("Layout", "/layout", &route),
-        nav_btn("VList", "/vlist", &route),
+        nav_btn("Home", "/", &route, current_route),
+        nav_btn("Reactive", "/reactive", &route, current_route),
+        nav_btn("Widgets", "/widgets", &route, current_route),
+        nav_btn("Style", "/style", &route, current_route),
+        nav_btn("Events", "/events", &route, current_route),
+        nav_btn("A11y", "/a11y", &route, current_route),
+        nav_btn("Layout", "/layout", &route, current_route),
+        nav_btn("VList", "/vlist", &route, current_route),
         spacer(),
         hot_reload_indicator(),
     ))
@@ -93,12 +95,16 @@ fn nav_bar() -> Node {
     .label("Main navigation")
 }
 
-fn nav_btn(label: &str, path: &str, current: &str) -> Node {
+fn nav_btn(label: &str, path: &str, current: &str, route_signal: Signal<String>) -> Node {
     let t = theme();
     let is_active = current == path;
     let target = path.to_owned();
+    let target2 = target.clone();
     button(label)
-        .on_click(move || navigate(target.clone()))
+        .on_click(move || {
+            navigate(target.clone());
+            route_signal.set(target2.clone());
+        })
         .padding(t.spacing_xs)
         .background(if is_active { t.primary } else { t.surface })
         .border_radius(t.radius_sm)
@@ -134,11 +140,13 @@ fn hot_reload_indicator() -> Node {
 
 fn home_page() -> Node {
     let t = theme();
+    // Exercise use_route() inside router context where RouterState exists
+    let route = use_route();
     v_stack((
         text("Vitreous Kitchen Sink").font_size(t.font_size_3xl).font_weight(FontWeight::Bold),
         text("Exercises every public API across all crates.").foreground(t.text_secondary),
         divider(),
-        text("Use the nav bar to explore each feature area.").font_size(t.font_size_sm),
+        text(format!("Current route: {route}")).font_size(t.font_size_sm),
     ))
     .gap(t.spacing_md)
     .padding(t.spacing_xl)
