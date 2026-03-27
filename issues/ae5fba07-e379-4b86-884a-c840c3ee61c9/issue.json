@@ -1,0 +1,10 @@
+{
+  "uuid": "ae5fba07-e379-4b86-884a-c840c3ee61c9",
+  "display_id": 131,
+  "title": "Fix AccessibilityState.expanded type to Option<bool> per spec",
+  "status": "open",
+  "priority": "medium",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:06:25.670889445Z",
+  "updated_at": "2026-03-27T19:06:25.670889445Z"
+}
