@@ -2,11 +2,12 @@
   "uuid": "86d171c9-485d-4cc4-b170-20ec00b227cd",
   "display_id": 158,
   "title": "Add benchmark tests with criterion",
-  "status": "open",
+  "status": "closed",
   "priority": "medium",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:08:57.984044402Z",
-  "updated_at": "2026-03-27T19:09:00.331112782Z",
+  "updated_at": "2026-03-27T20:15:46.214740181Z",
+  "closed_at": "2026-03-27T20:15:46.214740181Z",
   "labels": [
     "enhancement"
   ]
