@@ -2,11 +2,12 @@
   "uuid": "f0c66496-150a-4cfa-866b-578b8f6e066b",
   "display_id": 61,
   "title": "Fix for_each to accept reactive item source closure",
-  "status": "open",
+  "status": "closed",
   "priority": "critical",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:00:10.383495207Z",
-  "updated_at": "2026-03-27T19:00:13.128667822Z",
+  "updated_at": "2026-03-27T19:48:53.156525758Z",
+  "closed_at": "2026-03-27T19:48:53.156525758Z",
   "labels": [
     "bug"
   ]
