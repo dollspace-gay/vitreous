@@ -2,11 +2,12 @@
   "uuid": "e3640d42-fca8-4311-85cc-5cb706050535",
   "display_id": 40,
   "title": "Implement detect_accent_color for Windows and macOS",
-  "status": "open",
+  "status": "closed",
   "priority": "low",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T18:57:39.730958040Z",
-  "updated_at": "2026-03-27T18:57:41.898082151Z",
+  "updated_at": "2026-03-27T20:19:18.123062359Z",
+  "closed_at": "2026-03-27T20:19:18.123062359Z",
   "labels": [
     "enhancement"
   ]
