@@ -2,11 +2,12 @@
   "uuid": "15923a44-9064-44a8-b79d-b17efebac9f5",
   "display_id": 100,
   "title": "Add FontStyle enum to design spec",
-  "status": "open",
+  "status": "closed",
   "priority": "low",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:03:33.667546092Z",
-  "updated_at": "2026-03-27T19:03:35.574001546Z",
+  "updated_at": "2026-03-27T20:17:46.581139149Z",
+  "closed_at": "2026-03-27T20:17:46.581139149Z",
   "labels": [
     "enhancement"
   ]
