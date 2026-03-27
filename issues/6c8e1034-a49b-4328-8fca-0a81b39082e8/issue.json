@@ -1,0 +1,10 @@
+{
+  "uuid": "6c8e1034-a49b-4328-8fca-0a81b39082e8",
+  "display_id": 102,
+  "title": "Fix DOM reconciler to handle tag changes by replacing elements",
+  "status": "open",
+  "priority": "critical",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:03:59.222506770Z",
+  "updated_at": "2026-03-27T19:03:59.222506770Z"
+}
