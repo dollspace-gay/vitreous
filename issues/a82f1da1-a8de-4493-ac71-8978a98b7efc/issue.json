@@ -2,11 +2,12 @@
   "uuid": "a82f1da1-a8de-4493-ac71-8978a98b7efc",
   "display_id": 112,
   "title": "Fix TextInput value to use input value, not accessibility label",
-  "status": "open",
+  "status": "closed",
   "priority": "high",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:04:42.780162063Z",
-  "updated_at": "2026-03-27T19:04:44.829059185Z",
+  "updated_at": "2026-03-27T20:13:16.325872371Z",
+  "closed_at": "2026-03-27T20:13:16.325872371Z",
   "labels": [
     "bug"
   ]
