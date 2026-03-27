@@ -2,11 +2,12 @@
   "uuid": "c3905f07-3615-49b6-8b44-a368231943fc",
   "display_id": 147,
   "title": "Fix build_parent_map O(n^2) linear scan lookups",
-  "status": "open",
+  "status": "closed",
   "priority": "medium",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:08:08.115716684Z",
-  "updated_at": "2026-03-27T19:08:10.143555408Z",
+  "updated_at": "2026-03-27T20:16:12.968991586Z",
+  "closed_at": "2026-03-27T20:16:12.968991586Z",
   "labels": [
     "enhancement"
   ]
