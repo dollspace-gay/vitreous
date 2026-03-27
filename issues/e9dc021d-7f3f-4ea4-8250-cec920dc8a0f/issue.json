@@ -2,11 +2,12 @@
   "uuid": "e9dc021d-7f3f-4ea4-8250-cec920dc8a0f",
   "display_id": 62,
   "title": "Redesign virtual_list to match spec's reactive data-driven API",
-  "status": "open",
+  "status": "closed",
   "priority": "critical",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:00:15.559385470Z",
-  "updated_at": "2026-03-27T19:00:18.742293045Z",
+  "updated_at": "2026-03-27T19:48:58.239153992Z",
+  "closed_at": "2026-03-27T19:48:58.239153992Z",
   "labels": [
     "bug"
   ]
