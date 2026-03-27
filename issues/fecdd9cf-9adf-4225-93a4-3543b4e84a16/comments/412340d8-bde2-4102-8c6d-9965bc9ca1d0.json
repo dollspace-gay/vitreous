@@ -1,0 +1,8 @@
+{
+  "uuid": "412340d8-bde2-4102-8c6d-9965bc9ca1d0",
+  "issue_uuid": "fecdd9cf-9adf-4225-93a4-3543b4e84a16",
+  "author": "anon-581fd578",
+  "content": "Plan: Two gaps in the desktop render pipeline need closing.\n\n1. Text shaping: flatten_node_to_render() in event_loop.rs sets content: NodeContent::None for every node. Need to detect Text nodes (NodeKind::Text) and use CosmicTextEngine to shape text into PositionedGlyph vectors, setting NodeContent::Text(glyphs, color).\n\n2. GPU presentation: submit_frame() calls renderer.render_frame(commands) but ignores the output and never presents to the wgpu surface. Need to: (a) store the wgpu surface/device/queue in the Renderer or DesktopRuntime, (b) create a surface texture each frame, (c) rasterize render commands to the texture, (d) call present().\n\nApproach: Read Renderer, CosmicTextEngine, and wgpu setup to understand current state, then wire them together.",
+  "created_at": "2026-03-27T04:55:56.658112952Z",
+  "kind": "plan"
+}
