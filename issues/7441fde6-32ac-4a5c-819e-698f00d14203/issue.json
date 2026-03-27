@@ -1,0 +1,10 @@
+{
+  "uuid": "7441fde6-32ac-4a5c-819e-698f00d14203",
+  "display_id": 82,
+  "title": "Add missing font_family and font_family_mono fields to Theme",
+  "status": "open",
+  "priority": "critical",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:02:13.575358852Z",
+  "updated_at": "2026-03-27T19:02:13.575358852Z"
+}
