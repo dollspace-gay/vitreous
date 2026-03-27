@@ -2,11 +2,12 @@
   "uuid": "6561cf7d-42c0-4e3e-b9ec-303c6e8b6a3f",
   "display_id": 156,
   "title": "Fix Signal::set to skip notification when value unchanged",
-  "status": "open",
+  "status": "closed",
   "priority": "high",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:08:48.601765860Z",
-  "updated_at": "2026-03-27T19:08:51.235428341Z",
+  "updated_at": "2026-03-27T20:11:49.133806258Z",
+  "closed_at": "2026-03-27T20:11:49.133806258Z",
   "labels": [
     "bug"
   ]
