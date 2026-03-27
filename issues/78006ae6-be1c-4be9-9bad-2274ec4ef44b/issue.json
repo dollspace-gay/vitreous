@@ -2,11 +2,12 @@
   "uuid": "78006ae6-be1c-4be9-9bad-2274ec4ef44b",
   "display_id": 119,
   "title": "Implement Component node expansion on web",
-  "status": "open",
+  "status": "closed",
   "priority": "low",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:05:17.833752739Z",
-  "updated_at": "2026-03-27T19:05:20.082499592Z",
+  "updated_at": "2026-03-27T20:17:11.290294113Z",
+  "closed_at": "2026-03-27T20:17:11.290294113Z",
   "labels": [
     "feature"
   ]
