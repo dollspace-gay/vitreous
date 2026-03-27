@@ -1,0 +1,10 @@
+{
+  "uuid": "af775a97-3370-4e5f-95c7-ee23d2cfa2fd",
+  "display_id": 77,
+  "title": "Fix silent no-op assertion in unit_into_node test",
+  "status": "open",
+  "priority": "low",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:01:26.729183510Z",
+  "updated_at": "2026-03-27T19:01:26.729183510Z"
+}
