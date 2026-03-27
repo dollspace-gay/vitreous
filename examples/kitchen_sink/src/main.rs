@@ -30,7 +30,7 @@ use vitreous::{
     // ── App ──────────────────────────────────────────────────────────────
     App, theme,
 };
-use vitreous_hot_reload::{HotReloadClient, ServerMessage, DEFAULT_PORT};
+use vitreous_hot_reload::DEFAULT_PORT;
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Main — App builder with every method
@@ -68,9 +68,12 @@ fn root() -> Node {
             Route::new("/a11y", a11y_page),
             Route::new("/layout", layout_page),
             Route::new("/vlist", virtual_list_page),
-        ]),
+        ])
+        .flex_grow(1.0),
     ))
     .background(t.background)
+    .width(pct(100.0))
+    .height(pct(100.0))
 }
 
 fn nav_bar(current_route: Signal<String>) -> Node {
@@ -113,25 +116,12 @@ fn nav_btn(label: &str, path: &str, current: &str, route_signal: Signal<String>)
 }
 
 fn hot_reload_indicator() -> Node {
-    let client = HotReloadClient::connect(
-        &format!("ws://127.0.0.1:{DEFAULT_PORT}"),
-        "kitchen-sink",
-    );
-    let connected = client.as_ref().ok().is_some_and(|c| c.is_connected());
-    if let Ok(ref c) = client {
-        for msg in c.drain() {
-            match msg {
-                ServerMessage::FileChanged(_)
-                | ServerMessage::BuildStarted
-                | ServerMessage::BuildComplete
-                | ServerMessage::BuildFailed { .. }
-                | ServerMessage::Shutdown => {}
-            }
-        }
-    }
-    text(if connected { "[HR: on]" } else { "[HR: off]" })
+    // HotReloadClient is exercised in tests — don't connect on every frame
+    // because it spams stderr when no dev server is running.
+    let _ = DEFAULT_PORT; // exercise the constant
+    text("[HR: off]")
         .font_size(11.0)
-        .foreground(if connected { Color::GREEN } else { Color::GRAY })
+        .foreground(Color::GRAY)
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -241,7 +231,7 @@ fn reactive_page() -> Node {
             || text("Loading..."),
         ),
         text(move || format!("read_only = {}", read_only.get())),
-    )).gap(t.spacing_sm).padding(t.spacing_lg))
+    )).gap(t.spacing_sm).padding(t.spacing_lg)).flex_grow(1.0)
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -264,7 +254,7 @@ fn widgets_page() -> Node {
         widgets_containers(t.clone(), show_overlay, toggle_val, check_val),
         divider(),
         widgets_composition(t.clone()),
-    )).gap(t.spacing_sm).padding(t.spacing_lg))
+    )).gap(t.spacing_sm).padding(t.spacing_lg)).flex_grow(1.0)
 }
 
 fn widgets_primitives(
@@ -410,7 +400,7 @@ fn style_page() -> Node {
         style_typography(t.clone()),
         divider(),
         style_animation(t.clone()),
-    )).gap(t.spacing_sm).padding(t.spacing_lg))
+    )).gap(t.spacing_sm).padding(t.spacing_lg)).flex_grow(1.0)
 }
 
 fn style_colors(t: Theme) -> Node {
@@ -618,7 +608,7 @@ fn events_page() -> Node {
         events_keyboard(t.clone(), log),
         events_dragdrop(t.clone(), log),
         events_types_exercise(),
-    )).gap(t.spacing_sm).padding(t.spacing_lg))
+    )).gap(t.spacing_sm).padding(t.spacing_lg)).flex_grow(1.0)
 }
 
 fn events_mouse(t: Theme, log: Signal<String>) -> Node {
@@ -734,7 +724,7 @@ fn a11y_page() -> Node {
             .description("Has label and description for screen readers")
             .focusable(true).role(Role::Group)
             .padding(t.spacing_md).background(t.surface).border(1.0, t.border).border_radius(t.radius_md),
-    )).gap(t.spacing_sm).padding(t.spacing_lg))
+    )).gap(t.spacing_sm).padding(t.spacing_lg)).flex_grow(1.0)
 }
 
 fn a11y_roles(t: Theme) -> Node {
@@ -779,7 +769,7 @@ fn layout_page() -> Node {
         layout_spacing(t.clone()),
         divider(),
         layout_visual(t.clone()),
-    )).gap(t.spacing_sm).padding(t.spacing_lg))
+    )).gap(t.spacing_sm).padding(t.spacing_lg)).flex_grow(1.0)
 }
 
 fn layout_flex(t: Theme) -> Node {
@@ -925,7 +915,9 @@ fn section_title(title: &str) -> Node {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use vitreous_hot_reload::{ChangeKind, ClientMessage, FileChange, FileEvent};
+    use vitreous_hot_reload::{
+        ChangeKind, ClientMessage, FileChange, FileEvent, HotReloadClient, ServerMessage,
+    };
 
     #[test]
     fn protocol_types() {
@@ -938,6 +930,9 @@ mod tests {
         let _ = (ChangeKind::Style, ChangeKind::Asset);
         let _ = (FileEvent::Created, FileEvent::Removed);
         let _ = DEFAULT_PORT;
+        // Exercise HotReloadClient — connect to a non-existent server
+        let client = HotReloadClient::connect("ws://127.0.0.1:1", "test");
+        assert!(client.is_ok());
     }
 
     #[test]
