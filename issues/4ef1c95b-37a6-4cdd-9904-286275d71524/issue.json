@@ -1,0 +1,10 @@
+{
+  "uuid": "4ef1c95b-37a6-4cdd-9904-286275d71524",
+  "display_id": 162,
+  "title": "Fix RequestBuild message to actually trigger cargo build",
+  "status": "open",
+  "priority": "medium",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:09:16.708134607Z",
+  "updated_at": "2026-03-27T19:09:16.708134607Z"
+}
