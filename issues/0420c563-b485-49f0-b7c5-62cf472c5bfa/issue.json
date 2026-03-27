@@ -2,11 +2,12 @@
   "uuid": "0420c563-b485-49f0-b7c5-62cf472c5bfa",
   "display_id": 133,
   "title": "Remove dead AccessibilityState.focused field or implement consumption",
-  "status": "open",
+  "status": "closed",
   "priority": "medium",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:06:36.032760641Z",
-  "updated_at": "2026-03-27T19:06:38.433474230Z",
+  "updated_at": "2026-03-27T20:16:40.673739658Z",
+  "closed_at": "2026-03-27T20:16:40.673739658Z",
   "labels": [
     "bug"
   ]
