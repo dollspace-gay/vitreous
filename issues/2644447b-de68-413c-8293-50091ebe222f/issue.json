@@ -1,0 +1,10 @@
+{
+  "uuid": "2644447b-de68-413c-8293-50091ebe222f",
+  "display_id": 72,
+  "title": "Implement IntoNodes for arbitrary iterators, not just Vec::IntoIter",
+  "status": "open",
+  "priority": "medium",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:01:03.304939474Z",
+  "updated_at": "2026-03-27T19:01:03.304939474Z"
+}
