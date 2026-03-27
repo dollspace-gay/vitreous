@@ -1,0 +1,10 @@
+{
+  "uuid": "51c48f43-2a4e-4203-917f-a33faa3cc3bc",
+  "display_id": 132,
+  "title": "Fix AccessibilityInfo.live type to Option<LivePoliteness> per spec",
+  "status": "open",
+  "priority": "medium",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:06:31.340675812Z",
+  "updated_at": "2026-03-27T19:06:31.340675812Z"
+}
