@@ -1,0 +1,10 @@
+{
+  "uuid": "c080c783-4e84-4547-aafd-d5b70dbdaaef",
+  "display_id": 21,
+  "title": "Fix wgpu MissingDisplayHandle error on Windows",
+  "status": "open",
+  "priority": "critical",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T12:39:33.436986568Z",
+  "updated_at": "2026-03-27T12:39:33.436986568Z"
+}
