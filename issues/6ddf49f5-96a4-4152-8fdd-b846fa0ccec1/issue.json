@@ -1,0 +1,10 @@
+{
+  "uuid": "6ddf49f5-96a4-4152-8fdd-b846fa0ccec1",
+  "display_id": 83,
+  "title": "Add missing border_width field to Theme",
+  "status": "open",
+  "priority": "critical",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:02:17.733929457Z",
+  "updated_at": "2026-03-27T19:02:17.733929457Z"
+}
