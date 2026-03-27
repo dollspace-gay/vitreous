@@ -2,11 +2,12 @@
   "uuid": "27ef1a3d-7a51-4c6c-a3eb-823e3a9a1165",
   "display_id": 96,
   "title": "Add flex layout properties to Style or restore LayoutStyle nesting",
-  "status": "open",
+  "status": "closed",
   "priority": "high",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:03:16.738407178Z",
-  "updated_at": "2026-03-27T19:03:18.472762490Z",
+  "updated_at": "2026-03-27T20:12:49.316167895Z",
+  "closed_at": "2026-03-27T20:12:49.316167895Z",
   "labels": [
     "bug"
   ]
