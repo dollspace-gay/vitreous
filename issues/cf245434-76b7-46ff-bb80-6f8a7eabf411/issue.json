@@ -1,0 +1,10 @@
+{
+  "uuid": "cf245434-76b7-46ff-bb80-6f8a7eabf411",
+  "display_id": 71,
+  "title": "Fix scroll_view, container, overlay to accept single child per spec",
+  "status": "open",
+  "priority": "medium",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:00:58.906575098Z",
+  "updated_at": "2026-03-27T19:00:58.906575098Z"
+}
