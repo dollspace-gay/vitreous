@@ -2,11 +2,12 @@
   "uuid": "2148de8c-f88b-42c2-b7ef-c2ebedbbc64f",
   "display_id": 39,
   "title": "Fix CursorIcon::None to hide cursor instead of showing default",
-  "status": "open",
+  "status": "closed",
   "priority": "low",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T18:57:35.681421245Z",
-  "updated_at": "2026-03-27T18:57:37.832436128Z",
+  "updated_at": "2026-03-27T20:19:20.349912753Z",
+  "closed_at": "2026-03-27T20:19:20.349912753Z",
   "labels": [
     "bug"
   ]
