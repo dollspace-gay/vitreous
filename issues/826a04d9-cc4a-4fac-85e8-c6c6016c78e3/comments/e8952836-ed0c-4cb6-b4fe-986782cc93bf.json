@@ -1,0 +1,8 @@
+{
+  "uuid": "e8952836-ed0c-4cb6-b4fe-986782cc93bf",
+  "issue_uuid": "826a04d9-cc4a-4fac-85e8-c6c6016c78e3",
+  "author": "anon-581fd578",
+  "content": "Resolved as part of #25 — keyboard dispatch now finds focused node and invokes on_key_down/on_key_up handlers.",
+  "created_at": "2026-03-27T19:25:49.189325246Z",
+  "kind": "result"
+}
