@@ -1,0 +1,8 @@
+{
+  "uuid": "fffcebd9-a64c-43cc-a4c6-c92f15038426",
+  "issue_uuid": "d00d2684-4c09-4cc8-b8b4-ec51b47c99e4",
+  "author": "anon-581fd578",
+  "content": "Plan: bubble_event returns visited node IDs but doesn't distinguish between nodes that had handlers and nodes that were just walked. Fix: only add to visited if the handler closure returns true (meaning a handler existed and ran).",
+  "created_at": "2026-03-27T19:56:33.471083908Z",
+  "kind": "plan"
+}
