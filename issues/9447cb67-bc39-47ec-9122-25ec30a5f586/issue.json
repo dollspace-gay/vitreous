@@ -1,0 +1,10 @@
+{
+  "uuid": "9447cb67-bc39-47ec-9122-25ec30a5f586",
+  "display_id": 160,
+  "title": "Implement actual hot reload — parse Rust source, extract widget trees, serialize diffs, patch live tree",
+  "status": "open",
+  "priority": "critical",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:09:08.520969311Z",
+  "updated_at": "2026-03-27T19:09:08.520969311Z"
+}
