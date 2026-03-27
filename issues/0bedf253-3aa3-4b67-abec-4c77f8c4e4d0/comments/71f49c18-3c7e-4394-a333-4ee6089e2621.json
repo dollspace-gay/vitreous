@@ -1,0 +1,8 @@
+{
+  "uuid": "71f49c18-3c7e-4394-a333-4ee6089e2621",
+  "issue_uuid": "0bedf253-3aa3-4b67-abec-4c77f8c4e4d0",
+  "author": "anon-581fd578",
+  "content": "Decision: show/show_else take plain bool, but vitreous uses full tree rebuild (root_fn is re-called when signals change). This means show(signal.get(), ...) IS reactive — the whole tree re-evaluates. The closure-based spec API enables fine-grained partial updates but the current architecture doesn't support partial re-render yet. Closing as working-as-intended for the current architecture. A future fine-grained reactivity pass would change this.",
+  "created_at": "2026-03-27T19:48:45.427470279Z",
+  "kind": "decision"
+}
