@@ -1,0 +1,10 @@
+{
+  "uuid": "cc62d2d6-7d3d-4101-9512-aad4f91ffae6",
+  "display_id": 145,
+  "title": "Fix justify_content, align_items, align_self to non-Optional per spec",
+  "status": "open",
+  "priority": "medium",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:07:59.177488840Z",
+  "updated_at": "2026-03-27T19:07:59.177488840Z"
+}
