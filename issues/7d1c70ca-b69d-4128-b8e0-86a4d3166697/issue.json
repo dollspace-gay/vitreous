@@ -1,0 +1,10 @@
+{
+  "uuid": "7d1c70ca-b69d-4128-b8e0-86a4d3166697",
+  "display_id": 73,
+  "title": "Fix button to accept TextContent for reactive labels",
+  "status": "open",
+  "priority": "medium",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:01:07.742354068Z",
+  "updated_at": "2026-03-27T19:01:07.742354068Z"
+}
