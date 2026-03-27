@@ -1,0 +1,10 @@
+{
+  "uuid": "5385b49b-892b-4ded-ae86-e6f81f00251c",
+  "display_id": 139,
+  "title": "Fix FocusManager to skip disabled nodes",
+  "status": "open",
+  "priority": "medium",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:07:05.225252042Z",
+  "updated_at": "2026-03-27T19:07:05.225252042Z"
+}
