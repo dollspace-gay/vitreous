@@ -2,11 +2,12 @@
   "uuid": "a99849bc-5b62-4830-80f7-b4ca78bcc982",
   "display_id": 121,
   "title": "Fix LocalStorage::len silent error swallowing",
-  "status": "open",
+  "status": "closed",
   "priority": "low",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:05:28.329932533Z",
-  "updated_at": "2026-03-27T19:05:30.400160070Z",
+  "updated_at": "2026-03-27T20:17:06.524507072Z",
+  "closed_at": "2026-03-27T20:17:06.524507072Z",
   "labels": [
     "bug"
   ]
