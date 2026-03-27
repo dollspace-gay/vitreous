@@ -1,0 +1,10 @@
+{
+  "uuid": "85a272a7-376f-4c22-a9e7-f1087c5b4376",
+  "display_id": 50,
+  "title": "Improve command diff algorithm to handle insertions without full-screen damage",
+  "status": "open",
+  "priority": "medium",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T18:58:46.957243455Z",
+  "updated_at": "2026-03-27T18:58:46.957243455Z"
+}
