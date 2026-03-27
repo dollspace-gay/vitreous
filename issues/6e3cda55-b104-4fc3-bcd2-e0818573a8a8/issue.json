@@ -1,0 +1,10 @@
+{
+  "uuid": "6e3cda55-b104-4fc3-bcd2-e0818573a8a8",
+  "display_id": 173,
+  "title": "Add crate name validation to vitreous new command",
+  "status": "open",
+  "priority": "low",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:10:04.627054868Z",
+  "updated_at": "2026-03-27T19:10:04.627054868Z"
+}
