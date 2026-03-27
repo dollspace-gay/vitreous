@@ -6,5 +6,8 @@
   "priority": "medium",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:05:53.164100543Z",
-  "updated_at": "2026-03-27T19:05:53.164100543Z"
+  "updated_at": "2026-03-27T19:05:55.605026298Z",
+  "labels": [
+    "breaking-change"
+  ]
 }
