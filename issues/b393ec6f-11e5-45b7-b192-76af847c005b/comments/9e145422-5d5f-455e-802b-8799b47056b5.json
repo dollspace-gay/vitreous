@@ -1,0 +1,8 @@
+{
+  "uuid": "9e145422-5d5f-455e-802b-8799b47056b5",
+  "issue_uuid": "b393ec6f-11e5-45b7-b192-76af847c005b",
+  "author": "anon-581fd578",
+  "content": "Decision: Stencil-based rounded clipping requires GPU render pass restructuring (stencil buffer, multi-pass rendering). Deferring to v0.2 GPU milestone.",
+  "created_at": "2026-03-27T20:14:54.645946862Z",
+  "kind": "decision"
+}
