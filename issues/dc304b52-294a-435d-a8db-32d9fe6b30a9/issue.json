@@ -2,11 +2,12 @@
   "uuid": "dc304b52-294a-435d-a8db-32d9fe6b30a9",
   "display_id": 116,
   "title": "Optimize reconcile_children to use insertBefore instead of clear-and-reappend",
-  "status": "open",
+  "status": "closed",
   "priority": "low",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:05:01.461001784Z",
-  "updated_at": "2026-03-27T19:05:04.012696827Z",
+  "updated_at": "2026-03-27T20:17:19.788024729Z",
+  "closed_at": "2026-03-27T20:17:19.788024729Z",
   "labels": [
     "enhancement"
   ]
