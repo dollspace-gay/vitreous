@@ -39,11 +39,13 @@ impl GpuContext {
         let instance = wgpu::Instance::new(wgpu::InstanceDescriptor {
             backends: wgpu::Backends::all(),
             flags: wgpu::InstanceFlags::default(),
-            ..unsafe { std::mem::zeroed() }
+            memory_budget_thresholds: wgpu::MemoryBudgetThresholds::default(),
+            backend_options: wgpu::BackendOptions::default(),
+            display: None,
         });
 
         let surface = instance
-            .create_surface(wgpu::SurfaceTarget::Window(Box::new(window.clone())))
+            .create_surface(window.clone())
             .expect("failed to create wgpu surface");
 
         let adapter = pollster::block_on(instance.request_adapter(&wgpu::RequestAdapterOptions {
