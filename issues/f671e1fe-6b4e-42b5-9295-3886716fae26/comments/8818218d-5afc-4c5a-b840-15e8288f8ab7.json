@@ -1,0 +1,8 @@
+{
+  "uuid": "8818218d-5afc-4c5a-b840-15e8288f8ab7",
+  "issue_uuid": "f671e1fe-6b4e-42b5-9295-3886716fae26",
+  "author": "anon-581fd578",
+  "content": "Resolved as part of #23/#24 — glyph UVs are now patched in submit_frame using actual atlas regions from rasterized glyphs.",
+  "created_at": "2026-03-27T20:07:38.191156856Z",
+  "kind": "result"
+}
