@@ -1,0 +1,8 @@
+{
+  "uuid": "aa59d7e5-0eff-4407-a110-c033aaaaa882",
+  "issue_uuid": "fecdd9cf-9adf-4225-93a4-3543b4e84a16",
+  "author": "anon-581fd578",
+  "content": "Observation: The CPU-side render pipeline is complete (BatchBuilder produces rect/glyph/shadow/image instances, shaders exist as .wgsl). But there is ZERO wgpu integration — no Device, Surface, Queue, or RenderPipeline anywhere. The Renderer is purely CPU. Need to build the entire GPU layer: wgpu init, pipeline creation from existing shaders, buffer upload, render pass execution, and surface present. Also need text shaping in flatten_node_to_render.",
+  "created_at": "2026-03-27T04:58:52.691611541Z",
+  "kind": "observation"
+}
