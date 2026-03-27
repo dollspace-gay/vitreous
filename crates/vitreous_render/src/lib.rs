@@ -263,7 +263,9 @@ mod tests {
                 (NodeId(0), make_node_layout(0.0, 0.0, 800.0, 600.0)),
                 (NodeId(1), make_node_layout(10.0, 10.0, 200.0, 100.0)),
                 (NodeId(2), make_node_layout(220.0, 10.0, 200.0, 100.0)),
-            ],
+            ]
+            .into_iter()
+            .collect(),
         };
 
         let nodes = vec![
@@ -376,7 +378,9 @@ mod tests {
             nodes: vec![
                 (NodeId(0), make_node_layout(0.0, 0.0, 400.0, 300.0)),
                 (NodeId(1), make_node_layout(10.0, 10.0, 100.0, 100.0)),
-            ],
+            ]
+            .into_iter()
+            .collect(),
         };
 
         let nodes = vec![

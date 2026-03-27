@@ -53,7 +53,9 @@ pub trait EventTree {
 /// invoking `handler` at each node. If the handler sets
 /// [`PropagationContext::stop_propagation`], the walk halts immediately.
 ///
-/// Returns the list of node IDs that were visited (i.e., whose handler ran).
+/// Returns the list of node IDs that were walked during propagation.
+/// This includes all nodes from `start` up to the root (or until propagation
+/// is stopped), regardless of whether a handler existed on each node.
 pub fn bubble_event<T: EventTree>(
     tree: &T,
     start: NodeId,

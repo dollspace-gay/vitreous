@@ -15,6 +15,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Implement vitreous_hot_reload file watcher, WebSocket server/client, and CLI tool (#15)
 
 ### Fixed
+- Fix bubble_event visited return semantics to track actual handler runs (#122)
+- Fix LayoutOutput.get() linear scan to use HashMap for O(1) lookup (#142)
 - Fix ARIA attribute cleanup during reconciliation (#115)
 - Implement ImageSource::Bytes support on web via Blob URL (#104)
 - Implement NavigateGuard Drop to remove popstate event listener (#103)

@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use taffy;
 
 // ---------------------------------------------------------------------------
@@ -384,19 +385,18 @@ impl NodeLayout {
 
 #[derive(Debug, Clone)]
 pub struct LayoutOutput {
-    pub nodes: Vec<(NodeId, NodeLayout)>,
+    pub nodes: HashMap<NodeId, NodeLayout>,
 }
 
 impl LayoutOutput {
     pub fn new() -> Self {
-        Self { nodes: Vec::new() }
+        Self {
+            nodes: HashMap::new(),
+        }
     }
 
     pub fn get(&self, id: NodeId) -> Option<&NodeLayout> {
-        self.nodes
-            .iter()
-            .find(|(node_id, _)| *node_id == id)
-            .map(|(_, layout)| layout)
+        self.nodes.get(&id)
     }
 
     pub fn len(&self) -> usize {

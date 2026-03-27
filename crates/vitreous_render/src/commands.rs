@@ -355,7 +355,9 @@ mod tests {
     use vitreous_layout::{NodeLayout, Rect};
 
     fn make_layout(nodes: Vec<(NodeId, NodeLayout)>) -> LayoutOutput {
-        LayoutOutput { nodes }
+        LayoutOutput {
+            nodes: nodes.into_iter().collect(),
+        }
     }
 
     fn make_node_layout(x: f32, y: f32, w: f32, h: f32) -> NodeLayout {

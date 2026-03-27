@@ -149,7 +149,7 @@ fn collect_layouts(
         let content_width = layout.content_size.width;
         let content_height = layout.content_size.height;
 
-        output.nodes.push((
+        output.nodes.insert(
             *our_id,
             NodeLayout {
                 x: abs_x,
@@ -177,7 +177,7 @@ fn collect_layouts(
                     layout.margin.left,
                 ),
             },
-        ));
+        );
     }
 
     // Recurse into children
