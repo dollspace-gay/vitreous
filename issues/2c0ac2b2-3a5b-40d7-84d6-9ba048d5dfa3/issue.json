@@ -1,0 +1,10 @@
+{
+  "uuid": "2c0ac2b2-3a5b-40d7-84d6-9ba048d5dfa3",
+  "display_id": 174,
+  "title": "Fix scaffold success output to use stdout instead of stderr",
+  "status": "open",
+  "priority": "low",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:10:12.257163787Z",
+  "updated_at": "2026-03-27T19:10:12.257163787Z"
+}
