@@ -1,0 +1,8 @@
+{
+  "uuid": "99e82fa6-5e19-4f8f-9aea-1797f7cd7e0f",
+  "issue_uuid": "bbd9924f-76bb-4d9c-8a1f-a18796e52fbc",
+  "author": "anon-581fd578",
+  "content": "Decision: The best approach is to process glyphs BEFORE batch building, not after. In generate_render_commands, after creating RenderNodes with NodeContent::Text(glyphs, color), I'll rasterize each glyph, upload to atlas, and get UVs. Then the PositionedGlyph data (which the batch builder reads) already has correct positions. The batch builder creates GlyphInstances — I need to store atlas UVs IN the PositionedGlyph (or add a separate mapping). Actually, the cleanest fix: rasterize glyphs in flatten_node_to_render (where we have text_engine access), store atlas regions, then after batch building patch GlyphInstance UVs using a parallel lookup by index.",
+  "created_at": "2026-03-27T19:10:45.924726503Z",
+  "kind": "decision"
+}
