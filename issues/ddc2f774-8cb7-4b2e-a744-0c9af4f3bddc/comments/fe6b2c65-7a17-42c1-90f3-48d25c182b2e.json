@@ -1,0 +1,8 @@
+{
+  "uuid": "fe6b2c65-7a17-42c1-90f3-48d25c182b2e",
+  "issue_uuid": "ddc2f774-8cb7-4b2e-a744-0c9af4f3bddc",
+  "author": "anon-581fd578",
+  "content": "Resolved as part of #25 — scroll dispatch now hit-tests and invokes on_scroll handler.",
+  "created_at": "2026-03-27T19:25:52.932519401Z",
+  "kind": "result"
+}
