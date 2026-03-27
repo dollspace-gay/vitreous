@@ -1,0 +1,8 @@
+{
+  "uuid": "f4f519bd-fe93-4cde-9a1c-47aed51f221b",
+  "issue_uuid": "820e4b1e-483e-4120-9085-0f3b143f8d7f",
+  "author": "anon-581fd578",
+  "content": "Delivered: ImageSource::Bytes now creates a Blob URL via Uint8Array + Blob + URL.createObjectURL and sets it as img src. Added Blob feature to web-sys.",
+  "created_at": "2026-03-27T19:55:27.670209850Z",
+  "kind": "result"
+}
