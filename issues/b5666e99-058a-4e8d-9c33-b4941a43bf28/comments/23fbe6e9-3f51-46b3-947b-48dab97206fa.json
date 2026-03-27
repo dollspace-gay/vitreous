@@ -1,0 +1,8 @@
+{
+  "uuid": "23fbe6e9-3f51-46b3-947b-48dab97206fa",
+  "issue_uuid": "b5666e99-058a-4e8d-9c33-b4941a43bf28",
+  "author": "anon-581fd578",
+  "content": "Plan: Fix text_input on_change — the closure currently does 'let _ = &on_change'. Need to wire it to an actual on_key event or on_input event that calls on_change with the new text value. For now, store on_change in event_handlers via a synthetic key_down handler that calls on_change.",
+  "created_at": "2026-03-27T19:45:06.545621906Z",
+  "kind": "plan"
+}
