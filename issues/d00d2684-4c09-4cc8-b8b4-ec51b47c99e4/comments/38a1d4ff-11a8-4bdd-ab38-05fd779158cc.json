@@ -1,0 +1,8 @@
+{
+  "uuid": "38a1d4ff-11a8-4bdd-ab38-05fd779158cc",
+  "issue_uuid": "d00d2684-4c09-4cc8-b8b4-ec51b47c99e4",
+  "author": "anon-581fd578",
+  "content": "Decision: Changed doc comment to match actual behavior rather than changing the API. The 'all walked nodes' semantics is actually useful for debugging propagation paths. The misleading doc was the bug, not the behavior.",
+  "created_at": "2026-03-27T19:57:13.306101936Z",
+  "kind": "decision"
+}
