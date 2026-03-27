@@ -2,11 +2,12 @@
   "uuid": "e48595bb-334d-4c45-a71f-84c3415c9c46",
   "display_id": 65,
   "title": "Fix on_drag to accept DragConfig parameter",
-  "status": "open",
+  "status": "closed",
   "priority": "medium",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:00:31.522046464Z",
-  "updated_at": "2026-03-27T19:00:33.319642919Z",
+  "updated_at": "2026-03-27T20:18:37.560450482Z",
+  "closed_at": "2026-03-27T20:18:37.560450482Z",
   "labels": [
     "bug"
   ]
