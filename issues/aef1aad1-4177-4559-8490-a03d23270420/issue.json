@@ -1,0 +1,10 @@
+{
+  "uuid": "aef1aad1-4177-4559-8490-a03d23270420",
+  "display_id": 128,
+  "title": "Fix hit_test to clamp overlapping border radii per CSS spec",
+  "status": "open",
+  "priority": "low",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:06:14.355615887Z",
+  "updated_at": "2026-03-27T19:06:14.355615887Z"
+}
