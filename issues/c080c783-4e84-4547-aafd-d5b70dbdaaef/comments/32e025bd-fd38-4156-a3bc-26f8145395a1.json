@@ -1,0 +1,8 @@
+{
+  "uuid": "32e025bd-fd38-4156-a3bc-26f8145395a1",
+  "issue_uuid": "c080c783-4e84-4547-aafd-d5b70dbdaaef",
+  "author": "anon-581fd578",
+  "content": "Root cause: wgpu v29's SurfaceTarget::Window variant requires the display handle to have been set via InstanceDescriptor::display first. On Windows, we must either (a) use SurfaceTarget::DisplayAndWindow which bundles both handles, or (b) pass the display handle at Instance creation. Fix: switch create_surface to use the Arc<Window> directly — winit's Window implements both HasWindowHandle and HasDisplayHandle, so passing it as SurfaceTarget::DisplayAndWindow (via Box<dyn DisplayAndWindowHandle>) should work.",
+  "created_at": "2026-03-27T12:39:50.958905659Z",
+  "kind": "plan"
+}
