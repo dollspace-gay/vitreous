@@ -2,11 +2,12 @@
   "uuid": "820e4b1e-483e-4120-9085-0f3b143f8d7f",
   "display_id": 104,
   "title": "Implement ImageSource::Bytes support on web via Blob URL",
-  "status": "open",
+  "status": "closed",
   "priority": "critical",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:04:08.988281994Z",
-  "updated_at": "2026-03-27T19:04:11.343003837Z",
+  "updated_at": "2026-03-27T19:55:29.732606286Z",
+  "closed_at": "2026-03-27T19:55:29.732606286Z",
   "labels": [
     "bug"
   ]
