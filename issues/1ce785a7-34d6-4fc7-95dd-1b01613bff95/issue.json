@@ -2,11 +2,12 @@
   "uuid": "1ce785a7-34d6-4fc7-95dd-1b01613bff95",
   "display_id": 135,
   "title": "Add contrast ratio checking to check_tree function",
-  "status": "open",
+  "status": "closed",
   "priority": "medium",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:06:46.060969989Z",
-  "updated_at": "2026-03-27T19:06:48.711167669Z",
+  "updated_at": "2026-03-27T20:16:36.074400208Z",
+  "closed_at": "2026-03-27T20:16:36.074400208Z",
   "labels": [
     "feature"
   ]
