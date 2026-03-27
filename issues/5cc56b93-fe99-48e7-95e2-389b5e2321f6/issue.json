@@ -2,11 +2,12 @@
   "uuid": "5cc56b93-fe99-48e7-95e2-389b5e2321f6",
   "display_id": 28,
   "title": "Implement AccessKit adapter integration for screen reader support",
-  "status": "open",
+  "status": "closed",
   "priority": "critical",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T18:56:21.126569467Z",
-  "updated_at": "2026-03-27T18:56:23.243875903Z",
+  "updated_at": "2026-03-27T20:14:51.568010837Z",
+  "closed_at": "2026-03-27T20:14:51.568010837Z",
   "labels": [
     "feature"
   ]
