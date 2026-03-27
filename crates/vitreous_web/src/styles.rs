@@ -26,14 +26,15 @@ fn dimension_to_css(d: &Dimension) -> Option<String> {
 }
 
 /// Format an `Easing` as a CSS timing function.
-fn easing_to_css(e: &Easing) -> &'static str {
+fn easing_to_css(e: &Easing) -> String {
     match e {
-        Easing::Linear => "linear",
-        Easing::EaseIn => "ease-in",
-        Easing::EaseOut => "ease-out",
-        Easing::EaseInOut => "ease-in-out",
-        // CubicBezier and Spring fall back to ease-in-out for CSS
-        Easing::CubicBezier(..) | Easing::Spring { .. } => "ease-in-out",
+        Easing::Linear => "linear".into(),
+        Easing::EaseIn => "ease-in".into(),
+        Easing::EaseOut => "ease-out".into(),
+        Easing::EaseInOut => "ease-in-out".into(),
+        Easing::CubicBezier(x1, y1, x2, y2) => format!("cubic-bezier({x1}, {y1}, {x2}, {y2})"),
+        // Spring has no CSS equivalent
+        Easing::Spring { .. } => "ease-in-out".into(),
     }
 }
 

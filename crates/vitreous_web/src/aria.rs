@@ -18,7 +18,7 @@ fn role_to_aria(role: &Role) -> Option<&'static str> {
         Role::MenuItem => Some("menuitem"),
         Role::ProgressBar => Some("progressbar"),
         Role::RadioButton => Some("radio"),
-        Role::ScrollView => Some("scrollbar"),
+        Role::ScrollView => Some("region"),
         Role::Slider => Some("slider"),
         Role::Switch => Some("switch"),
         Role::Tab => Some("tab"),

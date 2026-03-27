@@ -15,6 +15,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Implement vitreous_hot_reload file watcher, WebSocket server/client, and CLI tool (#15)
 
 ### Fixed
+- Fix TextInput value to use input value, not accessibility label (#112)
+- Fix ARIA role mapping for ScrollView — use region instead of scrollbar (#107)
+- Fix CubicBezier easing to emit proper CSS cubic-bezier() instead of fallback (#106)
+- Fix glyph UV resolution — placeholder UVs are never patched (#45)
 - Fix bubble_event visited return semantics to track actual handler runs (#122)
 - Fix LayoutOutput.get() linear scan to use HashMap for O(1) lookup (#142)
 - Fix ARIA attribute cleanup during reconciliation (#115)

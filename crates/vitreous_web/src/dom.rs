@@ -91,13 +91,16 @@ impl Reconciler {
             }
         }
 
-        // Handle text input elements
-        if matches!(&node.kind, NodeKind::Text(_))
+        // Handle text input elements — set value from TextContent, not a11y label
+        if let NodeKind::Text(ref tc) = node.kind
             && node.a11y.role == Role::TextInput
             && let Some(input) = html_element.dyn_ref::<web_sys::HtmlInputElement>()
-            && let Some(label) = &node.a11y.label
         {
-            input.set_value(label);
+            let value = match tc {
+                TextContent::Static(s) => s.clone(),
+                TextContent::Dynamic(f) => f(),
+            };
+            input.set_value(&value);
         }
 
         // Handle checkbox/switch input
