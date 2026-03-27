@@ -1,0 +1,10 @@
+{
+  "uuid": "c73a9cf1-84c2-4d93-8a77-81c74d7ae7cb",
+  "display_id": 54,
+  "title": "Remove dead PushClip border_radius field or implement stencil support",
+  "status": "open",
+  "priority": "medium",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T18:59:03.807842933Z",
+  "updated_at": "2026-03-27T18:59:03.807842933Z"
+}
