@@ -1,0 +1,8 @@
+{
+  "uuid": "19616503-1962-47fa-b8f9-37ff807b678b",
+  "issue_uuid": "d00d2684-4c09-4cc8-b8b4-ec51b47c99e4",
+  "author": "anon-581fd578",
+  "content": "Delivered: Fixed misleading doc comment to accurately describe visited semantics (all walked nodes, not just those with handlers).",
+  "created_at": "2026-03-27T20:03:05.377269472Z",
+  "kind": "result"
+}
