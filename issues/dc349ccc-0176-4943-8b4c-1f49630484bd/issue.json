@@ -2,11 +2,12 @@
   "uuid": "dc349ccc-0176-4943-8b4c-1f49630484bd",
   "display_id": 175,
   "title": "Commit QA fixes batch — layout HashMap, events docs, render, web",
-  "status": "open",
+  "status": "closed",
   "priority": "low",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T20:06:55.557745153Z",
-  "updated_at": "2026-03-27T20:06:58.284373784Z",
+  "updated_at": "2026-03-27T20:15:10.622527923Z",
+  "closed_at": "2026-03-27T20:15:10.622527923Z",
   "labels": [
     "enhancement"
   ]
