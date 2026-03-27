@@ -1,0 +1,8 @@
+{
+  "uuid": "e571a8ff-adff-420b-9bff-b048829282bc",
+  "issue_uuid": "43f9c744-3cd8-4dc3-b3c5-adab58fb077c",
+  "author": "anon-581fd578",
+  "content": "Plan: Remove wgpu and cosmic-text from vitreous_render Cargo.toml — both are unused (zero imports). GPU work is in vitreous_platform, text shaping is in vitreous_platform's text_engine.",
+  "created_at": "2026-03-27T19:44:34.636846841Z",
+  "kind": "plan"
+}
