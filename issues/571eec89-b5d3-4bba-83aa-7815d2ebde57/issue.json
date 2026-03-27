@@ -1,0 +1,10 @@
+{
+  "uuid": "571eec89-b5d3-4bba-83aa-7815d2ebde57",
+  "display_id": 19,
+  "title": "Fix hot reload client connection spam and improve kitchen-sink layout",
+  "status": "open",
+  "priority": "high",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T04:38:22.533474680Z",
+  "updated_at": "2026-03-27T04:38:22.533474680Z"
+}
