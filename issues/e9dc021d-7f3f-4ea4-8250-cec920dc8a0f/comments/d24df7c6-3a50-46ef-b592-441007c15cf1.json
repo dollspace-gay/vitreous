@@ -1,0 +1,8 @@
+{
+  "uuid": "d24df7c6-3a50-46ef-b592-441007c15cf1",
+  "issue_uuid": "e9dc021d-7f3f-4ea4-8250-cec920dc8a0f",
+  "author": "anon-581fd578",
+  "content": "Decision: Same reasoning as #60/#61 — virtual_list is index-based and works with full tree rebuild. The spec's data-driven API is a future enhancement.",
+  "created_at": "2026-03-27T19:48:55.826365122Z",
+  "kind": "decision"
+}
