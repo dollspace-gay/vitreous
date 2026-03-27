@@ -2,11 +2,12 @@
   "uuid": "fac3c037-76c8-49e8-90af-ec5f30e2497b",
   "display_id": 99,
   "title": "Add relative_luminance and contrast_ratio to design spec",
-  "status": "open",
+  "status": "closed",
   "priority": "low",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:03:29.284080771Z",
-  "updated_at": "2026-03-27T19:03:31.520222682Z",
+  "updated_at": "2026-03-27T20:17:48.535709612Z",
+  "closed_at": "2026-03-27T20:17:48.535709612Z",
   "labels": [
     "enhancement"
   ]
