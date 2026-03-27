@@ -1,0 +1,8 @@
+{
+  "uuid": "bc58d562-98fd-414c-bcb6-637d30d9fc19",
+  "issue_uuid": "2570959c-8eeb-476c-8dc5-f967e626e4b2",
+  "author": "anon-581fd578",
+  "content": "Delivered: Added Drop impl for NavigateGuard that calls window.remove_event_listener_with_callback('popstate', ...) to clean up the JS closure.",
+  "created_at": "2026-03-27T19:55:23.670951883Z",
+  "kind": "result"
+}
