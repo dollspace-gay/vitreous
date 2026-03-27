@@ -2,11 +2,12 @@
   "uuid": "a536b1a2-c8e7-4d17-9907-d5309e64c54c",
   "display_id": 64,
   "title": "Fix disabled modifier to accept reactive closure",
-  "status": "open",
+  "status": "closed",
   "priority": "high",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:00:25.575716276Z",
-  "updated_at": "2026-03-27T19:00:28.960796071Z",
+  "updated_at": "2026-03-27T20:12:26.132761552Z",
+  "closed_at": "2026-03-27T20:12:26.132761552Z",
   "labels": [
     "bug"
   ]
