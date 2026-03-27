@@ -1,0 +1,10 @@
+{
+  "uuid": "2d9d4bab-847f-4778-817e-22e4ae3fbfa7",
+  "display_id": 107,
+  "title": "Fix ARIA role mapping for ScrollView — use region instead of scrollbar",
+  "status": "open",
+  "priority": "high",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:04:21.042932133Z",
+  "updated_at": "2026-03-27T19:04:21.042932133Z"
+}
