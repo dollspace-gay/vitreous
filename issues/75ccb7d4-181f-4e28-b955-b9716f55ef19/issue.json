@@ -2,11 +2,12 @@
   "uuid": "75ccb7d4-181f-4e28-b955-b9716f55ef19",
   "display_id": 18,
   "title": "Fix router context panic in kitchen-sink nav bar",
-  "status": "open",
+  "status": "closed",
   "priority": "high",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T04:18:23.286734011Z",
-  "updated_at": "2026-03-27T04:18:26.821518431Z",
+  "updated_at": "2026-03-27T04:21:12.112650676Z",
+  "closed_at": "2026-03-27T04:21:12.112650676Z",
   "labels": [
     "bug"
   ]
