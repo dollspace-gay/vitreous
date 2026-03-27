@@ -129,6 +129,12 @@ impl Renderer {
         &self.batch_builder
     }
 
+    /// Returns a mutable reference to the batch builder for post-processing
+    /// (e.g. patching glyph UV coordinates after atlas lookup).
+    pub fn batch_builder_mut(&mut self) -> &mut BatchBuilder {
+        &mut self.batch_builder
+    }
+
     /// Returns the current frame count.
     pub fn frame_count(&self) -> u64 {
         self.frame_count

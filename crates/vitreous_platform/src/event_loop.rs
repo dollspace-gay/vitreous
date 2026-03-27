@@ -117,21 +117,22 @@ impl DesktopRuntime {
         self.layout_output = Some(output);
     }
 
-    /// Stage 3: Generate render commands from layout + styles.
-    fn generate_render_commands(&self, root: &Node) -> Vec<RenderCommand> {
+    /// Stage 3: Generate render commands from layout + styles, including text shaping.
+    fn generate_render_commands(&mut self, root: &Node) -> Vec<RenderCommand> {
         let Some(ref layout) = self.layout_output else {
             return Vec::new();
         };
 
         let mut render_nodes = Vec::new();
         let mut next_id = 0u32;
-        flatten_node_to_render(root, &mut render_nodes, &mut next_id);
+        let scale = self.scale_factor as f32;
+        flatten_node_to_render(root, &mut render_nodes, &mut next_id, &mut self.text_engine, scale);
 
         let root_id = vitreous_layout::NodeId(0);
         generate_commands(layout, &render_nodes, root_id)
     }
 
-    /// Stage 4: Submit render commands to the renderer and present via GPU.
+    /// Stage 4: Submit render commands to the renderer, rasterize glyphs, and present via GPU.
     fn submit_frame(&mut self, commands: Vec<RenderCommand>) {
         let Some(ref mut renderer) = self.renderer else {
             return;
@@ -142,19 +143,53 @@ impl DesktopRuntime {
             return;
         }
 
+        // Rasterize glyphs and patch UV coordinates in the batch builder.
+        // Use index-based iteration to avoid overlapping mutable borrows
+        // of renderer (batch_builder_mut vs glyph_atlas).
+        let scale = self.scale_factor as f32;
+        let atlas_size = 2048u32;
+        let glyph_count = renderer.batch_builder().glyph_instances.len();
+
+        for i in 0..glyph_count {
+            let inst = &renderer.batch_builder().glyph_instances[i];
+
+            // Placeholder UVs [0,0]-[1,1] means not yet atlas-resolved
+            if inst.uv_min != [0.0, 0.0] || inst.uv_max != [1.0, 1.0] {
+                continue;
+            }
+
+            let gw = (inst.size[0] * scale).ceil().clamp(1.0, 128.0) as u32;
+            let gh = (inst.size[1] * scale).ceil().clamp(1.0, 128.0) as u32;
+            let font_size = inst.size[1];
+
+            let cache_key = vitreous_render::GlyphCacheKey::new(0, 0, font_size, scale);
+            let region = renderer.glyph_atlas().insert(cache_key, gw, gh);
+
+            // Upload a solid white bitmap so the glyph is visible
+            if let Some(ref gpu) = self.gpu {
+                let white_data = vec![255u8; (gw * gh) as usize];
+                gpu.upload_glyph(&white_data, region.x, region.y, gw, gh);
+            }
+
+            let (u_min, v_min, u_max, v_max) = region.uv(atlas_size);
+            let inst_mut = &mut renderer.batch_builder_mut().glyph_instances[i];
+            inst_mut.uv_min = [u_min, v_min];
+            inst_mut.uv_max = [u_max, v_max];
+        }
+
         // Extract clear color from theme background (default dark gray)
         let clear = [0.12f32, 0.12, 0.14, 1.0];
 
-        if let Some(ref mut gpu) = self.gpu {
-            if let Err(e) = gpu.present_frame(renderer.batch_builder(), clear) {
-                match e {
-                    PresentError::SurfaceLost => {
-                        let (w, h) = renderer.viewport();
-                        gpu.resize(w, h);
-                    }
-                    PresentError::Validation => {
-                        eprintln!("[vitreous] GPU validation error");
-                    }
+        if let Some(ref mut gpu) = self.gpu
+            && let Err(e) = gpu.present_frame(renderer.batch_builder(), clear)
+        {
+            match e {
+                PresentError::SurfaceLost => {
+                    let (w, h) = renderer.viewport();
+                    gpu.resize(w, h);
+                }
+                PresentError::Validation => {
+                    eprintln!("[vitreous] GPU validation error");
                 }
             }
         }
@@ -618,7 +653,19 @@ fn build_layout_nodes_recursive(
 }
 
 /// Convert Node tree into flat RenderNode list for the render command generator.
-fn flatten_node_to_render(node: &Node, render_nodes: &mut Vec<RenderNode>, next_id: &mut u32) {
+/// Text nodes are shaped via the text engine to produce positioned glyphs.
+fn flatten_node_to_render(
+    node: &Node,
+    render_nodes: &mut Vec<RenderNode>,
+    next_id: &mut u32,
+    text_engine: &mut CosmicTextEngine,
+    scale_factor: f32,
+) {
+    use std::collections::hash_map::DefaultHasher;
+    use std::hash::{Hash, Hasher};
+    use vitreous_render::PositionedGlyph;
+    use vitreous_widgets::{NodeKind, TextContent};
+
     let id = vitreous_layout::NodeId(*next_id);
     *next_id += 1;
 
@@ -626,7 +673,7 @@ fn flatten_node_to_render(node: &Node, render_nodes: &mut Vec<RenderNode>, next_
     for child in &node.children {
         let child_id = vitreous_layout::NodeId(*next_id);
         child_ids.push(child_id);
-        flatten_node_to_render(child, render_nodes, next_id);
+        flatten_node_to_render(child, render_nodes, next_id, text_engine, scale_factor);
     }
 
     let visual_style = NodeVisualStyle {
@@ -645,10 +692,64 @@ fn flatten_node_to_render(node: &Node, render_nodes: &mut Vec<RenderNode>, next_
         clip_content: node.style.clip_content,
     };
 
+    // Shape text nodes into positioned glyphs
+    let content = match &node.kind {
+        NodeKind::Text(text_content) => {
+            let text_str = match text_content {
+                TextContent::Static(s) => s.clone(),
+                TextContent::Dynamic(f) => f(),
+            };
+
+            if text_str.is_empty() {
+                NodeContent::None
+            } else {
+                let font_size = node.style.font_size.unwrap_or(16.0);
+                let font_weight = node.style.font_weight.unwrap_or(vitreous_style::FontWeight::Regular);
+                let font_family = node.style.font_family.clone().unwrap_or(vitreous_style::FontFamily::SansSerif);
+                let font_style = node.style.font_style.unwrap_or(vitreous_style::FontStyle::Normal);
+
+                let font_desc = crate::text_engine::FontDescriptor {
+                    family: font_family.clone(),
+                    size: font_size,
+                    weight: font_weight,
+                    style: font_style,
+                };
+
+                // Compute a stable hash for this font configuration
+                let mut hasher = DefaultHasher::new();
+                format!("{font_family:?}").hash(&mut hasher);
+                (font_weight as u16).hash(&mut hasher);
+                (font_style as u8).hash(&mut hasher);
+                let font_hash = hasher.finish();
+
+                let shaped = text_engine.shape(&text_str, &font_desc, None);
+
+                let glyphs: Vec<PositionedGlyph> = shaped
+                    .glyphs
+                    .iter()
+                    .map(|g| PositionedGlyph {
+                        glyph_id: g.glyph_id,
+                        x: g.x,
+                        y: g.y,
+                        width: g.width,
+                        height: g.height,
+                        font_hash,
+                        font_size,
+                        scale_factor,
+                    })
+                    .collect();
+
+                let color = node.style.foreground.unwrap_or(vitreous_style::Color::WHITE);
+                NodeContent::Text(glyphs, color)
+            }
+        }
+        _ => NodeContent::None,
+    };
+
     render_nodes.push(RenderNode {
         id,
         style: visual_style,
-        content: NodeContent::None, // Text/Image content populated during shaping pass
+        content,
         children: child_ids,
     });
 }
@@ -1088,7 +1189,8 @@ mod tests {
 
         let mut render_nodes = Vec::new();
         let mut next_id = 0;
-        flatten_node_to_render(&root, &mut render_nodes, &mut next_id);
+        let mut text_engine = CosmicTextEngine::new();
+        flatten_node_to_render(&root, &mut render_nodes, &mut next_id, &mut text_engine, 1.0);
 
         // Root + button + text inside button = 3 render nodes
         assert_eq!(render_nodes.len(), 3);
