@@ -1503,6 +1503,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e2db585e1d738fc771bf08a151420d3ed193d9d895a36df7f6f8a9456b911ddc"
 
 [[package]]
+name = "kitchen_sink"
+version = "0.1.0"
+dependencies = [
+ "vitreous",
+ "vitreous_hot_reload",
+]
+
+[[package]]
 name = "kqueue"
 version = "1.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3017,8 +3025,21 @@ dependencies = [
  "libc",
  "mio",
  "pin-project-lite",
+ "signal-hook-registry",
  "socket2",
+ "tokio-macros",
  "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "tokio-macros"
+version = "2.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5c55a2eff8b69ce66c84f85e1da1c233edc36ceb85a2058d11b0d6a3c7e7569c"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
@@ -3222,6 +3243,7 @@ name = "vitreous-cli"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "tokio",
  "vitreous_hot_reload",
 ]
 
@@ -3241,8 +3263,11 @@ version = "0.1.0"
 name = "vitreous_hot_reload"
 version = "0.1.0"
 dependencies = [
+ "futures-util",
  "notify",
  "serde",
+ "serde_json",
+ "tokio",
  "tokio-tungstenite",
 ]
 

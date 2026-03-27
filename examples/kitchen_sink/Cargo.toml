@@ -1,0 +1,8 @@
+[package]
+name = "kitchen_sink"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+vitreous = { path = "../../crates/vitreous" }
+vitreous_hot_reload = { path = "../../crates/vitreous_hot_reload" }

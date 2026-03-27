@@ -3,6 +3,11 @@ name = "vitreous-cli"
 version = "0.1.0"
 edition = "2024"
 
+[[bin]]
+name = "vitreous"
+path = "src/main.rs"
+
 [dependencies]
 vitreous_hot_reload = { path = "../../crates/vitreous_hot_reload" }
 clap = { version = "4", features = ["derive"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
