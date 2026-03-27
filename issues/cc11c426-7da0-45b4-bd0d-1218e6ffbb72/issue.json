@@ -1,0 +1,10 @@
+{
+  "uuid": "cc11c426-7da0-45b4-bd0d-1218e6ffbb72",
+  "display_id": 56,
+  "title": "Use Rect type for position+size in RenderCommand instead of separate fields",
+  "status": "open",
+  "priority": "low",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T18:59:12.673879123Z",
+  "updated_at": "2026-03-27T18:59:12.673879123Z"
+}
