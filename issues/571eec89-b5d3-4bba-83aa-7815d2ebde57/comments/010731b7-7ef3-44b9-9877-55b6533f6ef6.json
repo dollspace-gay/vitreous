@@ -1,0 +1,8 @@
+{
+  "uuid": "010731b7-7ef3-44b9-9877-55b6533f6ef6",
+  "issue_uuid": "571eec89-b5d3-4bba-83aa-7815d2ebde57",
+  "author": "anon-581fd578",
+  "content": "Two problems: (1) HotReloadClient::connect() is called inside hot_reload_indicator() which runs on every render frame, spamming stderr with connection errors. Fix: remove the live connection attempt — just show a static indicator. The client is exercised in the test suite anyway. (2) The app pages may not fill the window because scroll_view/v_stack don't have explicit sizing. Fix: add flex_grow to the router and page containers so content fills available space.",
+  "created_at": "2026-03-27T04:38:38.774022835Z",
+  "kind": "plan"
+}
