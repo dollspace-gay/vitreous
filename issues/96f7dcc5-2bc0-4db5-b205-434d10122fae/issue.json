@@ -2,11 +2,12 @@
   "uuid": "96f7dcc5-2bc0-4db5-b205-434d10122fae",
   "display_id": 146,
   "title": "Remove dead NodeLayout.border field or add border_width to LayoutStyle",
-  "status": "open",
+  "status": "closed",
   "priority": "medium",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:08:03.171110822Z",
-  "updated_at": "2026-03-27T19:08:05.750150522Z",
+  "updated_at": "2026-03-27T20:16:15.930054614Z",
+  "closed_at": "2026-03-27T20:16:15.930054614Z",
   "labels": [
     "bug"
   ]
