@@ -2,11 +2,12 @@
   "uuid": "d1569c20-1ac3-4494-8928-52d9d5a1bad8",
   "display_id": 94,
   "title": "Implement Easing::evaluate method for animation interpolation",
-  "status": "open",
+  "status": "closed",
   "priority": "high",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:03:08.866101707Z",
-  "updated_at": "2026-03-27T19:03:10.723442206Z",
+  "updated_at": "2026-03-27T20:12:44.430816446Z",
+  "closed_at": "2026-03-27T20:12:44.430816446Z",
   "labels": [
     "feature"
   ]
