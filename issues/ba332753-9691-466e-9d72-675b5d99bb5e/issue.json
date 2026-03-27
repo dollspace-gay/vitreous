@@ -2,11 +2,12 @@
   "uuid": "ba332753-9691-466e-9d72-675b5d99bb5e",
   "display_id": 106,
   "title": "Fix CubicBezier easing to emit proper CSS cubic-bezier() instead of fallback",
-  "status": "open",
+  "status": "closed",
   "priority": "high",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:04:16.862373252Z",
-  "updated_at": "2026-03-27T19:04:18.975618460Z",
+  "updated_at": "2026-03-27T20:13:03.406743043Z",
+  "closed_at": "2026-03-27T20:13:03.406743043Z",
   "labels": [
     "bug"
   ]
