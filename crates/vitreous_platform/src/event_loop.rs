@@ -38,10 +38,11 @@ pub struct DesktopRuntime {
     renderer: Option<Renderer>,
     gpu: Option<GpuContext>,
     /// Text engine for font discovery, measurement, shaping, and rasterization.
-    /// Used during the render pass to shape text nodes into positioned glyphs.
     pub text_engine: CosmicTextEngine,
     focus_manager: Option<FocusManager>,
     root_scope: Option<Scope>,
+    /// The current widget tree, retained between frames for event dispatch.
+    root_node: Option<Node>,
     layout_output: Option<LayoutOutput>,
     layout_nodes: Vec<LayoutNode>,
     scale_factor: f64,
@@ -63,6 +64,7 @@ impl DesktopRuntime {
             renderer: None,
             gpu: None,
             text_engine: CosmicTextEngine::new(),
+            root_node: None,
             focus_manager: None,
             root_scope: None,
             layout_output: None,
@@ -276,6 +278,7 @@ impl DesktopRuntime {
         let commands = self.generate_render_commands(&root);
         self.submit_frame(commands);
         self.update_accessibility(&root);
+        self.root_node = Some(root);
     }
 
     // ───────────────────────────────────────────────────────────────────
@@ -308,18 +311,29 @@ impl DesktopRuntime {
         // Hit test to find target node
         let target = hit_test(point, &self.layout_nodes);
 
-        if let Some(target_id) = target {
-            // Wrap event dispatch in batch() so multiple signal updates
-            // coalesce into a single effect flush
+        if let Some(target_id) = target
+            && let Some(ref root) = self.root_node
+            && let Some(node) = find_node_by_dfs_index(root, target_id.0)
+        {
+            let handlers = &node.event_handlers;
             batch(|| {
-                let _ = (target_id, &mouse_event, state);
-                // In a full implementation, we would look up the Node's
-                // EventHandlers by target_id and invoke on_click/on_mouse_down/
-                // on_mouse_up, then bubble_event up the tree.
-                // For now the pipeline is wired: hit_test → batch → dispatch.
+                match state {
+                    ElementState::Pressed => {
+                        if let Some(ref h) = handlers.on_mouse_down {
+                            h(mouse_event.clone());
+                        }
+                    }
+                    ElementState::Released => {
+                        if let Some(ref h) = handlers.on_mouse_up {
+                            h(mouse_event.clone());
+                        }
+                        if let Some(ref h) = handlers.on_click {
+                            h();
+                        }
+                    }
+                }
             });
 
-            // Any signal changes during dispatch require a redraw
             self.needs_rebuild = true;
             if let Some(ref window) = self.window {
                 window.request_redraw();
@@ -367,12 +381,27 @@ impl DesktopRuntime {
         };
 
         // Dispatch keyboard event to focused node
-        batch(|| {
-            let _ = &key_event;
-            // In a full implementation: dispatch_keyboard_event() with
-            // the focused node, looking up EventHandlers and invoking
-            // on_key_down.
-        });
+        if let Some(ref root) = self.root_node {
+            let focused_idx = self
+                .focus_manager
+                .as_ref()
+                .and_then(|fm| fm.focused())
+                .map(|nid| nid.0)
+                .unwrap_or(0);
+
+            if let Some(node) = find_node_by_dfs_index(root, focused_idx) {
+                let handlers = &node.event_handlers;
+                batch(|| {
+                    if event.state == ElementState::Pressed {
+                        if let Some(ref h) = handlers.on_key_down {
+                            h(key_event.clone());
+                        }
+                    } else if let Some(ref h) = handlers.on_key_up {
+                        h(key_event.clone());
+                    }
+                });
+            }
+        }
 
         self.needs_rebuild = true;
         if let Some(ref window) = self.window {
@@ -388,13 +417,28 @@ impl DesktopRuntime {
         };
 
         let modifiers = translate_modifiers(self.modifiers);
-        let _scroll_event = ScrollEvent {
+        let scroll_event = ScrollEvent {
             delta_x: dx,
             delta_y: dy,
             modifiers,
         };
 
-        // In a full implementation: hit_test → dispatch scroll to target
+        // Hit test → dispatch scroll to target node
+        if let Some(pos) = self.mouse_position {
+            let logical_x = pos.x / self.scale_factor;
+            let logical_y = pos.y / self.scale_factor;
+            let point = Point::new(logical_x, logical_y);
+            let target = hit_test(point, &self.layout_nodes);
+
+            if let Some(target_id) = target
+                && let Some(ref root) = self.root_node
+                && let Some(node) = find_node_by_dfs_index(root, target_id.0)
+                && let Some(ref h) = node.event_handlers.on_scroll
+            {
+                batch(|| h(scroll_event.clone()));
+            }
+        }
+
         self.needs_rebuild = true;
         if let Some(ref window) = self.window {
             window.request_redraw();
@@ -498,6 +542,33 @@ impl ApplicationHandler for DesktopRuntime {
             _ => {}
         }
     }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Tree traversal helpers
+// ═══════════════════════════════════════════════════════════════════════════
+
+/// Find a node by its DFS index (the same order used for layout and render IDs).
+fn find_node_by_dfs_index(root: &Node, target: usize) -> Option<&Node> {
+    let mut counter = 0usize;
+    find_node_dfs_recursive(root, target, &mut counter)
+}
+
+fn find_node_dfs_recursive<'a>(
+    node: &'a Node,
+    target: usize,
+    counter: &mut usize,
+) -> Option<&'a Node> {
+    if *counter == target {
+        return Some(node);
+    }
+    *counter += 1;
+    for child in &node.children {
+        if let Some(found) = find_node_dfs_recursive(child, target, counter) {
+            return Some(found);
+        }
+    }
+    None
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
