@@ -2,11 +2,12 @@
   "uuid": "da4022a7-925c-4367-93a4-0a0c899a8d2b",
   "display_id": 41,
   "title": "Update dialog API to use config structs per design spec",
-  "status": "open",
+  "status": "closed",
   "priority": "low",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T18:57:44.121961937Z",
-  "updated_at": "2026-03-27T18:57:46.109586949Z",
+  "updated_at": "2026-03-27T20:19:16.375508099Z",
+  "closed_at": "2026-03-27T20:19:16.375508099Z",
   "labels": [
     "enhancement"
   ]
