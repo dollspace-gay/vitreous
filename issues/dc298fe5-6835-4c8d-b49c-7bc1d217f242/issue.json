@@ -1,0 +1,10 @@
+{
+  "uuid": "dc298fe5-6835-4c8d-b49c-7bc1d217f242",
+  "display_id": 154,
+  "title": "Fix Resource fields to match spec public API",
+  "status": "open",
+  "priority": "medium",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:08:37.888472204Z",
+  "updated_at": "2026-03-27T19:08:37.888472204Z"
+}
