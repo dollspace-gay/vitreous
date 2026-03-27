@@ -1,0 +1,8 @@
+{
+  "uuid": "c97043dd-983b-472b-9166-5bc8f299c049",
+  "issue_uuid": "9447cb67-bc39-47ec-9122-25ec30a5f586",
+  "author": "anon-581fd578",
+  "content": "Decision: Deferred to v0.2 — this is an architectural/feature change, not a functional bug. Current implementation works correctly.",
+  "created_at": "2026-03-27T20:05:48.806335015Z",
+  "kind": "decision"
+}
