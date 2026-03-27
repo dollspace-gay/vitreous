@@ -1,0 +1,8 @@
+{
+  "uuid": "f212b0a6-2835-4597-9299-ad73d520a78b",
+  "issue_uuid": "6d6a9631-0a3e-4f8e-86fa-f1c14117a0c0",
+  "author": "anon-581fd578",
+  "content": "Resolved as part of #23 — GlyphCacheKey now uses actual glyph_id and font_hash from GlyphKey metadata instead of hardcoded (0, 0).",
+  "created_at": "2026-03-27T19:19:43.692601706Z",
+  "kind": "result"
+}
