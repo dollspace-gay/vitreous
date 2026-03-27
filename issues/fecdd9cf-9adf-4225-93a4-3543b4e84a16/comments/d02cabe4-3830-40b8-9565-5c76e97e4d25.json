@@ -1,0 +1,8 @@
+{
+  "uuid": "d02cabe4-3830-40b8-9565-5c76e97e4d25",
+  "issue_uuid": "fecdd9cf-9adf-4225-93a4-3543b4e84a16",
+  "author": "anon-581fd578",
+  "content": "Decision: wgpu is already a dependency of vitreous_render (v29). Adding pollster to vitreous_platform for blocking async wgpu init. Will create gpu.rs in vitreous_platform with GpuContext struct that owns wgpu Device/Surface/Queue/Pipelines. The BatchBuilder and instance types from vitreous_render are already GPU-ready (Pod+Zeroable). Shaders are complete. Approach: (1) add wgpu+pollster to vitreous_platform deps, (2) create gpu.rs with full wgpu integration, (3) wire text shaping into flatten_node_to_render, (4) connect GpuContext to event loop.",
+  "created_at": "2026-03-27T05:00:15.037273575Z",
+  "kind": "decision"
+}
