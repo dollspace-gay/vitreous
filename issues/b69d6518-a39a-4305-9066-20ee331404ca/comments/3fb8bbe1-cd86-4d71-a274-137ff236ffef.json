@@ -1,0 +1,8 @@
+{
+  "uuid": "3fb8bbe1-cd86-4d71-a274-137ff236ffef",
+  "issue_uuid": "b69d6518-a39a-4305-9066-20ee331404ca",
+  "author": "anon-581fd578",
+  "content": "Decision: Spec-vs-implementation API shape deviation. Current implementation works correctly. Deferring to v0.2 spec reconciliation.",
+  "created_at": "2026-03-27T20:04:15.250582702Z",
+  "kind": "decision"
+}
