@@ -1,0 +1,8 @@
+{
+  "uuid": "fe2261b7-f7f2-4d23-891c-69326834254a",
+  "issue_uuid": "47d0f6ae-ce62-4178-b0e3-29b05ceca6b9",
+  "author": "anon-581fd578",
+  "content": "Plan: Elements are all piled at (0,0). Need to: (1) Research how Iced, Druid/Xilem, and Dioxus wire layout positions into rendering, (2) Trace our pipeline to find where positions get lost — likely in generate_commands which maps layout NodeId to render NodeId, or in how text glyph positions are computed relative to their parent.",
+  "created_at": "2026-03-27T20:54:13.393529092Z",
+  "kind": "plan"
+}
