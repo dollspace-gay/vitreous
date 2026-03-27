@@ -1,0 +1,10 @@
+{
+  "uuid": "cfda3585-b091-401a-8867-42250af42c0e",
+  "display_id": 66,
+  "title": "Update select widget to use generic SelectOption type per spec",
+  "status": "open",
+  "priority": "medium",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:00:35.657664100Z",
+  "updated_at": "2026-03-27T19:00:35.657664100Z"
+}
