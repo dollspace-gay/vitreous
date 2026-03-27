@@ -2,11 +2,12 @@
   "uuid": "dda6f657-c883-4afc-b170-761d1e95f813",
   "display_id": 109,
   "title": "Implement CSS keyframe animation support from Node.animations",
-  "status": "open",
+  "status": "closed",
   "priority": "medium",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:04:29.066517732Z",
-  "updated_at": "2026-03-27T19:04:31.203774477Z",
+  "updated_at": "2026-03-27T20:17:37.304603626Z",
+  "closed_at": "2026-03-27T20:17:37.304603626Z",
   "labels": [
     "feature"
   ]
