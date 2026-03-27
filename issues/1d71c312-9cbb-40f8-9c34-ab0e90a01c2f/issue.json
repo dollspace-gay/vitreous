@@ -1,0 +1,10 @@
+{
+  "uuid": "1d71c312-9cbb-40f8-9c34-ab0e90a01c2f",
+  "display_id": 129,
+  "title": "Fix AccessibilityInfo.role type to Option<Role> per spec",
+  "status": "open",
+  "priority": "medium",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T19:06:18.083763555Z",
+  "updated_at": "2026-03-27T19:06:18.083763555Z"
+}
