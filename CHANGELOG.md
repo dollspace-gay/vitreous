@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Implement vitreous_hot_reload file watcher, WebSocket server/client, and CLI tool (#15)
 
 ### Fixed
+- Fix layout positioning — elements rendering on top of each other (#177)
 - Fix TextInput value to use input value, not accessibility label (#112)
 - Fix ARIA role mapping for ScrollView — use region instead of scrollbar (#107)
 - Fix CubicBezier easing to emit proper CSS cubic-bezier() instead of fallback (#106)

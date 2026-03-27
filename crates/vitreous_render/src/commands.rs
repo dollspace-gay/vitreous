@@ -312,18 +312,29 @@ fn emit_node(
     }
 
     // Node content (text or image)
+    // Text glyphs are positioned relative to (0,0) from shaping — offset by
+    // the node's absolute layout position + padding to get screen coordinates.
+    let content_x = nl.x + nl.padding.left + nl.border.left;
+    let content_y = nl.y + nl.padding.top + nl.border.top;
+
     match &node.content {
         NodeContent::Text(glyphs, color) => {
             if !glyphs.is_empty() {
+                let offset_glyphs: Vec<PositionedGlyph> = glyphs
+                    .iter()
+                    .map(|g| PositionedGlyph {
+                        x: g.x + content_x,
+                        y: g.y + content_y,
+                        ..g.clone()
+                    })
+                    .collect();
                 commands.push(RenderCommand::Text {
-                    glyphs: glyphs.clone(),
+                    glyphs: offset_glyphs,
                     color: *color,
                 });
             }
         }
         NodeContent::Image(texture_id) => {
-            let content_x = nl.x + nl.padding.left + nl.border.left;
-            let content_y = nl.y + nl.padding.top + nl.border.top;
             commands.push(RenderCommand::Image {
                 x: content_x,
                 y: content_y,
