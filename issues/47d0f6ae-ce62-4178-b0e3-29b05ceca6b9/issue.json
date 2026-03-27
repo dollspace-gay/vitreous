@@ -1,0 +1,10 @@
+{
+  "uuid": "47d0f6ae-ce62-4178-b0e3-29b05ceca6b9",
+  "display_id": 177,
+  "title": "Fix layout positioning — elements rendering on top of each other",
+  "status": "open",
+  "priority": "critical",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T20:53:50.206027793Z",
+  "updated_at": "2026-03-27T20:53:50.206027793Z"
+}
