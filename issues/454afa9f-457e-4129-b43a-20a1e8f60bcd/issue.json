@@ -2,11 +2,12 @@
   "uuid": "454afa9f-457e-4129-b43a-20a1e8f60bcd",
   "display_id": 33,
   "title": "Implement WindowConfig.icon application during window creation",
-  "status": "open",
+  "status": "closed",
   "priority": "medium",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T18:56:58.211308349Z",
-  "updated_at": "2026-03-27T18:57:00.423009679Z",
+  "updated_at": "2026-03-27T20:19:35.509187533Z",
+  "closed_at": "2026-03-27T20:19:35.509187533Z",
   "labels": [
     "bug"
   ]
