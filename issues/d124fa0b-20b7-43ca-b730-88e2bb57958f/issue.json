@@ -2,11 +2,12 @@
   "uuid": "d124fa0b-20b7-43ca-b730-88e2bb57958f",
   "display_id": 150,
   "title": "Remove extra content_width/content_height from NodeLayout or add to spec",
-  "status": "open",
+  "status": "closed",
   "priority": "low",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-27T19:08:21.668213153Z",
-  "updated_at": "2026-03-27T19:08:23.920678362Z",
+  "updated_at": "2026-03-27T20:16:02.670541465Z",
+  "closed_at": "2026-03-27T20:16:02.670541465Z",
   "labels": [
     "enhancement"
   ]
