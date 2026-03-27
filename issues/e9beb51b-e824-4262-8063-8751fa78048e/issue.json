@@ -1,0 +1,10 @@
+{
+  "uuid": "e9beb51b-e824-4262-8063-8751fa78048e",
+  "display_id": 35,
+  "title": "Add tests for gpu.rs GPU rendering pipeline",
+  "status": "open",
+  "priority": "medium",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-27T18:57:07.077971792Z",
+  "updated_at": "2026-03-27T18:57:07.077971792Z"
+}
