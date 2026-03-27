@@ -16,6 +16,8 @@ pub struct PositionedGlyph {
     pub font_hash: u64,
     pub font_size: f32,
     pub scale_factor: f32,
+    /// The text fragment this glyph represents (for rasterization fallback).
+    pub text_fragment: String,
 }
 
 /// Visual style information needed to generate render commands for a node.
@@ -524,6 +526,7 @@ mod tests {
             font_hash: 123,
             font_size: 16.0,
             scale_factor: 1.0,
+            text_fragment: "A".to_owned(),
         }];
         let layout = make_layout(vec![(NodeId(0), make_node_layout(0.0, 0.0, 100.0, 30.0))]);
         let nodes = vec![RenderNode {

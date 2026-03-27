@@ -85,6 +85,16 @@ pub enum BatchKind {
 ///
 /// Consecutive commands of the same type with compatible state are merged
 /// into single batches (draw calls), reducing GPU overhead.
+/// Metadata for each glyph instance, used for atlas rasterization.
+#[derive(Debug, Clone)]
+pub struct GlyphKey {
+    pub glyph_id: u16,
+    pub font_hash: u64,
+    pub font_size: f32,
+    pub scale_factor: f32,
+    pub text_fragment: String,
+}
+
 pub struct BatchBuilder {
     pub rect_instances: Vec<RectInstance>,
     pub shadow_instances: Vec<ShadowInstance>,
@@ -93,6 +103,8 @@ pub struct BatchBuilder {
     pub batches: Vec<DrawBatch>,
     pub clip_stack: Vec<DamageRect>,
     pub opacity_stack: Vec<f32>,
+    /// Parallel to `glyph_instances` — carries rasterization metadata.
+    pub glyph_keys: Vec<GlyphKey>,
 }
 
 impl BatchBuilder {
@@ -105,6 +117,7 @@ impl BatchBuilder {
             batches: Vec::new(),
             clip_stack: Vec::new(),
             opacity_stack: Vec::new(),
+            glyph_keys: Vec::new(),
         }
     }
 
@@ -117,6 +130,7 @@ impl BatchBuilder {
         self.batches.clear();
         self.clip_stack.clear();
         self.opacity_stack.clear();
+        self.glyph_keys.clear();
     }
 
     /// Processes a list of render commands into batched draw calls.
@@ -226,14 +240,11 @@ impl BatchBuilder {
                 }
                 RenderCommand::Text { glyphs, color } => {
                     let opacity = self.current_opacity();
-                    for _glyph in glyphs {
-                        // Glyph instances are populated by the renderer after atlas lookup.
-                        // Here we record a placeholder batch; the actual UV coordinates
-                        // come from the glyph atlas at render time.
+                    for glyph in glyphs {
                         self.glyph_instances.push(GlyphInstance {
-                            pos: [_glyph.x, _glyph.y],
-                            size: [_glyph.width, _glyph.height],
-                            uv_min: [0.0, 0.0], // filled in by renderer after atlas lookup
+                            pos: [glyph.x, glyph.y],
+                            size: [glyph.width, glyph.height],
+                            uv_min: [0.0, 0.0], // patched after atlas rasterization
                             uv_max: [1.0, 1.0],
                             color: [
                                 color.r * opacity,
@@ -241,6 +252,13 @@ impl BatchBuilder {
                                 color.b * opacity,
                                 color.a * opacity,
                             ],
+                        });
+                        self.glyph_keys.push(GlyphKey {
+                            glyph_id: glyph.glyph_id,
+                            font_hash: glyph.font_hash,
+                            font_size: glyph.font_size,
+                            scale_factor: glyph.scale_factor,
+                            text_fragment: glyph.text_fragment.clone(),
                         });
                     }
                     let count = glyphs.len() as u32;
@@ -545,6 +563,7 @@ mod tests {
                     font_hash: 0,
                     font_size: 16.0,
                     scale_factor: 1.0,
+                    text_fragment: "A".to_owned(),
                 }],
                 color: Color::BLACK,
             },

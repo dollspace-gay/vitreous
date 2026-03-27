@@ -143,38 +143,71 @@ impl DesktopRuntime {
             return;
         }
 
-        // Rasterize glyphs and patch UV coordinates in the batch builder.
-        // Use index-based iteration to avoid overlapping mutable borrows
-        // of renderer (batch_builder_mut vs glyph_atlas).
+        // Rasterize glyphs, upload to atlas, and patch UV coordinates.
         let scale = self.scale_factor as f32;
         let atlas_size = 2048u32;
         let glyph_count = renderer.batch_builder().glyph_instances.len();
 
-        for i in 0..glyph_count {
-            let inst = &renderer.batch_builder().glyph_instances[i];
+        // Collect glyph keys first to avoid borrow conflicts
+        let keys: Vec<vitreous_render::pipeline::GlyphKey> =
+            renderer.batch_builder().glyph_keys.clone();
 
-            // Placeholder UVs [0,0]-[1,1] means not yet atlas-resolved
-            if inst.uv_min != [0.0, 0.0] || inst.uv_max != [1.0, 1.0] {
+        for i in 0..glyph_count {
+            if i >= keys.len() {
+                break;
+            }
+            let key = &keys[i];
+
+            let cache_key = vitreous_render::GlyphCacheKey::new(
+                key.glyph_id,
+                key.font_hash,
+                key.font_size,
+                scale,
+            );
+
+            // Check if already in atlas
+            if let Some(region) = renderer.glyph_atlas().get(cache_key) {
+                let (u_min, v_min, u_max, v_max) = region.uv(atlas_size);
+                let inst = &mut renderer.batch_builder_mut().glyph_instances[i];
+                inst.uv_min = [u_min, v_min];
+                inst.uv_max = [u_max, v_max];
                 continue;
             }
 
-            let gw = (inst.size[0] * scale).ceil().clamp(1.0, 128.0) as u32;
-            let gh = (inst.size[1] * scale).ceil().clamp(1.0, 128.0) as u32;
-            let font_size = inst.size[1];
+            // Rasterize the glyph using the text engine
+            let font_desc = crate::text_engine::FontDescriptor {
+                family: vitreous_style::FontFamily::SansSerif,
+                size: key.font_size,
+                weight: vitreous_style::FontWeight::Regular,
+                style: vitreous_style::FontStyle::Normal,
+            };
 
-            let cache_key = vitreous_render::GlyphCacheKey::new(0, 0, font_size, scale);
+            let bitmap = self.text_engine.rasterize_glyph(
+                &key.text_fragment,
+                &font_desc,
+                scale,
+            );
+
+            let (gw, gh, data) = match bitmap {
+                Some(bm) if bm.width > 0 && bm.height > 0 => {
+                    (bm.width, bm.height, bm.data)
+                }
+                _ => {
+                    // Space or unrasterizable glyph — use a 1x1 transparent pixel
+                    (1, 1, vec![0u8])
+                }
+            };
+
             let region = renderer.glyph_atlas().insert(cache_key, gw, gh);
 
-            // Upload a solid white bitmap so the glyph is visible
             if let Some(ref gpu) = self.gpu {
-                let white_data = vec![255u8; (gw * gh) as usize];
-                gpu.upload_glyph(&white_data, region.x, region.y, gw, gh);
+                gpu.upload_glyph(&data, region.x, region.y, gw, gh);
             }
 
             let (u_min, v_min, u_max, v_max) = region.uv(atlas_size);
-            let inst_mut = &mut renderer.batch_builder_mut().glyph_instances[i];
-            inst_mut.uv_min = [u_min, v_min];
-            inst_mut.uv_max = [u_max, v_max];
+            let inst = &mut renderer.batch_builder_mut().glyph_instances[i];
+            inst.uv_min = [u_min, v_min];
+            inst.uv_max = [u_max, v_max];
         }
 
         // Extract clear color from theme background (default dark gray)
@@ -736,6 +769,7 @@ fn flatten_node_to_render(
                         font_hash,
                         font_size,
                         scale_factor,
+                        text_fragment: g.text_fragment.clone(),
                     })
                     .collect();
 

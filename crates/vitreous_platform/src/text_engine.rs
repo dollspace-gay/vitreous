@@ -46,6 +46,8 @@ pub struct ShapedGlyph {
     pub width: f32,
     pub height: f32,
     pub font_size: f32,
+    /// The text fragment this glyph represents (for rasterization).
+    pub text_fragment: String,
 }
 
 /// Result of shaping text: a list of positioned glyphs.
@@ -133,6 +135,9 @@ impl CosmicTextEngine {
         for run in buffer.layout_runs() {
             let line_y = run.line_y;
             for glyph in run.glyphs {
+                let fragment = text.get(glyph.start..glyph.end)
+                    .unwrap_or("")
+                    .to_owned();
                 glyphs.push(ShapedGlyph {
                     glyph_id: glyph.glyph_id,
                     x: glyph.x,
@@ -140,6 +145,7 @@ impl CosmicTextEngine {
                     width: glyph.w,
                     height: glyph.font_size,
                     font_size: glyph.font_size,
+                    text_fragment: fragment,
                 });
             }
         }

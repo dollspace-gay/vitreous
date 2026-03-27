@@ -12,8 +12,8 @@ pub use commands::{
 pub use damage::{DamageRect, DamageTracker};
 pub use diff::{commands_equal, diff_commands};
 pub use pipeline::{
-    BatchBuilder, BatchKind, DrawBatch, Globals, GlyphInstance, ImageInstance, RectInstance,
-    ShadowInstance, count_draw_calls,
+    BatchBuilder, BatchKind, DrawBatch, Globals, GlyphInstance, GlyphKey, ImageInstance,
+    RectInstance, ShadowInstance, count_draw_calls,
 };
 
 /// The main renderer that manages the full frame pipeline.
