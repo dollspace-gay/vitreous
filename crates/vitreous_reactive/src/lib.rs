@@ -18,7 +18,7 @@ pub use effect::{Effect, create_effect};
 pub use memo::{Memo, create_memo};
 pub use resource::{Resource, create_resource, set_executor};
 pub use scope::{Scope, create_scope, run_in_scope};
-pub use signal::{ReadSignal, Signal, create_signal};
+pub use signal::{ReadSignal, Signal, create_signal, create_unscoped_signal};
 
 #[cfg(test)]
 mod tests {

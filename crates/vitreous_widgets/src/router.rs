@@ -1,6 +1,6 @@
 use std::cell::RefCell;
 
-use vitreous_reactive::{Signal, create_signal, provide_context, use_context};
+use vitreous_reactive::{Signal, create_signal, create_unscoped_signal, provide_context, use_context};
 
 use crate::node::{Node, NodeKind};
 
@@ -82,8 +82,8 @@ pub fn router(routes: Vec<Route>) -> Node {
             s.clone()
         } else {
             let s = RouterState {
-                current_path: create_signal("/".to_owned()),
-                params: create_signal(Vec::<(String, String)>::new()),
+                current_path: create_unscoped_signal("/".to_owned()),
+                params: create_unscoped_signal(Vec::<(String, String)>::new()),
             };
             *opt = Some(s.clone());
             s

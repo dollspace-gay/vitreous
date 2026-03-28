@@ -167,6 +167,28 @@ impl<T: Clone + 'static> ReadSignal<T> {
 // create_signal — free function constructor
 // ═══════════════════════════════════════════════════════════════════════════
 
+/// Create a reactive signal that is NOT owned by any scope.
+///
+/// The signal lives for the lifetime of the thread and is never automatically
+/// disposed. Use this for state that must persist across scope rebuilds
+/// (e.g. router navigation state).
+pub fn create_unscoped_signal<T: Clone + 'static>(value: T) -> Signal<T> {
+    let id = RUNTIME.with(|rt| {
+        let mut rt = rt.borrow_mut();
+        let key = rt.signals.insert(SignalSlot {
+            value: Box::new(value),
+            subscribers: Vec::new(),
+        });
+        SignalId(key)
+        // No scope cleanup registered — signal is never disposed
+    });
+
+    Signal {
+        id,
+        _marker: PhantomData,
+    }
+}
+
 /// Create a new reactive signal with the given initial value.
 ///
 /// If called inside a `create_scope`, the signal is owned by that scope
