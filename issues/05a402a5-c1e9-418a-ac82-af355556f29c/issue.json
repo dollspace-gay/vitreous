@@ -2,11 +2,12 @@
   "uuid": "05a402a5-c1e9-418a-ac82-af355556f29c",
   "display_id": 179,
   "title": "Fix layout rendering: viewport coordinate mismatch, missing flex properties, z_stack positioning",
-  "status": "open",
+  "status": "closed",
   "priority": "high",
   "created_by": "anon-581fd578",
   "created_at": "2026-03-28T16:15:08.580418078Z",
-  "updated_at": "2026-03-28T16:15:16.697732540Z",
+  "updated_at": "2026-03-28T16:33:54.795817864Z",
+  "closed_at": "2026-03-28T16:33:54.795817864Z",
   "labels": [
     "bug"
   ]
