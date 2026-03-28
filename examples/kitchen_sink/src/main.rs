@@ -2,6 +2,9 @@
 // Kitchen Sink — exercises every public API in the vitreous framework
 // ═══════════════════════════════════════════════════════════════════════════
 
+use std::any::Any;
+use std::cell::RefCell;
+use std::collections::HashMap;
 use std::future::Future;
 use std::pin::Pin;
 use std::time::Duration;
@@ -9,8 +12,8 @@ use std::time::Duration;
 use vitreous::{
     // ── Reactive ──────────────────────────────────────────────────────────
     Callback, Memo, ReadSignal, Resource, Signal,
-    batch, create_effect, create_memo, create_resource, create_scope, create_signal,
-    provide_context, set_executor, try_use_context, use_context,
+    batch, create_effect, create_memo, create_resource, create_scope,
+    create_unscoped_signal, provide_context, set_executor, try_use_context, use_context,
     // ── Widgets ──────────────────────────────────────────────────────────
     AlignItems, AlignSelf, FlexDirection, ImageSource, Key, Node, NodeKind, TextContent,
     button, checkbox, container, divider, for_each, h_stack, image, overlay,
@@ -31,6 +34,29 @@ use vitreous::{
     App, theme,
 };
 use vitreous_hot_reload::DEFAULT_PORT;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Persistent signal helper — survives scope rebuilds
+// ═══════════════════════════════════════════════════════════════════════════
+
+thread_local! {
+    static SIGNAL_CACHE: RefCell<HashMap<&'static str, Box<dyn Any>>> = RefCell::new(HashMap::new());
+}
+
+/// Get-or-create a signal that persists across frame rebuilds.
+/// Uses a static string key to identify each signal.
+fn use_persisted<T: Clone + 'static>(key: &'static str, initial: T) -> Signal<T> {
+    SIGNAL_CACHE.with(|cache| {
+        let mut map = cache.borrow_mut();
+        if let Some(boxed) = map.get(key) {
+            *boxed.downcast_ref::<Signal<T>>().expect("signal type mismatch")
+        } else {
+            let sig = create_unscoped_signal(initial);
+            map.insert(key, Box::new(sig));
+            sig
+        }
+    })
+}
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Main — App builder with every method
@@ -202,9 +228,9 @@ fn reactive_page() -> Node {
     let t = theme();
 
     // ── Signals of various types ─────────────────────────────────────────
-    let count = create_signal(0i32);
-    let name = create_signal(String::from("World"));
-    let flag = create_signal(false);
+    let count = use_persisted("reactive_count", 0i32);
+    let name = use_persisted("reactive_name", String::from("World"));
+    let flag = use_persisted("reactive_flag", false);
 
     // ── Signal methods ───────────────────────────────────────────────────
     let _initial = count.get();
@@ -221,13 +247,13 @@ fn reactive_page() -> Node {
     let greeting = create_memo(move || format!("Hello, {}!", name.get()));
 
     // ── Effect ───────────────────────────────────────────────────────────
-    let effect_log = create_signal(String::new());
+    let effect_log = use_persisted("reactive_effect_log", String::new());
     create_effect(move || {
         effect_log.set(format!("Effect saw count = {}", count.get()));
     });
 
     // ── Batch ────────────────────────────────────────────────────────────
-    let batch_result = create_signal(0i32);
+    let batch_result = use_persisted("reactive_batch_result", 0i32);
     batch(move || {
         count.set(count.get());
         batch_result.set(count.get());
@@ -237,7 +263,7 @@ fn reactive_page() -> Node {
     let _maybe_theme: Option<Theme> = try_use_context::<Theme>();
 
     // ── Scope ────────────────────────────────────────────────────────────
-    let scope_result = create_signal(String::new());
+    let scope_result = use_persisted("reactive_scope_result", String::new());
     {
         let _scope = create_scope(move || {
             provide_context(42u32);
@@ -247,7 +273,7 @@ fn reactive_page() -> Node {
     }
 
     // ── Resource ─────────────────────────────────────────────────────────
-    let fetch_trigger = create_signal(());
+    let fetch_trigger = use_persisted("reactive_fetch_trigger", ());
     type Fut = Pin<Box<dyn Future<Output = Result<String, Box<dyn std::error::Error>>> + 'static>>;
     let resource: Resource<(), String> = create_resource(
         move || fetch_trigger.get(),
@@ -292,12 +318,12 @@ fn reactive_page() -> Node {
 
 fn widgets_page() -> Node {
     let t = theme();
-    let check_val = create_signal(false);
-    let toggle_val = create_signal(true);
-    let slider_val = create_signal(50.0f64);
-    let input_val = create_signal("edit me".to_owned());
-    let select_idx = create_signal(1usize);
-    let show_overlay = create_signal(false);
+    let check_val = use_persisted("widgets_check", false);
+    let toggle_val = use_persisted("widgets_toggle", true);
+    let slider_val = use_persisted("widgets_slider", 50.0f64);
+    let input_val = use_persisted("widgets_input", "edit me".to_owned());
+    let select_idx = use_persisted("widgets_select", 1usize);
+    let show_overlay = use_persisted("widgets_overlay", false);
 
     scroll_view(v_stack((
         section_title("Widget Gallery"),
@@ -647,7 +673,7 @@ fn swatch(label: &str, color: Color) -> Node {
 
 fn events_page() -> Node {
     let t = theme();
-    let log = create_signal(String::from("(no events yet)"));
+    let log = use_persisted("events_log", String::from("(no events yet)"));
 
     scroll_view(v_stack((
         section_title("Event Handlers"),
@@ -924,7 +950,7 @@ fn layout_visual(t: Theme) -> Node {
 
 fn virtual_list_page() -> Node {
     let t = theme();
-    let scroll_offset = create_signal(0.0f32);
+    let scroll_offset = use_persisted("layout_scroll", 0.0f32);
     let item_count = 10_000usize;
     let item_height = 32.0f32;
     let viewport_height = 500.0f32;

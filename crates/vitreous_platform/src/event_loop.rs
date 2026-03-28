@@ -92,15 +92,30 @@ impl DesktopRuntime {
     // ───────────────────────────────────────────────────────────────────
 
     /// Stage 1: Build/rebuild the widget tree from the root function.
+    ///
+    /// The scope is created once on the first frame and persisted — signals
+    /// created inside the root function survive across rebuilds so that
+    /// interactive state (counters, text inputs, etc.) is not lost.
     fn build_widget_tree(&mut self) -> Node {
-        // Create a new scope (dropping the old one cleans up old reactive state)
-        let mut root_node = None;
         let root_fn = &self.root_fn;
-        let scope = create_scope(|| {
-            root_node = Some(root_fn());
-        });
-        self.root_scope = Some(scope);
-        root_node.expect("root_fn must return a Node")
+
+        if let Some(ref scope) = self.root_scope {
+            // Subsequent frames: re-run root_fn within the existing scope
+            // so that use_context/provide_context still work.
+            let mut root_node = None;
+            run_in_scope(scope, || {
+                root_node = Some(root_fn());
+            });
+            root_node.expect("root_fn must return a Node")
+        } else {
+            // First frame: create the scope
+            let mut root_node = None;
+            let scope = create_scope(|| {
+                root_node = Some(root_fn());
+            });
+            self.root_scope = Some(scope);
+            root_node.expect("root_fn must return a Node")
+        }
     }
 
     /// Stage 2: Convert widget tree to layout inputs and compute layout.
@@ -170,15 +185,9 @@ impl DesktopRuntime {
             // Check if already in atlas
             if let Some(region) = renderer.glyph_atlas().get(cache_key) {
                 let (u_min, v_min, u_max, v_max) = region.uv(atlas_size);
-                let bearing = renderer.glyph_atlas().get_bearing(cache_key);
                 let inst = &mut renderer.batch_builder_mut().glyph_instances[i];
                 inst.uv_min = [u_min, v_min];
                 inst.uv_max = [u_max, v_max];
-                if let Some(b) = bearing {
-                    inst.pos[0] += b.left;
-                    inst.pos[1] += b.top;
-                    inst.size = [b.width, b.height];
-                }
                 continue;
             }
 
@@ -196,26 +205,17 @@ impl DesktopRuntime {
                 scale,
             );
 
-            let (gw, gh, data, bearing_left, bearing_top) = match bitmap {
+            let (gw, gh, data) = match bitmap {
                 Some(bm) if bm.width > 0 && bm.height > 0 => {
-                    (bm.width, bm.height, bm.data, bm.left, bm.top)
+                    (bm.width, bm.height, bm.data)
                 }
                 _ => {
                     // Space or unrasterizable glyph — use a 1x1 transparent pixel
-                    (1, 1, vec![0u8], 0, 0)
+                    (1, 1, vec![0u8])
                 }
             };
 
-            // Store bearing info: convert physical bitmap metrics to logical pixels
-            let bearing = vitreous_render::GlyphBearing {
-                left: bearing_left as f32 / scale,
-                top: -(bearing_top as f32 / scale),
-                width: gw as f32 / scale,
-                height: gh as f32 / scale,
-            };
-
             let region = renderer.glyph_atlas().insert(cache_key, gw, gh);
-            renderer.glyph_atlas().insert_bearing(cache_key, bearing);
 
             if let Some(ref gpu) = self.gpu {
                 gpu.upload_glyph(&data, region.x, region.y, gw, gh);
@@ -225,10 +225,6 @@ impl DesktopRuntime {
             let inst = &mut renderer.batch_builder_mut().glyph_instances[i];
             inst.uv_min = [u_min, v_min];
             inst.uv_max = [u_max, v_max];
-            // Patch size and position with actual bitmap metrics
-            inst.pos[0] += bearing.left;
-            inst.pos[1] += bearing.top;
-            inst.size = [bearing.width, bearing.height];
         }
 
         // Extract clear color from theme background (default dark gray)
