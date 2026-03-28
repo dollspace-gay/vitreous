@@ -93,29 +93,18 @@ impl DesktopRuntime {
 
     /// Stage 1: Build/rebuild the widget tree from the root function.
     ///
-    /// The scope is created once on the first frame and persisted — signals
-    /// created inside the root function survive across rebuilds so that
-    /// interactive state (counters, text inputs, etc.) is not lost.
+    /// A fresh scope is created each frame so that effects, memos, and other
+    /// scoped primitives are properly cleaned up and don't accumulate.
+    /// Interactive signal state is preserved via `create_unscoped_signal`
+    /// which is not owned by any scope.
     fn build_widget_tree(&mut self) -> Node {
+        let mut root_node = None;
         let root_fn = &self.root_fn;
-
-        if let Some(ref scope) = self.root_scope {
-            // Subsequent frames: re-run root_fn within the existing scope
-            // so that use_context/provide_context still work.
-            let mut root_node = None;
-            run_in_scope(scope, || {
-                root_node = Some(root_fn());
-            });
-            root_node.expect("root_fn must return a Node")
-        } else {
-            // First frame: create the scope
-            let mut root_node = None;
-            let scope = create_scope(|| {
-                root_node = Some(root_fn());
-            });
-            self.root_scope = Some(scope);
-            root_node.expect("root_fn must return a Node")
-        }
+        let scope = create_scope(|| {
+            root_node = Some(root_fn());
+        });
+        self.root_scope = Some(scope);
+        root_node.expect("root_fn must return a Node")
     }
 
     /// Stage 2: Convert widget tree to layout inputs and compute layout.
