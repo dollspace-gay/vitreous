@@ -1,0 +1,8 @@
+{
+  "uuid": "a508bb80-3d3a-410b-a9d8-042c80b589ab",
+  "issue_uuid": "05a402a5-c1e9-418a-ac82-af355556f29c",
+  "author": "anon-581fd578",
+  "content": "Five bugs identified:\n\n1. CRITICAL: GPU viewport_size uses physical pixels but layout computes in logical pixels. On any scale_factor > 1.0, everything gets compressed into top-left corner.\n2. SIGNIFICANT: Node struct missing justify_content and align_items fields — hardcoded to None in convert_style_to_layout.\n3. MODERATE: flex_wrap hardcoded to NoWrap on Node.\n4. MODERATE: z_stack doesn't set children to Position::Absolute — they stack vertically instead of overlaying.\n5. MINOR: Renderer::new receives physical pixels but should use logical for damage tracking.\n\nFix plan:\n- Bug 1: Pass logical viewport_size to GPU globals (divide by scale_factor)\n- Bug 2: Add justify_content/align_items to Node + modifiers + wire to layout\n- Bug 3: Add flex_wrap to Node + modifier + wire to layout\n- Bug 4: z_stack sets Position::Absolute on children via a new position field on Node\n- Bug 5: Pass logical dimensions to Renderer::new and resize",
+  "created_at": "2026-03-28T16:15:27.009036028Z",
+  "kind": "plan"
+}
