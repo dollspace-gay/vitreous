@@ -1,0 +1,8 @@
+{
+  "uuid": "f18fa730-9d17-4e7f-b444-4b58eca6b03c",
+  "issue_uuid": "dcb516c3-7dab-4ce4-a042-00041313aac3",
+  "author": "anon-581fd578",
+  "content": "Root causes:\n\n1. NAVIGATION: build_widget_tree creates a new scope every frame, destroying all signals. Router creates fresh current_path=/ each rebuild. Fix: persist router path in thread_local so it survives scope recreation.\n\n2. APPEARANCE: Nav buttons use same background as toolbar (invisible). Divider uses LIGHT_GRAY on dark bg (invisible). No visual depth. Fix: better button styling, dark-aware divider, visual polish.\n\n3. TEXT: Glyph y-position uses line_y from cosmic-text which is the line top, but the bearing.top offset may over-correct. Fix: tune the bearing calculation.",
+  "created_at": "2026-03-28T17:39:03.664414542Z",
+  "kind": "plan"
+}
