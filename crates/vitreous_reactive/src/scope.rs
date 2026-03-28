@@ -46,6 +46,24 @@ fn dispose_scope(id: ScopeId) {
 // create_scope — free function constructor
 // ═══════════════════════════════════════════════════════════════════════════
 
+/// Run a closure with the given scope pushed onto the scope stack, so that
+/// `use_context` and `provide_context` work. Unlike `create_scope`, this does
+/// NOT create a new scope — it re-enters an existing one.
+///
+/// Used by the platform layer to give event handlers access to the reactive
+/// context they were created in.
+pub fn run_in_scope(scope: &Scope, f: impl FnOnce()) {
+    RUNTIME.with(|rt| {
+        rt.borrow_mut().scope_stack.push(scope.id);
+    });
+
+    f();
+
+    RUNTIME.with(|rt| {
+        rt.borrow_mut().scope_stack.pop();
+    });
+}
+
 /// Create a new reactive scope. The closure `f` runs synchronously within
 /// the scope; any signals, memos, or effects created inside `f` are owned
 /// by the returned `Scope` and will be disposed when it drops.

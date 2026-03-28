@@ -4,7 +4,9 @@ pub mod damage;
 pub mod diff;
 pub mod pipeline;
 
-pub use atlas::{AtlasRegion, GlyphAtlas, GlyphCacheKey, ImageAtlas, ImageCacheKey, ImageEntry};
+pub use atlas::{
+    AtlasRegion, GlyphAtlas, GlyphBearing, GlyphCacheKey, ImageAtlas, ImageCacheKey, ImageEntry,
+};
 pub use commands::{
     CommandKind, NodeContent, NodeVisualStyle, PositionedGlyph, RenderCommand, RenderNode,
     TextureId, generate_commands,

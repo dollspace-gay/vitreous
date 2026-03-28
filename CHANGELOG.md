@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Implement vitreous_hot_reload file watcher, WebSocket server/client, and CLI tool (#15)
 
 ### Fixed
+- Fix navigate() panic and text rendering (pixelated, misplaced glyphs) (#180)
 - Fix layout rendering: viewport coordinate mismatch, missing flex properties, z_stack positioning (#179)
 - Fix layout positioning — elements rendering on top of each other (#177)
 - Fix TextInput value to use input value, not accessibility label (#112)

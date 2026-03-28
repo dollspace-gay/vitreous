@@ -4,7 +4,7 @@ use vitreous_events::{
     ScrollEvent, hit_test,
 };
 use vitreous_layout::{AvailableSpace, LayoutOutput, compute_layout};
-use vitreous_reactive::{Scope, batch, create_scope};
+use vitreous_reactive::{Scope, batch, create_scope, run_in_scope};
 use vitreous_render::{
     NodeContent, NodeVisualStyle, RenderCommand, RenderNode, Renderer, generate_commands,
 };
@@ -170,9 +170,15 @@ impl DesktopRuntime {
             // Check if already in atlas
             if let Some(region) = renderer.glyph_atlas().get(cache_key) {
                 let (u_min, v_min, u_max, v_max) = region.uv(atlas_size);
+                let bearing = renderer.glyph_atlas().get_bearing(cache_key);
                 let inst = &mut renderer.batch_builder_mut().glyph_instances[i];
                 inst.uv_min = [u_min, v_min];
                 inst.uv_max = [u_max, v_max];
+                if let Some(b) = bearing {
+                    inst.pos[0] += b.left;
+                    inst.pos[1] += b.top;
+                    inst.size = [b.width, b.height];
+                }
                 continue;
             }
 
@@ -190,17 +196,26 @@ impl DesktopRuntime {
                 scale,
             );
 
-            let (gw, gh, data) = match bitmap {
+            let (gw, gh, data, bearing_left, bearing_top) = match bitmap {
                 Some(bm) if bm.width > 0 && bm.height > 0 => {
-                    (bm.width, bm.height, bm.data)
+                    (bm.width, bm.height, bm.data, bm.left, bm.top)
                 }
                 _ => {
                     // Space or unrasterizable glyph — use a 1x1 transparent pixel
-                    (1, 1, vec![0u8])
+                    (1, 1, vec![0u8], 0, 0)
                 }
             };
 
+            // Store bearing info: convert physical bitmap metrics to logical pixels
+            let bearing = vitreous_render::GlyphBearing {
+                left: bearing_left as f32 / scale,
+                top: -(bearing_top as f32 / scale),
+                width: gw as f32 / scale,
+                height: gh as f32 / scale,
+            };
+
             let region = renderer.glyph_atlas().insert(cache_key, gw, gh);
+            renderer.glyph_atlas().insert_bearing(cache_key, bearing);
 
             if let Some(ref gpu) = self.gpu {
                 gpu.upload_glyph(&data, region.x, region.y, gw, gh);
@@ -210,6 +225,10 @@ impl DesktopRuntime {
             let inst = &mut renderer.batch_builder_mut().glyph_instances[i];
             inst.uv_min = [u_min, v_min];
             inst.uv_max = [u_max, v_max];
+            // Patch size and position with actual bitmap metrics
+            inst.pos[0] += bearing.left;
+            inst.pos[1] += bearing.top;
+            inst.size = [bearing.width, bearing.height];
         }
 
         // Extract clear color from theme background (default dark gray)
@@ -320,22 +339,33 @@ impl DesktopRuntime {
             && let Some(node) = find_node_by_dfs_index(root, target_id.0)
         {
             let handlers = &node.event_handlers;
-            batch(|| {
-                match state {
-                    ElementState::Pressed => {
-                        if let Some(ref h) = handlers.on_mouse_down {
-                            h(mouse_event.clone());
-                        }
-                    }
-                    ElementState::Released => {
-                        if let Some(ref h) = handlers.on_mouse_up {
-                            h(mouse_event.clone());
-                        }
-                        if let Some(ref h) = handlers.on_click {
-                            h();
-                        }
-                    }
+            // Run handlers inside the root scope so use_context works (e.g. navigate())
+            let scope_ref = self.root_scope.as_ref();
+            let run = |f: &dyn Fn()| {
+                if let Some(scope) = scope_ref {
+                    run_in_scope(scope, f);
+                } else {
+                    f();
                 }
+            };
+            run(&|| {
+                batch(|| {
+                    match state {
+                        ElementState::Pressed => {
+                            if let Some(ref h) = handlers.on_mouse_down {
+                                h(mouse_event.clone());
+                            }
+                        }
+                        ElementState::Released => {
+                            if let Some(ref h) = handlers.on_mouse_up {
+                                h(mouse_event.clone());
+                            }
+                            if let Some(ref h) = handlers.on_click {
+                                h();
+                            }
+                        }
+                    }
+                });
             });
 
             self.needs_rebuild = true;
@@ -395,14 +425,24 @@ impl DesktopRuntime {
 
             if let Some(node) = find_node_by_dfs_index(root, focused_idx) {
                 let handlers = &node.event_handlers;
-                batch(|| {
-                    if event.state == ElementState::Pressed {
-                        if let Some(ref h) = handlers.on_key_down {
+                let scope_ref = self.root_scope.as_ref();
+                let run = |f: &dyn Fn()| {
+                    if let Some(scope) = scope_ref {
+                        run_in_scope(scope, f);
+                    } else {
+                        f();
+                    }
+                };
+                run(&|| {
+                    batch(|| {
+                        if event.state == ElementState::Pressed {
+                            if let Some(ref h) = handlers.on_key_down {
+                                h(key_event.clone());
+                            }
+                        } else if let Some(ref h) = handlers.on_key_up {
                             h(key_event.clone());
                         }
-                    } else if let Some(ref h) = handlers.on_key_up {
-                        h(key_event.clone());
-                    }
+                    });
                 });
             }
         }
@@ -439,7 +479,11 @@ impl DesktopRuntime {
                 && let Some(node) = find_node_by_dfs_index(root, target_id.0)
                 && let Some(ref h) = node.event_handlers.on_scroll
             {
-                batch(|| h(scroll_event.clone()));
+                if let Some(ref scope) = self.root_scope {
+                    run_in_scope(scope, || batch(|| h(scroll_event.clone())));
+                } else {
+                    batch(|| h(scroll_event.clone()));
+                }
             }
         }
 

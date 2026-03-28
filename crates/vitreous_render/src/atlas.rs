@@ -102,6 +102,20 @@ impl AtlasPage {
     }
 }
 
+/// Bearing and bitmap metrics for a cached glyph, used to correct quad
+/// position and size after rasterization.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct GlyphBearing {
+    /// Horizontal bearing (pixels from pen position to left edge of bitmap).
+    pub left: f32,
+    /// Vertical bearing (pixels from baseline to top edge of bitmap).
+    pub top: f32,
+    /// Actual bitmap width in logical pixels.
+    pub width: f32,
+    /// Actual bitmap height in logical pixels.
+    pub height: f32,
+}
+
 /// Glyph texture atlas using shelf-based rectangle packing.
 ///
 /// Rasterized glyph bitmaps are cached in GPU textures. When a page fills up,
@@ -109,6 +123,7 @@ impl AtlasPage {
 pub struct GlyphAtlas {
     pages: Vec<AtlasPage>,
     cache: FxHashMap<GlyphCacheKey, AtlasRegion>,
+    bearings: FxHashMap<GlyphCacheKey, GlyphBearing>,
     atlas_size: u32,
     lookup_count: u64,
     cache_hit_count: u64,
@@ -123,6 +138,7 @@ impl GlyphAtlas {
         Self {
             pages: vec![AtlasPage::new(atlas_size)],
             cache: FxHashMap::default(),
+            bearings: FxHashMap::default(),
             atlas_size,
             lookup_count: 0,
             cache_hit_count: 0,
@@ -179,6 +195,16 @@ impl GlyphAtlas {
         region
     }
 
+    /// Store bearing metrics for a cached glyph.
+    pub fn insert_bearing(&mut self, key: GlyphCacheKey, bearing: GlyphBearing) {
+        self.bearings.insert(key, bearing);
+    }
+
+    /// Retrieve bearing metrics for a cached glyph.
+    pub fn get_bearing(&self, key: GlyphCacheKey) -> Option<GlyphBearing> {
+        self.bearings.get(&key).copied()
+    }
+
     /// Returns the number of atlas pages currently allocated.
     pub fn page_count(&self) -> usize {
         self.pages.len()
@@ -199,6 +225,7 @@ impl GlyphAtlas {
         self.pages.clear();
         self.pages.push(AtlasPage::new(self.atlas_size));
         self.cache.clear();
+        self.bearings.clear();
         self.lookup_count = 0;
         self.cache_hit_count = 0;
     }
