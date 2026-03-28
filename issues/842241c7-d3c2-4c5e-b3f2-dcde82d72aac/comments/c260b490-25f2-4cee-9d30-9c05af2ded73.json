@@ -1,0 +1,8 @@
+{
+  "uuid": "c260b490-25f2-4cee-9d30-9c05af2ded73",
+  "issue_uuid": "842241c7-d3c2-4c5e-b3f2-dcde82d72aac",
+  "author": "anon-581fd578",
+  "content": "Fixed unused import warning. create_signal moved to #[cfg(test)] module. Zero warnings.",
+  "created_at": "2026-03-28T18:03:08.720923654Z",
+  "kind": "result"
+}
