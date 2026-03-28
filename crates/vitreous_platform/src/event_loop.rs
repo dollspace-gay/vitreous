@@ -220,8 +220,12 @@ impl DesktopRuntime {
         {
             match e {
                 PresentError::SurfaceLost => {
-                    let (w, h) = renderer.viewport();
-                    gpu.resize(w, h);
+                    let (lw, lh) = renderer.viewport();
+                    let scale = self.scale_factor as f32;
+                    let pw = (lw as f32 * scale) as u32;
+                    let ph = (lh as f32 * scale) as u32;
+                    gpu.resize(pw, ph);
+                    gpu.set_logical_size(lw, lh);
                 }
                 PresentError::Validation => {
                     eprintln!("[vitreous] GPU validation error");
@@ -460,10 +464,17 @@ impl ApplicationHandler for DesktopRuntime {
         self.scale_factor = window.scale_factor();
 
         let (pw, ph) = window.inner_size_physical();
-        self.renderer = Some(Renderer::new(pw, ph));
+        let scale = self.scale_factor as f32;
+        let logical_w = (pw as f32 / scale) as u32;
+        let logical_h = (ph as f32 / scale) as u32;
 
-        // Initialize GPU rendering context
-        self.gpu = Some(GpuContext::new(window.arc_window()));
+        // Renderer and GPU globals use logical pixels to match layout coordinates.
+        // The GPU surface itself uses physical pixels for correct pixel density.
+        self.renderer = Some(Renderer::new(logical_w, logical_h));
+
+        let mut gpu = GpuContext::new(window.arc_window());
+        gpu.set_logical_size(logical_w, logical_h);
+        self.gpu = Some(gpu);
 
         window.request_redraw();
         self.window = Some(window);
@@ -487,11 +498,18 @@ impl ApplicationHandler for DesktopRuntime {
 
             WindowEvent::Resized(new_size) => {
                 // AC-12: resize triggers layout recomputation
+                let scale = self.scale_factor as f32;
+                let logical_w = (new_size.width as f32 / scale) as u32;
+                let logical_h = (new_size.height as f32 / scale) as u32;
+
                 if let Some(ref mut renderer) = self.renderer {
-                    renderer.resize(new_size.width, new_size.height);
+                    renderer.resize(logical_w, logical_h);
                 }
                 if let Some(ref mut gpu) = self.gpu {
+                    // Reconfigure the surface with physical pixels for correct density
                     gpu.resize(new_size.width, new_size.height);
+                    // Update the globals uniform with logical pixels to match layout
+                    gpu.set_logical_size(logical_w, logical_h);
                 }
                 self.needs_rebuild = true;
                 if let Some(ref window) = self.window {
@@ -502,6 +520,22 @@ impl ApplicationHandler for DesktopRuntime {
             WindowEvent::ScaleFactorChanged { scale_factor, .. } => {
                 // AC-10: DPI-aware rendering
                 self.scale_factor = scale_factor;
+
+                // Recompute logical viewport from current physical size
+                if let Some(ref window) = self.window {
+                    let (pw, ph) = window.inner_size_physical();
+                    let scale = scale_factor as f32;
+                    let logical_w = (pw as f32 / scale) as u32;
+                    let logical_h = (ph as f32 / scale) as u32;
+
+                    if let Some(ref mut renderer) = self.renderer {
+                        renderer.resize(logical_w, logical_h);
+                    }
+                    if let Some(ref mut gpu) = self.gpu {
+                        gpu.set_logical_size(logical_w, logical_h);
+                    }
+                }
+
                 self.needs_rebuild = true;
                 if let Some(ref window) = self.window {
                     window.request_redraw();
@@ -653,9 +687,30 @@ fn convert_style_to_layout(
             vitreous_widgets::FlexDirection::Row => vitreous_layout::FlexDirection::Row,
             vitreous_widgets::FlexDirection::Column => vitreous_layout::FlexDirection::Column,
         },
-        flex_wrap: vitreous_layout::FlexWrap::NoWrap,
-        justify_content: None,
-        align_items: None,
+        flex_wrap: match node.flex_wrap {
+            vitreous_widgets::FlexWrap::NoWrap => vitreous_layout::FlexWrap::NoWrap,
+            vitreous_widgets::FlexWrap::Wrap => vitreous_layout::FlexWrap::Wrap,
+            vitreous_widgets::FlexWrap::WrapReverse => vitreous_layout::FlexWrap::WrapReverse,
+        },
+        justify_content: node.justify_content.map(|jc| match jc {
+            vitreous_widgets::JustifyContent::Start => vitreous_layout::JustifyContent::Start,
+            vitreous_widgets::JustifyContent::End => vitreous_layout::JustifyContent::End,
+            vitreous_widgets::JustifyContent::FlexStart => vitreous_layout::JustifyContent::FlexStart,
+            vitreous_widgets::JustifyContent::FlexEnd => vitreous_layout::JustifyContent::FlexEnd,
+            vitreous_widgets::JustifyContent::Center => vitreous_layout::JustifyContent::Center,
+            vitreous_widgets::JustifyContent::SpaceBetween => vitreous_layout::JustifyContent::SpaceBetween,
+            vitreous_widgets::JustifyContent::SpaceAround => vitreous_layout::JustifyContent::SpaceAround,
+            vitreous_widgets::JustifyContent::SpaceEvenly => vitreous_layout::JustifyContent::SpaceEvenly,
+        }),
+        align_items: node.align_items.map(|ai| match ai {
+            vitreous_widgets::AlignItems::Start => vitreous_layout::AlignItems::Start,
+            vitreous_widgets::AlignItems::End => vitreous_layout::AlignItems::End,
+            vitreous_widgets::AlignItems::FlexStart => vitreous_layout::AlignItems::FlexStart,
+            vitreous_widgets::AlignItems::FlexEnd => vitreous_layout::AlignItems::FlexEnd,
+            vitreous_widgets::AlignItems::Center => vitreous_layout::AlignItems::Center,
+            vitreous_widgets::AlignItems::Baseline => vitreous_layout::AlignItems::Baseline,
+            vitreous_widgets::AlignItems::Stretch => vitreous_layout::AlignItems::Stretch,
+        }),
         align_self: node.align_self.map(|a| match a {
             vitreous_widgets::AlignSelf::Start => vitreous_layout::AlignSelf::Start,
             vitreous_widgets::AlignSelf::End => vitreous_layout::AlignSelf::End,
@@ -687,7 +742,10 @@ fn convert_style_to_layout(
             vitreous_style::Overflow::Hidden => vitreous_layout::Overflow::Hidden,
             vitreous_style::Overflow::Scroll => vitreous_layout::Overflow::Scroll,
         },
-        position: vitreous_layout::Position::Relative,
+        position: match node.position {
+            vitreous_widgets::Position::Relative => vitreous_layout::Position::Relative,
+            vitreous_widgets::Position::Absolute => vitreous_layout::Position::Absolute,
+        },
         inset: vitreous_layout::DimensionRect {
             top: vitreous_layout::Dimension::Auto,
             right: vitreous_layout::Dimension::Auto,
@@ -1103,12 +1161,16 @@ mod tests {
             children,
             key: None,
             flex_direction: FlexDirection::Column,
+            flex_wrap: vitreous_widgets::FlexWrap::default(),
+            justify_content: None,
+            align_items: None,
             flex_grow: 0.0,
             flex_shrink: 1.0,
             flex_basis: Dimension::Auto,
             align_self: None,
             gap: 0.0,
             aspect_ratio: None,
+            position: vitreous_widgets::Position::default(),
             animations: Vec::new(),
         }
     }
@@ -1129,12 +1191,16 @@ mod tests {
             children: Vec::new(),
             key: None,
             flex_direction: FlexDirection::default(),
+            flex_wrap: vitreous_widgets::FlexWrap::default(),
+            justify_content: None,
+            align_items: None,
             flex_grow: 0.0,
             flex_shrink: 1.0,
             flex_basis: Dimension::Auto,
             align_self: None,
             gap: 0.0,
             aspect_ratio: None,
+            position: vitreous_widgets::Position::default(),
             animations: Vec::new(),
         }
     }
@@ -1162,12 +1228,16 @@ mod tests {
             children: vec![text_node(label)],
             key: None,
             flex_direction: FlexDirection::default(),
+            flex_wrap: vitreous_widgets::FlexWrap::default(),
+            justify_content: None,
+            align_items: None,
             flex_grow: 0.0,
             flex_shrink: 1.0,
             flex_basis: Dimension::Auto,
             align_self: None,
             gap: 0.0,
             aspect_ratio: None,
+            position: vitreous_widgets::Position::default(),
             animations: Vec::new(),
         }
     }

@@ -15,8 +15,9 @@ pub use containers::{
 pub use control_flow::{for_each, show, show_else};
 pub use into_nodes::{IntoNode, IntoNodes};
 pub use node::{
-    AlignSelf, CanvasPaintFn, ComponentFn, FlexDirection, ImageSource, IntoTextContent, Key,
-    NativeViewDescriptor, Node, NodeKind, TextContent,
+    AlignItems, AlignSelf, CanvasPaintFn, ComponentFn, FlexDirection, FlexWrap, ImageSource,
+    IntoTextContent, JustifyContent, Key, NativeViewDescriptor, Node, NodeKind, Position,
+    TextContent,
 };
 pub use primitives::{
     button, checkbox, divider, image, select, slider, spacer, text, text_input, toggle,

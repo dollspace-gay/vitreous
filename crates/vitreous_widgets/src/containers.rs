@@ -3,7 +3,7 @@ use vitreous_reactive::provide_context;
 use vitreous_style::Overflow;
 
 use crate::into_nodes::IntoNodes;
-use crate::node::{FlexDirection, Node, NodeKind};
+use crate::node::{FlexDirection, Node, NodeKind, Position};
 
 /// Vertical stack — arranges children top-to-bottom (column direction).
 pub fn v_stack(children: impl IntoNodes) -> Node {
@@ -23,7 +23,11 @@ pub fn h_stack(children: impl IntoNodes) -> Node {
 ///
 /// All children are positioned absolutely within the container.
 pub fn z_stack(children: impl IntoNodes) -> Node {
-    Node::with_children(NodeKind::Container, children.into_nodes())
+    let mut kids = children.into_nodes();
+    for child in &mut kids {
+        child.position = Position::Absolute;
+    }
+    Node::with_children(NodeKind::Container, kids)
 }
 
 /// A scrollable container.

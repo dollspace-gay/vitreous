@@ -181,6 +181,49 @@ pub enum AlignSelf {
 }
 
 // ---------------------------------------------------------------------------
+// JustifyContent — main-axis alignment
+// ---------------------------------------------------------------------------
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum JustifyContent {
+    Start,
+    End,
+    FlexStart,
+    FlexEnd,
+    Center,
+    SpaceBetween,
+    SpaceAround,
+    SpaceEvenly,
+}
+
+// ---------------------------------------------------------------------------
+// AlignItems — cross-axis alignment
+// ---------------------------------------------------------------------------
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum AlignItems {
+    Start,
+    End,
+    FlexStart,
+    FlexEnd,
+    Center,
+    Baseline,
+    Stretch,
+}
+
+// ---------------------------------------------------------------------------
+// FlexWrap — whether flex items wrap
+// ---------------------------------------------------------------------------
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub enum FlexWrap {
+    #[default]
+    NoWrap,
+    Wrap,
+    WrapReverse,
+}
+
+// ---------------------------------------------------------------------------
 // FlexDirection — needed for stack containers
 // ---------------------------------------------------------------------------
 
@@ -189,6 +232,17 @@ pub enum FlexDirection {
     Row,
     #[default]
     Column,
+}
+
+// ---------------------------------------------------------------------------
+// Position — relative or absolute positioning
+// ---------------------------------------------------------------------------
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub enum Position {
+    #[default]
+    Relative,
+    Absolute,
 }
 
 // ---------------------------------------------------------------------------
@@ -231,12 +285,16 @@ pub struct Node {
 
     // Layout flex properties (not in vitreous_style::Style)
     pub flex_direction: FlexDirection,
+    pub flex_wrap: FlexWrap,
+    pub justify_content: Option<JustifyContent>,
+    pub align_items: Option<AlignItems>,
     pub flex_grow: f32,
     pub flex_shrink: f32,
     pub flex_basis: Dimension,
     pub align_self: Option<AlignSelf>,
     pub gap: f32,
     pub aspect_ratio: Option<f32>,
+    pub position: Position,
 
     // Animation
     pub animations: Vec<Animation>,
@@ -263,12 +321,16 @@ impl Node {
             children: Vec::new(),
             key: None,
             flex_direction: FlexDirection::default(),
+            flex_wrap: FlexWrap::default(),
+            justify_content: None,
+            align_items: None,
             flex_grow: 0.0,
             flex_shrink: 1.0,
             flex_basis: Dimension::Auto,
             align_self: None,
             gap: 0.0,
             aspect_ratio: None,
+            position: Position::default(),
             animations: Vec::new(),
         }
     }
@@ -351,8 +413,28 @@ impl Node {
         self
     }
 
+    pub fn flex_wrap(mut self, wrap: FlexWrap) -> Self {
+        self.flex_wrap = wrap;
+        self
+    }
+
+    pub fn justify_content(mut self, jc: JustifyContent) -> Self {
+        self.justify_content = Some(jc);
+        self
+    }
+
+    pub fn align_items(mut self, ai: AlignItems) -> Self {
+        self.align_items = Some(ai);
+        self
+    }
+
     pub fn align_self(mut self, align: AlignSelf) -> Self {
         self.align_self = Some(align);
+        self
+    }
+
+    pub fn position(mut self, pos: Position) -> Self {
+        self.position = pos;
         self
     }
 

@@ -172,17 +172,28 @@ impl GpuContext {
         }
     }
 
-    /// Resize the surface.
-    pub fn resize(&mut self, width: u32, height: u32) {
-        if width == 0 || height == 0 {
+    /// Resize the GPU surface with physical pixel dimensions.
+    ///
+    /// This reconfigures the wgpu surface for the new physical size but does
+    /// NOT update the globals uniform. Call [`set_logical_size`] separately
+    /// to update the viewport used by shaders.
+    pub fn resize(&mut self, physical_width: u32, physical_height: u32) {
+        if physical_width == 0 || physical_height == 0 {
             return;
         }
-        self.config.width = width;
-        self.config.height = height;
+        self.config.width = physical_width;
+        self.config.height = physical_height;
         self.surface.configure(&self.device, &self.config);
+    }
 
+    /// Update the globals uniform with logical pixel dimensions.
+    ///
+    /// The shader converts positions from logical pixels to NDC using
+    /// `viewport_size`, so this must match the coordinate system used by the
+    /// layout engine (logical pixels).
+    pub fn set_logical_size(&mut self, logical_width: u32, logical_height: u32) {
         let globals = Globals {
-            viewport_size: [width as f32, height as f32],
+            viewport_size: [logical_width as f32, logical_height as f32],
             _pad: [0.0; 2],
         };
         self.queue
