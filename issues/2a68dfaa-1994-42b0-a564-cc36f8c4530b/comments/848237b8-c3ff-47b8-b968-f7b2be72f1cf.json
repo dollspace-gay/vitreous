@@ -1,0 +1,8 @@
+{
+  "uuid": "848237b8-c3ff-47b8-b968-f7b2be72f1cf",
+  "issue_uuid": "2a68dfaa-1994-42b0-a564-cc36f8c4530b",
+  "author": "anon-581fd578",
+  "content": "Two bugs:\n\n1. PANIC: navigate() calls use_context::<RouterState>() from an on_click handler. But handlers fire during event dispatch, when the scope_stack is empty (create_scope pushes/pops during tree build). Fix: push the root scope onto scope_stack before dispatching events so handlers have context access.\n\n2. TEXT RENDERING: Glyph quads use wrong dimensions and positions.\n   - GlyphInstance.size = (advance_width, font_size) from shaping, not actual bitmap dimensions\n   - GlyphInstance.pos ignores glyph bearing offsets (bitmap.left, bitmap.top)\n   - Result: stretched/compressed glyphs, wrong baseline alignment, pixelated appearance\n   Fix: after rasterization in submit_frame, patch both size and pos using actual bitmap dimensions and bearing offsets.",
+  "created_at": "2026-03-28T16:53:40.445060868Z",
+  "kind": "plan"
+}
