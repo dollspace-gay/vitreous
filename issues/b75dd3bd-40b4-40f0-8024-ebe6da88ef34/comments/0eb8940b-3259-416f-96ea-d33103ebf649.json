@@ -1,0 +1,8 @@
+{
+  "uuid": "0eb8940b-3259-416f-96ea-d33103ebf649",
+  "issue_uuid": "b75dd3bd-40b4-40f0-8024-ebe6da88ef34",
+  "author": "anon-581fd578",
+  "content": "Three bugs:\n1. DOUBLE TEXT: The glyph bearing patch in submit_frame shifts glyph positions incorrectly — cosmic-text glyph.x/y are already correct pen positions, adding bitmap bearing creates a ghost/echo effect. Fix: revert bearing pos offset, keep only UV patching.\n2. INTERACTIVE STATE: build_widget_tree creates a new scope every frame, destroying all signals. Interactive elements (counter, checkbox, etc.) reset each frame. Fix: persistent signal helper using thread_local keyed cache.\n3. STYLE PAGE: Needs visual richness with color swatches, etc.",
+  "created_at": "2026-03-28T18:12:57.576896420Z",
+  "kind": "plan"
+}
