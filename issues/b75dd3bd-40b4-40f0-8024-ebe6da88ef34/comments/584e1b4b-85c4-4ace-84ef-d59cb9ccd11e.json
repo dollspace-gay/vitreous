@@ -1,0 +1,8 @@
+{
+  "uuid": "584e1b4b-85c4-4ace-84ef-d59cb9ccd11e",
+  "issue_uuid": "b75dd3bd-40b4-40f0-8024-ebe6da88ef34",
+  "author": "anon-581fd578",
+  "content": "Fixed all three issues:\n\n1. Double-typed text: Reverted glyph bearing pos/size patch. The cosmic-text glyph positions are already correct — adding bitmap bearing offsets shifted glyphs incorrectly creating ghost/echo effect.\n\n2. Interactive state: build_widget_tree now preserves the scope across rebuilds (creates once, uses run_in_scope for subsequent frames). Kitchen sink uses use_persisted() helper with thread_local keyed cache + create_unscoped_signal for all interactive signals.\n\n3. Style page: was already rendering color swatches correctly — the bearing patch was distorting all text making it hard to read.",
+  "created_at": "2026-03-28T18:17:52.054640628Z",
+  "kind": "result"
+}
