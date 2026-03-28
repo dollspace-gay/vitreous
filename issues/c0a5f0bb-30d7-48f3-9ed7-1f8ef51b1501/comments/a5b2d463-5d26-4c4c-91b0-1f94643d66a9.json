@@ -1,0 +1,8 @@
+{
+  "uuid": "a5b2d463-5d26-4c4c-91b0-1f94643d66a9",
+  "issue_uuid": "c0a5f0bb-30d7-48f3-9ed7-1f8ef51b1501",
+  "author": "anon-581fd578",
+  "content": "Root cause: swash/cosmic-text on Windows with ClearType produces SubpixelMask bitmaps (3 bytes/pixel RGB) or Color bitmaps (4 bytes/pixel RGBA). The rasterize_glyph function returns raw data without checking content type. upload_glyph uploads with bytes_per_row=width (assuming 1 byte/pixel R8Unorm). Data format mismatch corrupts every glyph in the atlas. Fix: check SwashContent type and convert to single-channel alpha in rasterize_glyph.",
+  "created_at": "2026-03-28T19:03:37.343449027Z",
+  "kind": "plan"
+}
