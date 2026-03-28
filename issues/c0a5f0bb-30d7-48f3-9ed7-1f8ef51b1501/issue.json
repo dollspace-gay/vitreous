@@ -1,0 +1,10 @@
+{
+  "uuid": "c0a5f0bb-30d7-48f3-9ed7-1f8ef51b1501",
+  "display_id": 186,
+  "title": "Fix glyph atlas corruption from subpixel bitmap format mismatch",
+  "status": "open",
+  "priority": "critical",
+  "created_by": "anon-581fd578",
+  "created_at": "2026-03-28T19:03:20.397534184Z",
+  "updated_at": "2026-03-28T19:03:20.397534184Z"
+}
