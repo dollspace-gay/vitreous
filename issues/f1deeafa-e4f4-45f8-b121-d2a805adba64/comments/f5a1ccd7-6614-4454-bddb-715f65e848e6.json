@@ -1,0 +1,8 @@
+{
+  "uuid": "f5a1ccd7-6614-4454-bddb-715f65e848e6",
+  "issue_uuid": "f1deeafa-e4f4-45f8-b121-d2a805adba64",
+  "author": "anon-581fd578",
+  "content": "Preserving the scope across rebuilds causes create_effect/create_memo/batch to accumulate N copies after N frames. All fire simultaneously on signal changes, creating cascading updates that corrupt rendering. Fix: revert to new-scope-per-frame. use_persisted signals survive because they use create_unscoped_signal (not owned by any scope). Effects/memos are properly cleaned up each frame.",
+  "created_at": "2026-03-28T18:45:07.667004863Z",
+  "kind": "plan"
+}
