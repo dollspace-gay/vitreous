@@ -1,0 +1,8 @@
+{
+  "uuid": "7b042335-662d-48f8-8447-499d1ec7e2d6",
+  "issue_uuid": "6f3a88fd-2105-46ef-b76b-eaf44f7944a1",
+  "author": "anon-581fd578",
+  "content": "Router signals are created inside create_scope() via root() -> router(). When build_widget_tree drops the scope, dispose_signal removes the data from the SlotMap. The thread_local Signal handles become dangling. Fix: add create_unscoped_signal that skips scope cleanup registration. Router uses this for its persistent signals.",
+  "created_at": "2026-03-28T17:55:27.620020605Z",
+  "kind": "plan"
+}
