@@ -1,0 +1,8 @@
+{
+  "uuid": "e213744a-5428-4681-b792-d6e05f65e6a1",
+  "issue_uuid": "c0a5f0bb-30d7-48f3-9ed7-1f8ef51b1501",
+  "author": "anon-581fd578",
+  "content": "Fixed: rasterize_glyph now checks SwashContent type and converts SubpixelMask (4 bytes RGBA from ClearType) and Color bitmaps to single-channel alpha before upload to R8Unorm atlas. 381 tests, 0 warnings.",
+  "created_at": "2026-03-28T19:07:50.605154769Z",
+  "kind": "result"
+}
