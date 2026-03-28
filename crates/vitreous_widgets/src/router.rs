@@ -1,6 +1,6 @@
 use std::cell::RefCell;
 
-use vitreous_reactive::{Signal, create_signal, create_unscoped_signal, provide_context, use_context};
+use vitreous_reactive::{Signal, create_unscoped_signal, provide_context, use_context};
 
 use crate::node::{Node, NodeKind};
 
@@ -141,6 +141,7 @@ fn render_route(state: &RouterState, routes: &[Route]) -> Node {
 mod tests {
     use super::*;
     use crate::primitives::text;
+    use vitreous_reactive::create_signal;
 
     #[test]
     fn match_path_exact() {
