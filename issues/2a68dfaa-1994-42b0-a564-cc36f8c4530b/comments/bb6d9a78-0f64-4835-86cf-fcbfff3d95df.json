@@ -1,0 +1,8 @@
+{
+  "uuid": "bb6d9a78-0f64-4835-86cf-fcbfff3d95df",
+  "issue_uuid": "2a68dfaa-1994-42b0-a564-cc36f8c4530b",
+  "author": "anon-581fd578",
+  "content": "Both bugs fixed, 381 tests passing, zero warnings:\n\n1. navigate() panic: Added run_in_scope() to vitreous_reactive that temporarily pushes an existing scope onto the scope_stack. Event handlers (mouse, keyboard, scroll) now execute inside the root scope so use_context works for navigate(), use_route(), etc.\n\n2. Text rendering: After glyph rasterization, glyph instance size and position are now patched with actual bitmap metrics:\n   - size uses real bitmap dimensions / scale_factor (not advance_width x font_size)\n   - pos offset by glyph bearing (left, -top) / scale_factor for correct baseline alignment\n   - GlyphBearing struct added to atlas with parallel cache for bearing info\n   - Both fresh rasterization and cache-hit paths apply the correction",
+  "created_at": "2026-03-28T16:59:41.767944149Z",
+  "kind": "result"
+}
