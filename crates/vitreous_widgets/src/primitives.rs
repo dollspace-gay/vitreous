@@ -167,9 +167,9 @@ pub fn spacer() -> Node {
 pub fn divider() -> Node {
     let mut node = Node::new(NodeKind::Container);
     node.a11y.role = Role::None;
-    node.style.background = Some(Color::LIGHT_GRAY);
+    node.style.background = Some(Color::GRAY);
     node.style.height = Dimension::Px(1.0);
-    node.style.width = Dimension::Px(f32::INFINITY); // stretch to fill
+    node.style.width = Dimension::Percent(100.0);
     node
 }
 

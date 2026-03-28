@@ -1,3 +1,5 @@
+use std::cell::RefCell;
+
 use vitreous_reactive::{Signal, create_signal, provide_context, use_context};
 
 use crate::node::{Node, NodeKind};
@@ -60,19 +62,33 @@ fn match_path(pattern: &str, path: &str) -> Option<Vec<(String, String)>> {
 // Public API
 // ---------------------------------------------------------------------------
 
+// Persist router signals across scope rebuilds. The reactive scope is
+// recreated every frame by build_widget_tree, which would destroy the
+// current_path signal and reset navigation to "/". Thread-local storage
+// keeps the signals alive so route changes persist.
+thread_local! {
+    static PERSISTENT_STATE: RefCell<Option<RouterState>> = const { RefCell::new(None) };
+}
+
 /// Create a router that matches the current path against the given routes
 /// and renders the matching component.
 ///
 /// The router injects a `RouterState` context so that `navigate()`,
 /// `use_route()`, and `use_param()` work in descendant widgets.
 pub fn router(routes: Vec<Route>) -> Node {
-    let current_path = create_signal("/".to_owned());
-    let params = create_signal(Vec::<(String, String)>::new());
-
-    let state = RouterState {
-        current_path,
-        params,
-    };
+    let state = PERSISTENT_STATE.with(|cell| {
+        let mut opt = cell.borrow_mut();
+        if let Some(ref s) = *opt {
+            s.clone()
+        } else {
+            let s = RouterState {
+                current_path: create_signal("/".to_owned()),
+                params: create_signal(Vec::<(String, String)>::new()),
+            };
+            *opt = Some(s.clone());
+            s
+        }
+    });
     provide_context(state.clone());
 
     render_route(&state, &routes)
@@ -85,10 +101,15 @@ pub fn navigate(path: impl Into<String>) {
     state.current_path.set(new_path);
 }
 
-/// Get the current route path. Call from within a component rendered by `router()`.
+/// Get the current route path. Reads from the persistent router state,
+/// so it works both inside and outside the `router()` subtree.
 pub fn use_route() -> String {
-    let state: RouterState = use_context();
-    state.current_path.get()
+    PERSISTENT_STATE.with(|cell| {
+        cell.borrow()
+            .as_ref()
+            .map(|s| s.current_path.get())
+            .unwrap_or_else(|| "/".to_owned())
+    })
 }
 
 /// Get a route parameter by name. Call from within a component rendered by

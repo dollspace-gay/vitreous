@@ -12,7 +12,7 @@ use vitreous::{
     batch, create_effect, create_memo, create_resource, create_scope, create_signal,
     provide_context, set_executor, try_use_context, use_context,
     // ── Widgets ──────────────────────────────────────────────────────────
-    AlignSelf, FlexDirection, ImageSource, Key, Node, NodeKind, TextContent,
+    AlignItems, AlignSelf, FlexDirection, ImageSource, Key, Node, NodeKind, TextContent,
     button, checkbox, container, divider, for_each, h_stack, image, overlay,
     provider, router, navigate, Route, scroll_view, select, show, show_else,
     slider, spacer, text, text_input, toggle, tooltip, use_route, v_stack,
@@ -55,10 +55,8 @@ fn root() -> Node {
     let t = theme();
     set_executor(|_fut| {});
 
-    let current_route = create_signal(String::from("/"));
-
     v_stack((
-        nav_bar(current_route),
+        nav_bar(),
         router(vec![
             Route::new("/", home_page),
             Route::new("/reactive", reactive_page),
@@ -76,18 +74,18 @@ fn root() -> Node {
     .height(pct(100.0))
 }
 
-fn nav_bar(current_route: Signal<String>) -> Node {
+fn nav_bar() -> Node {
     let t = theme();
-    let route = current_route.get();
+    let route = use_route();
     h_stack((
-        nav_btn("Home", "/", &route, current_route),
-        nav_btn("Reactive", "/reactive", &route, current_route),
-        nav_btn("Widgets", "/widgets", &route, current_route),
-        nav_btn("Style", "/style", &route, current_route),
-        nav_btn("Events", "/events", &route, current_route),
-        nav_btn("A11y", "/a11y", &route, current_route),
-        nav_btn("Layout", "/layout", &route, current_route),
-        nav_btn("VList", "/vlist", &route, current_route),
+        nav_btn("Home", "/", &route),
+        nav_btn("Reactive", "/reactive", &route),
+        nav_btn("Widgets", "/widgets", &route),
+        nav_btn("Style", "/style", &route),
+        nav_btn("Events", "/events", &route),
+        nav_btn("A11y", "/a11y", &route),
+        nav_btn("Layout", "/layout", &route),
+        nav_btn("VList", "/vlist", &route),
         spacer(),
         hot_reload_indicator(),
     ))
@@ -96,20 +94,22 @@ fn nav_bar(current_route: Signal<String>) -> Node {
     .background(t.surface)
     .role(Role::Toolbar)
     .label("Main navigation")
+    .align_items(AlignItems::Center)
 }
 
-fn nav_btn(label: &str, path: &str, current: &str, route_signal: Signal<String>) -> Node {
+fn nav_btn(label: &str, path: &str, current: &str) -> Node {
     let t = theme();
     let is_active = current == path;
     let target = path.to_owned();
-    let target2 = target.clone();
     button(label)
         .on_click(move || {
             navigate(target.clone());
-            route_signal.set(target2.clone());
         })
-        .padding(t.spacing_xs)
-        .background(if is_active { t.primary } else { t.surface })
+        .padding_x(t.spacing_sm)
+        .padding_y(t.spacing_xs)
+        .foreground(if is_active { t.text_on_primary } else { t.text_primary })
+        .background(if is_active { t.primary } else { t.background })
+        .border(if is_active { 0.0 } else { 1.0 }, t.border)
         .border_radius(t.radius_sm)
         .cursor(CursorIcon::Pointer)
         .key(path)
@@ -130,16 +130,68 @@ fn hot_reload_indicator() -> Node {
 
 fn home_page() -> Node {
     let t = theme();
-    // Exercise use_route() inside router context where RouterState exists
     let route = use_route();
     v_stack((
-        text("Vitreous Kitchen Sink").font_size(t.font_size_3xl).font_weight(FontWeight::Bold),
-        text("Exercises every public API across all crates.").foreground(t.text_secondary),
+        // Header
+        text("Vitreous Kitchen Sink")
+            .font_size(t.font_size_3xl)
+            .font_weight(FontWeight::Bold)
+            .foreground(t.text_primary),
+        text("Exercises every public API across all crates.")
+            .foreground(t.text_secondary)
+            .font_size(t.font_size_lg),
         divider(),
-        text(format!("Current route: {route}")).font_size(t.font_size_sm),
+        // Info card
+        v_stack((
+            text("Getting Started")
+                .font_size(t.font_size_xl)
+                .font_weight(FontWeight::Bold)
+                .foreground(t.text_primary),
+            text("Click the tabs above to explore each feature area.")
+                .foreground(t.text_secondary),
+            text(format!("Current route: {route}"))
+                .font_size(t.font_size_sm)
+                .foreground(t.info),
+        ))
+        .gap(t.spacing_sm)
+        .padding(t.spacing_lg)
+        .background(t.surface)
+        .border_radius(t.radius_md)
+        .border(1.0, t.border),
+        // Feature grid
+        h_stack((
+            feature_card(&t, "Reactive", "Signals, memos, effects, batching"),
+            feature_card(&t, "Widgets", "20+ composable UI primitives"),
+            feature_card(&t, "Layout", "Flexbox via Taffy with dirty tracking"),
+        ))
+        .gap(t.spacing_md),
+        h_stack((
+            feature_card(&t, "Rendering", "GPU pipeline with SDF, damage tracking"),
+            feature_card(&t, "A11y", "AccessKit, focus management, WCAG"),
+            feature_card(&t, "Platform", "Desktop (wgpu) + Web (WASM)"),
+        ))
+        .gap(t.spacing_md),
     ))
-    .gap(t.spacing_md)
+    .gap(t.spacing_lg)
     .padding(t.spacing_xl)
+}
+
+fn feature_card(t: &Theme, title: &str, desc: &str) -> Node {
+    v_stack((
+        text(title)
+            .font_size(t.font_size_md)
+            .font_weight(FontWeight::Bold)
+            .foreground(t.primary),
+        text(desc)
+            .font_size(t.font_size_sm)
+            .foreground(t.text_secondary),
+    ))
+    .gap(t.spacing_xs)
+    .padding(t.spacing_md)
+    .background(t.surface)
+    .border_radius(t.radius_md)
+    .border(1.0, t.border)
+    .flex_grow(1.0)
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
